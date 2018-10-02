@@ -4,63 +4,123 @@ define(['text!../templates/photo.html','css!../style/photo.css'],
         conCount : $('.photoContainer').length + 1,
         render : function (el,user) {
             // 初始化模板
-            this.initClassName(tem);
+            tem = this.initClassName(tem);
             // 挂载模板
             $(el).append(tem);
             // 初始化数据
-            this.init();
+            this.init(user);
         },
         initClassName : function (tem) {
             var that = this;
-            tem.replace('\"photoContainer\"','\"photoContainer photoContainer\"'+ that.conCount);
-            tem.replace('\"imgInfo\"','\"imgInfo imgInfo\"'+ that.conCount);
-            tem.replace('\"photo\"','\"photo photo\"'+ that.conCount);
-            tem.replace('\"music\"','\"music music\"'+ that.conCount);
-            tem.replace('\"comment\"','\"comment comment\"'+ that.conCount);
+            tem = tem.replace('\"photoContainer\"','\"photoContainer photoContainer'+ that.conCount +'\"');
+            tem = tem.replace('\"img\"','\"img img'+ that.conCount +'\"');
+            tem = tem.replace('\"imgInfo\"','\"imgInfo imgInfo'+ that.conCount +'\"');
+            tem = tem.replace('\"photo\"','\"photo photo'+ that.conCount +'\"');
+            tem = tem.replace('\"music\"','\"music music'+ that.conCount +'\"');
+            tem = tem.replace('\"comment\"','\"comment comment'+ that.conCount +'\"');
+            return tem;
         },
         loadMusic: function (user,selector) {
-            var userMusic = {};
-            userMusic.photomeUsermusicMusicuser = user.photomeUserUsername;
+            var userName ={ userName: "<" + user.photomeUserUsername + ">"} ;
             $.ajax({
                 method:'get',
-                url:'../music/getMusic',
+                url:'../music/getMusicByUserName',
                 async:true,
-                data:userMusic,
+                data:userName,
                 dataType:'json',
                 success:function (result) {
-                    // output.output(JSON.stringify(result.list),150,'.input-group');
+                    for (var i=0;i<result.length;i++){
+                        (function (i) {
+                            var liCount = $(".mLi").length + 1;
+                            $(selector).append('<li class="mLi mLi'+liCount+'">' +
+                                result[i].photomeUsermusicMusicname + ' - '+
+                                result[i].photomeUsermusicMusicsinger +
+                                '<input hidden="hidden" value="' +
+                                result[i].photomeUsermusicMusicurl +
+                                '"></li>');
+                            $('.mLi'+liCount).click(function () {
+                                // var music = $("#backgroundMusic");
+                                var music = document.getElementById('backgroundMusic');
+                                if (music.paused) {
+                                    if (music.src == $('.mLi'+liCount+' input').val()){}
+                                    else {
+                                        music.src = $('.mLi'+liCount+' input').val();
+                                        // $('.modal-body').css({"background-image":"url("+result[i].photomeUsermusicMusicimg+")"})
+                                    }
+                                    music.play();
+                                    $('.modal-body').css({"background-image":"url("+result[i].photomeUsermusicMusicimg+")"})
+                                }else{
+                                    music.pause();//暂停
+                                    if (music.src == $('.mLi'+liCount+' input').val()){
+                                        $('.modal-body').css({"background-image":"url()"})
+                                    }
+                                    else { //换歌
+                                        music.src = $('.mLi'+liCount+' input').val();
+                                        music.play();
+                                        $('.modal-body').css({"background-image":"url("+result[i].photomeUsermusicMusicimg+")"})
+                                    }
+                                }
+                            })
+                        })(i);
+                    }
                 }
             })
         },
-        loadComment : function (user) {
-
-        },
-        init : function () {
-            var that = this;
-            $("#home .modal-body").append(
-                '<div class="input-group">' +
-                '    <input type="text" class="form-control" id="input" placeholder="Recipient\'s username" aria-describedby="basic-addon2">' +
-                '    <span class="input-group-addon" id="basic-addon2">OK</span>' +
-                '</div>' );
-            $("#basic-addon2").click(function () {
-                // $.ajax({
-                //     method:'post',
-                //     url:'../user/all',
-                //     async:true,
-                //     data:{},
-                //     dataType:'json',
-                //     success:function (result) {
-                //         output.output(JSON.stringify(result.list),150,'.input-group');
-                //     }
-                // })
-                song_get.song_search($("#input").val(),'.musicList');
+        loadComment : function (user,selector) {
+            var userName ={ userName: user.photomeUserUsername } ;
+            $.ajax({
+                method:'get',
+                url:'../comment/getCommentByUserName',
+                async:true,
+                data:userName,
+                dataType:'json',
+                success:function (result) {
+                    for (var i=0;i<result.length;i++){
+                        (function (i) {
+                            var liCount = $(".cLi").length + 1;
+                            $(selector).append('<li class="cLi cLi'+liCount+'">' +
+                                result[i].photomeUsercommentCommentuser +
+                                '<p>' + result[i].photomeUsercommentCommentcontent +
+                                '</p></li>')
+                        })(i);
+                    }
+                }
             })
-            
-            // $(".musicList li").click(function () {
-            //
-            // })
+        },
+        loadPhoto : function (user) {
+            var that = this;
+            var userName ={ userName: user.photomeUserUsername } ;
+            $.ajax({ //加载用户详情
+                method:'get',
+                url:'../detail/getDetailByUserName',
+                async:true,
+                data:userName,
+                dataType:'json',
+                success:function (result) {
+                    $('.imgInfo'+that.conCount).text = result[0].photomeUserdetailUserintroduction;
+                    var photoCode ={ photoCode: result[0].photomeUserdetailUsercover } ;
+                    $.ajax({ //加载用户封面
+                        method:'get',
+                        url:'../photo/getPhotoByPhotoCode',
+                        async:true,
+                        data:photoCode,
+                        dataType:'json',
+                        success:function (result) {
+                            $('.img'+that.conCount).attr('src',result[0].photomeUserphotoPhotourl);
+                            // $('.img'+that.conCount).src = result[0].photomeUserphotoPhotourl;
+                             var s = $('.img'+that.conCount);
+                            //console.log("se: "+)
+                        }
+                    });
+                }
+            });
+        },
+        init : function (user) {
+            var that = this;
+            that.loadPhoto(user); //加载用户详情
+            that.loadMusic(user,'.music'+that.conCount+' .musicList'); //加载music
+            that.loadComment(user,'.comment'+that.conCount+' .commentList'); //加载comment
         }
     }
-
     return view;
 });

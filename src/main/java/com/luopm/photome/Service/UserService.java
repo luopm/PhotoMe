@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.luopm.photome.dao.UserMapper;
 import com.luopm.photome.model.User;
+import com.luopm.photome.model.UserPhoto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +17,18 @@ public class UserService {
     private UserMapper userMapper;
 
     public int addUser(User user){
-//        HashMap<String,String> hashMap = new HashMap<>();
-//        int resultCode = userMapper.insert(user);
-//        if (resultCode == 1){
-//            hashMap.put("resultCode",resultCode+"");
-//            hashMap.put("resultMsg","Success");
-//            hashMap.put("resultObj","");
-//        }
-//        else {
-//            hashMap.put("resultCode","0");
-//            hashMap.put("resultMsg",userMapper.insert(user)+"");
-//            hashMap.put("resultObj","");
-//        }
         return userMapper.insert(user);
     }
-
-    public List<User> selectUsersByUserName(String UserName) {
+    public int deleteUser(User user){
+        return userMapper.deleteByPrimaryKey(user.getPhotomeUserId());
+    }
+    public int updateUser(User user){
+        return userMapper.updateByPrimaryKey(user);
+    }
+    public User getUser(User user){
+        return userMapper.selectByPrimaryKey(user.getPhotomeUserId());
+    }
+    public List<User> getUsersByUserName(String UserName) {
         return userMapper.selectUsersByUserName(UserName);
     }
 

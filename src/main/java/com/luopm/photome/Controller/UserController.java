@@ -17,14 +17,27 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "/add" )
+    @RequestMapping(value = "/addUser" )
     public int addUser(User user){
-
         return userService.addUser(user);
     }
-
     @ResponseBody
-    @RequestMapping(value = "/all")
+    @RequestMapping(value = "/deleteUser" )
+    public int deleteUser(User user){
+        return userService.deleteUser(user);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/updateUser" )
+    public int updateUser(User user){
+        return userService.updateUser(user);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/getUser" )
+    public User getUser(User user){
+        return userService.getUser(user);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/getAllUser")
     public Object findAllUser(
             @RequestParam(name="pageNum",required = false,defaultValue = "1")
                     int pageNum,
@@ -38,6 +51,6 @@ public class UserController {
     public Object getUsersByUserName(
             @RequestParam(name="userName",required = true )
                     String UserName){
-        return userService.selectUsersByUserName(UserName);
+        return userService.getUsersByUserName(UserName);
     }
 }

@@ -11,8 +11,9 @@
     <result column="photome_usermusic_musicduration" property="photomeUsermusicMusicduration" jdbcType="INTEGER" />
     <result column="photome_usermusic_musicsize" property="photomeUsermusicMusicsize" jdbcType="INTEGER" />
     <result column="photome_usermusic_musicimg" property="photomeUsermusicMusicimg" jdbcType="VARCHAR" />
-    <result column="photome_usermusic_musiclrc" property="photomeUsermusicMusiclrc" jdbcType="VARCHAR" />
+    <result column="photome_usermusic_musiclrc" property="photomeUsermusicMusiclrc" jdbcType="LONGVARCHAR" />
     <result column="photome_usermusic_musicurl" property="photomeUsermusicMusicurl" jdbcType="VARCHAR" />
+    <result column="photome_usermusic_musicuser" property="photomeUsermusicMusicuser" jdbcType="LONGVARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.luopm.photome.model.UserMusic" extends="BaseResultMap" >
     <result column="photome_usermusic_musicuser" property="photomeUsermusicMusicuser" jdbcType="LONGVARCHAR" />
@@ -133,7 +134,7 @@
     select
     <include refid="Base_Column_List"/>
     from photome_usermusic
-    where photome_usermusic_musicuser like '%'+#{UserName,jdbcType=VARCHAR}+'%'
+    where photome_usermusic_musicuser like CONCAT('%',#{UserName,jdbcType=LONGVARCHAR},'%')
   </select>
 
 
