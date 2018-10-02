@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luopm.photome.dao.UserCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.luopm.photome.model.UserComment" >
+    <id column="photome_usercomment_id" property="photomeUsercommentId" jdbcType="INTEGER" />
+    <result column="photome_usercomment_commentcode" property="photomeUsercommentCommentcode" jdbcType="VARCHAR" />
+    <result column="photome_usercomment_commenteduser" property="photomeUsercommentCommenteduser" jdbcType="VARCHAR" />
+    <result column="photome_usercomment_commentuser" property="photomeUsercommentCommentuser" jdbcType="VARCHAR" />
+    <result column="photome_usercomment_commentdate" property="photomeUsercommentCommentdate" jdbcType="TIMESTAMP" />
+    <result column="photome_usercomment_commentcontent" property="photomeUsercommentCommentcontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    photome_usercomment_id, photome_usercomment_commentcode, photome_usercomment_commenteduser, 
+    photome_usercomment_commentuser, photome_usercomment_commentdate, photome_usercomment_commentcontent
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from photome_usercomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from photome_usercomment
+    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectALLComment" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_usercomment
+  </select>
+
+  <select id="selectCommentByUserName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_usercomment
+    where photome_usercomment_commenteduser = #{UserName,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from photome_usercomment
+    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserCommentExample" >
+    delete from photome_usercomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.luopm.photome.model.UserComment" >
+    insert into photome_usercomment (photome_usercomment_id, photome_usercomment_commentcode, 
+      photome_usercomment_commenteduser, photome_usercomment_commentuser, 
+      photome_usercomment_commentdate, photome_usercomment_commentcontent
+      )
+    values (#{photomeUsercommentId,jdbcType=INTEGER}, #{photomeUsercommentCommentcode,jdbcType=VARCHAR}, 
+      #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}, #{photomeUsercommentCommentuser,jdbcType=VARCHAR}, 
+      #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP}, #{photomeUsercommentCommentcontent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luopm.photome.model.UserComment" >
+    insert into photome_usercomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="photomeUsercommentId != null" >
+        photome_usercomment_id,
+      </if>
+      <if test="photomeUsercommentCommentcode != null" >
+        photome_usercomment_commentcode,
+      </if>
+      <if test="photomeUsercommentCommenteduser != null" >
+        photome_usercomment_commenteduser,
+      </if>
+      <if test="photomeUsercommentCommentuser != null" >
+        photome_usercomment_commentuser,
+      </if>
+      <if test="photomeUsercommentCommentdate != null" >
+        photome_usercomment_commentdate,
+      </if>
+      <if test="photomeUsercommentCommentcontent != null" >
+        photome_usercomment_commentcontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="photomeUsercommentId != null" >
+        #{photomeUsercommentId,jdbcType=INTEGER},
+      </if>
+      <if test="photomeUsercommentCommentcode != null" >
+        #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommenteduser != null" >
+        #{photomeUsercommentCommenteduser,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommentuser != null" >
+        #{photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommentdate != null" >
+        #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUsercommentCommentcontent != null" >
+        #{photomeUsercommentCommentcontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.luopm.photome.model.UserCommentExample" resultType="java.lang.Integer" >
+    select count(*) from photome_usercomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update photome_usercomment
+    <set >
+      <if test="record.photomeUsercommentId != null" >
+        photome_usercomment_id = #{record.photomeUsercommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.photomeUsercommentCommentcode != null" >
+        photome_usercomment_commentcode = #{record.photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUsercommentCommenteduser != null" >
+        photome_usercomment_commenteduser = #{record.photomeUsercommentCommenteduser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUsercommentCommentuser != null" >
+        photome_usercomment_commentuser = #{record.photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUsercommentCommentdate != null" >
+        photome_usercomment_commentdate = #{record.photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photomeUsercommentCommentcontent != null" >
+        photome_usercomment_commentcontent = #{record.photomeUsercommentCommentcontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update photome_usercomment
+    set photome_usercomment_id = #{record.photomeUsercommentId,jdbcType=INTEGER},
+      photome_usercomment_commentcode = #{record.photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      photome_usercomment_commenteduser = #{record.photomeUsercommentCommenteduser,jdbcType=VARCHAR},
+      photome_usercomment_commentuser = #{record.photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      photome_usercomment_commentdate = #{record.photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      photome_usercomment_commentcontent = #{record.photomeUsercommentCommentcontent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserComment" >
+    update photome_usercomment
+    <set >
+      <if test="photomeUsercommentCommentcode != null" >
+        photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommenteduser != null" >
+        photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommentuser != null" >
+        photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsercommentCommentdate != null" >
+        photome_usercomment_commentdate = #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUsercommentCommentcontent != null" >
+        photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserComment" >
+    update photome_usercomment
+    set photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR},
+      photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      photome_usercomment_commentdate = #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR}
+    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
+  </update>
+</mapper>

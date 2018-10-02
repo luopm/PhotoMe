@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luopm.photome.dao.UserPhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.luopm.photome.model.UserPhoto" >
+    <id column="photome_userphoto_id" property="photomeUserphotoId" jdbcType="INTEGER" />
+    <result column="photome_userphoto_photocode" property="photomeUserphotoPhotocode" jdbcType="VARCHAR" />
+    <result column="photome_userphoto_photoname" property="photomeUserphotoPhotoname" jdbcType="VARCHAR" />
+    <result column="photome_userphoto_photourl" property="photomeUserphotoPhotourl" jdbcType="VARCHAR" />
+    <result column="photome_userphoto_photoiscover" property="photomeUserphotoPhotoiscover" jdbcType="CHAR" />
+    <result column="photome_userphoto_photointroduction" property="photomeUserphotoPhotointroduction" jdbcType="VARCHAR" />
+    <result column="photome_userphoto_photocreatdate" property="photomeUserphotoPhotocreatdate" jdbcType="TIMESTAMP" />
+    <result column="photome_userphoto_photomodifydate" property="photomeUserphotoPhotomodifydate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    photome_userphoto_id, photome_userphoto_photocode, photome_userphoto_photoname, photome_userphoto_photourl, 
+    photome_userphoto_photoiscover, photome_userphoto_photointroduction, photome_userphoto_photocreatdate, 
+    photome_userphoto_photomodifydate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserPhotoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from photome_userphoto
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from photome_userphoto
+    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectALLPhoto" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userphoto
+  </select>
+
+  <select id="selectPhotoByPhotoCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userphoto
+    where photome_userphoto_photocode = #{PhotoCode,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from photome_userphoto
+    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserPhotoExample" >
+    delete from photome_userphoto
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.luopm.photome.model.UserPhoto" >
+    insert into photome_userphoto (photome_userphoto_id, photome_userphoto_photocode, 
+      photome_userphoto_photoname, photome_userphoto_photourl, 
+      photome_userphoto_photoiscover, photome_userphoto_photointroduction, 
+      photome_userphoto_photocreatdate, photome_userphoto_photomodifydate
+      )
+    values (#{photomeUserphotoId,jdbcType=INTEGER}, #{photomeUserphotoPhotocode,jdbcType=VARCHAR}, 
+      #{photomeUserphotoPhotoname,jdbcType=VARCHAR}, #{photomeUserphotoPhotourl,jdbcType=VARCHAR}, 
+      #{photomeUserphotoPhotoiscover,jdbcType=CHAR}, #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR}, 
+      #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP}, #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luopm.photome.model.UserPhoto" >
+    insert into photome_userphoto
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="photomeUserphotoId != null" >
+        photome_userphoto_id,
+      </if>
+      <if test="photomeUserphotoPhotocode != null" >
+        photome_userphoto_photocode,
+      </if>
+      <if test="photomeUserphotoPhotoname != null" >
+        photome_userphoto_photoname,
+      </if>
+      <if test="photomeUserphotoPhotourl != null" >
+        photome_userphoto_photourl,
+      </if>
+      <if test="photomeUserphotoPhotoiscover != null" >
+        photome_userphoto_photoiscover,
+      </if>
+      <if test="photomeUserphotoPhotointroduction != null" >
+        photome_userphoto_photointroduction,
+      </if>
+      <if test="photomeUserphotoPhotocreatdate != null" >
+        photome_userphoto_photocreatdate,
+      </if>
+      <if test="photomeUserphotoPhotomodifydate != null" >
+        photome_userphoto_photomodifydate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="photomeUserphotoId != null" >
+        #{photomeUserphotoId,jdbcType=INTEGER},
+      </if>
+      <if test="photomeUserphotoPhotocode != null" >
+        #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotoname != null" >
+        #{photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotourl != null" >
+        #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotoiscover != null" >
+        #{photomeUserphotoPhotoiscover,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserphotoPhotointroduction != null" >
+        #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotocreatdate != null" >
+        #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUserphotoPhotomodifydate != null" >
+        #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.luopm.photome.model.UserPhotoExample" resultType="java.lang.Integer" >
+    select count(*) from photome_userphoto
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update photome_userphoto
+    <set >
+      <if test="record.photomeUserphotoId != null" >
+        photome_userphoto_id = #{record.photomeUserphotoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.photomeUserphotoPhotocode != null" >
+        photome_userphoto_photocode = #{record.photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserphotoPhotoname != null" >
+        photome_userphoto_photoname = #{record.photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserphotoPhotourl != null" >
+        photome_userphoto_photourl = #{record.photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserphotoPhotoiscover != null" >
+        photome_userphoto_photoiscover = #{record.photomeUserphotoPhotoiscover,jdbcType=CHAR},
+      </if>
+      <if test="record.photomeUserphotoPhotointroduction != null" >
+        photome_userphoto_photointroduction = #{record.photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserphotoPhotocreatdate != null" >
+        photome_userphoto_photocreatdate = #{record.photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photomeUserphotoPhotomodifydate != null" >
+        photome_userphoto_photomodifydate = #{record.photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update photome_userphoto
+    set photome_userphoto_id = #{record.photomeUserphotoId,jdbcType=INTEGER},
+      photome_userphoto_photocode = #{record.photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      photome_userphoto_photoname = #{record.photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      photome_userphoto_photourl = #{record.photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      photome_userphoto_photoiscover = #{record.photomeUserphotoPhotoiscover,jdbcType=CHAR},
+      photome_userphoto_photointroduction = #{record.photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      photome_userphoto_photocreatdate = #{record.photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      photome_userphoto_photomodifydate = #{record.photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserPhoto" >
+    update photome_userphoto
+    <set >
+      <if test="photomeUserphotoPhotocode != null" >
+        photome_userphoto_photocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotoname != null" >
+        photome_userphoto_photoname = #{photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotourl != null" >
+        photome_userphoto_photourl = #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotoiscover != null" >
+        photome_userphoto_photoiscover = #{photomeUserphotoPhotoiscover,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserphotoPhotointroduction != null" >
+        photome_userphoto_photointroduction = #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotocreatdate != null" >
+        photome_userphoto_photocreatdate = #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUserphotoPhotomodifydate != null" >
+        photome_userphoto_photomodifydate = #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserPhoto" >
+    update photome_userphoto
+    set photome_userphoto_photocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      photome_userphoto_photoname = #{photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      photome_userphoto_photourl = #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      photome_userphoto_photoiscover = #{photomeUserphotoPhotoiscover,jdbcType=CHAR},
+      photome_userphoto_photointroduction = #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      photome_userphoto_photocreatdate = #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      photome_userphoto_photomodifydate = #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}
+    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
+  </update>
+</mapper>

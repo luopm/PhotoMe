@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luopm.photome.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.luopm.photome.model.User" >
+    <id column="photome_user_id" property="photomeUserId" jdbcType="INTEGER" />
+    <result column="photome_user_username" property="photomeUserUsername" jdbcType="VARCHAR" />
+    <result column="photome_user_userpassword" property="photomeUserUserpassword" jdbcType="VARCHAR" />
+    <result column="photome_user_userphone" property="photomeUserUserphone" jdbcType="VARCHAR" />
+    <result column="photome_user_usermail" property="photomeUserUsermail" jdbcType="VARCHAR" />
+    <result column="photome_user_userismaster" property="photomeUserUserismaster" jdbcType="CHAR" />
+    <result column="photome_user_userisvip" property="photomeUserUserisvip" jdbcType="CHAR" />
+    <result column="photome_user_usercreatdate" property="photomeUserUsercreatdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    photome_user_id, photome_user_username, photome_user_userpassword, photome_user_userphone, 
+    photome_user_usermail, photome_user_userismaster, photome_user_userisvip, photome_user_usercreatdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from photome_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from photome_user
+    where photome_user_id = #{photomeUserId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectALLUsers" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_user
+  </select>
+
+  <select id="selectUsersByUserName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_user
+    where photome_user_username = #{UserName,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from photome_user
+    where photome_user_id = #{photomeUserId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserExample" >
+    delete from photome_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.luopm.photome.model.User" >
+    insert into photome_user (photome_user_id, photome_user_username, 
+      photome_user_userpassword, photome_user_userphone, 
+      photome_user_usermail, photome_user_userismaster, 
+      photome_user_userisvip, photome_user_usercreatdate
+      )
+    values (#{photomeUserId,jdbcType=INTEGER}, #{photomeUserUsername,jdbcType=VARCHAR}, 
+      #{photomeUserUserpassword,jdbcType=VARCHAR}, #{photomeUserUserphone,jdbcType=VARCHAR}, 
+      #{photomeUserUsermail,jdbcType=VARCHAR}, #{photomeUserUserismaster,jdbcType=CHAR}, 
+      #{photomeUserUserisvip,jdbcType=CHAR}, #{photomeUserUsercreatdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luopm.photome.model.User" >
+    insert into photome_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="photomeUserId != null" >
+        photome_user_id,
+      </if>
+      <if test="photomeUserUsername != null" >
+        photome_user_username,
+      </if>
+      <if test="photomeUserUserpassword != null" >
+        photome_user_userpassword,
+      </if>
+      <if test="photomeUserUserphone != null" >
+        photome_user_userphone,
+      </if>
+      <if test="photomeUserUsermail != null" >
+        photome_user_usermail,
+      </if>
+      <if test="photomeUserUserismaster != null" >
+        photome_user_userismaster,
+      </if>
+      <if test="photomeUserUserisvip != null" >
+        photome_user_userisvip,
+      </if>
+      <if test="photomeUserUsercreatdate != null" >
+        photome_user_usercreatdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="photomeUserId != null" >
+        #{photomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="photomeUserUsername != null" >
+        #{photomeUserUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserpassword != null" >
+        #{photomeUserUserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserphone != null" >
+        #{photomeUserUserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUsermail != null" >
+        #{photomeUserUsermail,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserismaster != null" >
+        #{photomeUserUserismaster,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserUserisvip != null" >
+        #{photomeUserUserisvip,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserUsercreatdate != null" >
+        #{photomeUserUsercreatdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.luopm.photome.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from photome_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update photome_user
+    <set >
+      <if test="record.photomeUserId != null" >
+        photome_user_id = #{record.photomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.photomeUserUsername != null" >
+        photome_user_username = #{record.photomeUserUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserUserpassword != null" >
+        photome_user_userpassword = #{record.photomeUserUserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserUserphone != null" >
+        photome_user_userphone = #{record.photomeUserUserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserUsermail != null" >
+        photome_user_usermail = #{record.photomeUserUsermail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserUserismaster != null" >
+        photome_user_userismaster = #{record.photomeUserUserismaster,jdbcType=CHAR},
+      </if>
+      <if test="record.photomeUserUserisvip != null" >
+        photome_user_userisvip = #{record.photomeUserUserisvip,jdbcType=CHAR},
+      </if>
+      <if test="record.photomeUserUsercreatdate != null" >
+        photome_user_usercreatdate = #{record.photomeUserUsercreatdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update photome_user
+    set photome_user_id = #{record.photomeUserId,jdbcType=INTEGER},
+      photome_user_username = #{record.photomeUserUsername,jdbcType=VARCHAR},
+      photome_user_userpassword = #{record.photomeUserUserpassword,jdbcType=VARCHAR},
+      photome_user_userphone = #{record.photomeUserUserphone,jdbcType=VARCHAR},
+      photome_user_usermail = #{record.photomeUserUsermail,jdbcType=VARCHAR},
+      photome_user_userismaster = #{record.photomeUserUserismaster,jdbcType=CHAR},
+      photome_user_userisvip = #{record.photomeUserUserisvip,jdbcType=CHAR},
+      photome_user_usercreatdate = #{record.photomeUserUsercreatdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.User" >
+    update photome_user
+    <set >
+      <if test="photomeUserUsername != null" >
+        photome_user_username = #{photomeUserUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserpassword != null" >
+        photome_user_userpassword = #{photomeUserUserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserphone != null" >
+        photome_user_userphone = #{photomeUserUserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUsermail != null" >
+        photome_user_usermail = #{photomeUserUsermail,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserUserismaster != null" >
+        photome_user_userismaster = #{photomeUserUserismaster,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserUserisvip != null" >
+        photome_user_userisvip = #{photomeUserUserisvip,jdbcType=CHAR},
+      </if>
+      <if test="photomeUserUsercreatdate != null" >
+        photome_user_usercreatdate = #{photomeUserUsercreatdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where photome_user_id = #{photomeUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.User" >
+    update photome_user
+    set photome_user_username = #{photomeUserUsername,jdbcType=VARCHAR},
+      photome_user_userpassword = #{photomeUserUserpassword,jdbcType=VARCHAR},
+      photome_user_userphone = #{photomeUserUserphone,jdbcType=VARCHAR},
+      photome_user_usermail = #{photomeUserUsermail,jdbcType=VARCHAR},
+      photome_user_userismaster = #{photomeUserUserismaster,jdbcType=CHAR},
+      photome_user_userisvip = #{photomeUserUserisvip,jdbcType=CHAR},
+      photome_user_usercreatdate = #{photomeUserUsercreatdate,jdbcType=TIMESTAMP}
+    where photome_user_id = #{photomeUserId,jdbcType=INTEGER}
+  </update>
+</mapper>
