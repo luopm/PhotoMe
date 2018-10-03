@@ -7,18 +7,102 @@
 }
 .modal-body{
     max-height: 100%;
-    height: 100%;
+    height: 640px;
     background-color: #fcfcfc;
     background-size:contain;
 }
+
+
+/*******************photo样式***************************/
+/*动画样式*/
+.photoContainer{
+    display: inline-block;
+}
+.photoContainer,.photoFront,.photo,.photoBack,.photo img{
+    width:300px;
+    height:270px;
+}
 .photo{
-    width: 40%;
-    height: 500px;
-    border: 1px solid #eeeeee;
-    box-shadow: 0 0 4px #bbbbbb;
+    position:relative;
+    box-shadow: 0 80px 20px -70px #666; /*水平 垂直 距离 尺寸 颜色*/
     border-radius: 4px ;
 }
-.img-home{
-    width: 100%;
-    height: 300px;
+.photoFront,.photoBack{
+    position: absolute;
+    top: 0;
+    left:0;
+    backface-visibility: hidden;
+}
+.photoContainer{
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+.photo{
+    transition: transform 1s ease-in-out;
+    transform-style: preserve-3d;
+    transform-origin: 0 50% 0;
+}
+.photoFront{
+    z-index: 2;
+}
+.photoBack{
+    transform: rotateY(-180deg);
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 0 2px 1px #aaa;
+}
+.photoContainer:hover .photo{
+    transform: translate3d(100%,0,0) rotateY(180deg);
+}
+
+/*其他样式*/
+.music,.comment{
+    cursor: pointer;
+}
+
+/*photo组件背面自适应*/
+.photoBack{
+    display: flex;
+    flex-direction: row;
+}
+.photoBackLeft,.photoBackRight{
+    width: 0;
+    padding: 10px 5px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+/*人物说明、评论自适应*/
+.photoBackRight{
+    display: flex;
+    flex-direction: column;
+}
+.comment,.imgInfo{
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+/*音乐、评论列表和人物说明字体设置*/
+.cLi,.mLi,.peopleInfo{
+    font-size: 0.4em;
+}
+.title{
+    font-size: 1.1em;
+    font-weight: bold;
+
+}
+/*分割线*/
+.cut-line-v{
+    width: 0;
+    height: 90%;
+    border: 1px solid rgba(200,200,200,0.2);
+    border-radius: 2px 0;
+    margin: auto 10px;
+}
+.cut-line-h{
+    width: 90%;
+    height: 0;
+    border: 1px solid rgba(200,200,200,0.2);
+    border-radius: 2px 0;
+    margin: 10px auto;
 }

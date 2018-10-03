@@ -1,0 +1,37 @@
+.loginContainer{
+    position: fixed;
+    top: 15%;
+    left: 0;
+    /*width: 15%;*/
+    height: 70%;
+}
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.login img{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: auto;
+}
+
+.inputDiv{
+    width: 150px;
+    border-bottom: 1px solid #eee;
+}
+.inputDiv:focus{
+    border-bottom: 1px solid #00CCFF;
+}
+input{
+    width: 100px;
+    border: 0;
+    position: relative;
+    left: 10%;
+    background-color: transparent;
+}
+input:focus{
+    outline-color:transparent;
+}

@@ -1,15 +1,11 @@
-define(['text!../templates/photo.html'],
+define(['text!../templates/login.html','css!../style/login.css'],
     function (tem) {
     var view ={
-        conCount : $('.photoContainer').length + 1,
-        render : function (el,user) {
-            // 初始化模板
-            tem = this.initClassName(tem);
+        render : function (el) {
             // 挂载模板
             $(el).append(tem);
-            // 初始化数据
-            this.init(user);
         },
+
         initClassName : function (tem) {
             var that = this;
             tem = tem.replace('\"photoContainer\"','\"photoContainer photoContainer'+ that.conCount +'\"');
