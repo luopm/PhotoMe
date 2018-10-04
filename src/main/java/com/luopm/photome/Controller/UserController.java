@@ -17,6 +17,11 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
+    @RequestMapping(value = "/Login" )
+    public Object Login(User user){
+        return userService.Login(user);
+    }
+    @ResponseBody
     @RequestMapping(value = "/addUser" )
     public int addUser(User user){
         return userService.addUser(user);

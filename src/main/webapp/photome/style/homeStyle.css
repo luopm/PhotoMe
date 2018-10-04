@@ -1,11 +1,9 @@
-#main{
-    /*background-color: red;*/
-}
-.modal-header{
+
+#home .modal-header{
     position: fixed;
     transform: translate(0,-100%);
 }
-.modal-body{
+#home .modal-body{
     max-height: 100%;
     height: 640px;
     background-color: #fcfcfc;
@@ -105,4 +103,8 @@
     border: 1px solid rgba(200,200,200,0.2);
     border-radius: 2px 0;
     margin: 10px auto;
+}
+
+i{
+    margin-left: 5px;
 }

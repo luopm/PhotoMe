@@ -6,6 +6,8 @@
  */
 define(function () {
     var kugouAPI = {
+        playID : [],
+        addID : [],
         song_search:function (keyword,selector) {
             var that = this;
             var currentTime = ( new Date() ).getTime();
@@ -21,7 +23,8 @@ define(function () {
                 data:{},
                 dataType:'jsonp',
                 success:function (result) {
-                    for (var i=0;i<5;i++){
+                    $(selector).html('');
+                    for (var i=0;i<10;i++){
                         (function (i) {
                             var songInfo = result.data.lists[i];
                             var newSongInfo = {
@@ -33,43 +36,76 @@ define(function () {
                                 fileSize : songInfo.FileSize,
                                 albumID : songInfo.AlbumID
                             };
+                            newSongInfo.playUrl = that.song_get(newSongInfo);
                             $(selector).append(
-                                '<li class="musiclist'+ i +'"><label>'+ newSongInfo.songName +' - '+ newSongInfo.singerName+'</label></li>'
+                                '<label class="musiclist'+ i +'">'+
+                                newSongInfo.songName +' - '+ newSongInfo.singerName +'' +
+                                '<i class="icon-play playIcon"></i><i class="icon-plus addIcon"></i> '
+                                +'</label>'
                             );
-
-                            $(".musiclist"+i).click(function () {
-                                if (  $(".musiclist"+i+" audio").length > 0){
-                                    $(".musiclist"+i+" audio").remove();
-                                }else that.song_get(newSongInfo ,".musiclist"+i)
-                            })
+                            $('.musiclist'+i).on('click','.playIcon',function () {
+                                if (that.playID.length != 0){
+                                    var playId = that.playID.pop();
+                                    $('.musiclist'+ playId +' .playIcon').removeClass('icon-headphones').addClass('icon-play');
+                                }
+                                that.playID.push(i);//记录当前播放歌曲
+                                var music = document.getElementById('backgroundMusic');
+                                if (music.paused) {
+                                    if (music.src != newSongInfo.playUrl){
+                                        music.src = newSongInfo.playUrl;
+                                    }
+                                    music.play();
+                                    $('.musiclist'+i+' .playIcon').removeClass('icon-play').addClass('icon-headphones');
+                                }else{
+                                    music.pause();//暂停
+                                    if (music.src != newSongInfo.playUrl ){
+                                        music.src = newSongInfo.playUrl;
+                                        music.play();
+                                        $('.musiclist'+i+' .playIcon').removeClass('icon-play').addClass('icon-headphones');
+                                    }
+                                }
+                            });
+                            $('.musiclist'+i).on('click','.addIcon',function () {
+                                if (that.addID.length != 0){
+                                    var addId = that.addID.pop();
+                                    $('.musiclist'+ addId +' .addIcon').removeClass('icon-ok').addClass('icon-plus');
+                                }
+                                that.addID.push(i);
+                                $('.musiclist'+i+' .addIcon').removeClass('icon-plus').addClass('icon-ok');
+                                $('.musicForm .addMusicName').val(newSongInfo.songName);
+                                $('.musicForm .addMusicUrl').val(newSongInfo.playUrl);
+                                $('.musicForm .addMusicSinger').val(newSongInfo.singerName);
+                                $('.musicForm .addMusicAlbum').val(newSongInfo.albumID);
+                                $('.musicForm .addMusicDuration').val(newSongInfo.songTime);
+                                $('.musicForm .addMusicSize').val(newSongInfo.fileSize);
+                                $('.musicForm .addMusicImg').val(newSongInfo.img);
+                                $('.musicForm .addMusicLrc').val(newSongInfo.lyrics);
+                                $('.musicForm .addMusicCode').val(newSongInfo.fileHash);
+                            });
                         })(i);
-
                     }
-
                 }
             })
         },
-        song_get:function (songInfo,selector) {
+        song_get:function (songInfo) {
+            var play_url = '';
             var currentTime = ( new Date() ).getTime();
             var RequestURL = "http://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=" +
                 songInfo.fileHash + "&album_id=" + songInfo.albumID + "&_=" +currentTime;
             $.ajax({
                 method:'get',
                 url: RequestURL,
-                async:true,
+                async:false,
                 data:{},
                 dataType:'jsonp',
                 success:function (result) {
-                    var song = result.data;
-                    $(selector).append(
-                        // '<img src="'+ song.img +'">'+
-                        '<audio src="'+ song.play_url +'" controls="controls">' +
-                        '您的浏览器不支持 audio 标签。'+
-                        '</audio>'
-                    )
+                    var play_url = result.data.play_url
+                    songInfo.playUrl = play_url;
+                    songInfo.lyrics = result.data.lyrics;
+                    songInfo.img = result.data.img;
+                    // songInfo.lyrics = result.data.lyrics;
                 }
             })
-
         }
     };
     return kugouAPI;

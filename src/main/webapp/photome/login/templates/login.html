@@ -1,18 +1,20 @@
 
-<div class="loginContainer">
+<div class="loginContainer loginHidden">
     <div class="login">
-        <!--login组件-导航栏-->
-        <div class="navBar">
-            <i class="icon-home icon-large"></i>
-        </div>
+
         <!--login组件-登录-->
         <div class="loginPage">
             <div class="userCover">
                 <img class="img" src="/file/cover_goodlook.png">
             </div>
-            <form class="loginInput">
-                <div class="inputDiv"><label class="icon-github"><input class="userName"></label></div>
-                <div class="inputDiv"><label class="icon-lock"><input class="userPassword"></label></div>
+            <form class="loginForm" id="loginForm">
+                <div class="inputDiv"><label class="icon-github">
+                    <input class="userName" name="photomeUserUsername"></label></div>
+                <div class="inputDiv"><label class="icon-lock">
+                    <input class="userPassword" name="photomeUserUserpassword" type="password"></label></div>
+                <div class="loginBtnDiv">
+                    <input class="loginBtn" type="button" value="LogIn">
+                </div>
             </form>
         </div>
 
@@ -20,37 +22,73 @@
         <!--login组件-注册-->
         <div class="registerPage">
             <img class="img" src="">
-            <form class="registerInput">
-                <div class="inputDiv"><label class="icon-github"><input class="userName"></label></div>
-                <div class="inputDiv"><label class="icon-lock"><input class="userPassword"></label></div>
-                <div class="inputDiv"><label class="icon-mobile-phone"><input class="userPhone"></label></div>
-                <div class="inputDiv"><label class="icon-envelope"><input class="userMail"></label></div>
+            <form class="registerForm" id="registerForm">
+                <div class="inputDiv"><label class="icon-github">
+                    <input class="userName" name="photomeUserUsername"></label></div>
+                <div class="inputDiv"><label class="icon-lock">
+                    <input class="userPassword" name="photomeUserUserpassword" type="password"></label></div>
+                <div class="inputDiv"><label class="icon-tablet">
+                    <input class="userPhone" name="photomeUserUserphone"></label></div>
+                <div class="inputDiv"><label class="icon-envelope">
+                    <input class="userMail" name="photomeUserUsermail"></label></div>
+                <div class="registerBtnDiv">
+                    <input class="registerBtn" type="button" value="Register">
+                </div>
             </form>
         </div>
 
         <!--login组件-用户详情-->
-        <div class="userDtailPage">
+        <div class="userDetailPage">
+            <!--用户头像-->
             <div class="userCover">
                 <img class="img" src="">
+                <p class="userName"><i class="editIcon icon-edit"></i></p>
+                <!--<div class="userDetailEdit"><i class="editIcon icon-edit"></i></div>-->
+                <form class="coverForm userEditForm" hidden="hidden">
+                    <div class="inputDiv"><label class="icon-picture"></label>
+                        <input class="userCoverInput" id="userCoverInput" type="file" name="photomeUserphotoPhotoname" >
+                        <input class="photoUrl" name="photomeUserphotoPhotourl" hidden="hidden">
+                    </div>
+                </form>
             </div>
+
+
+            <!--用户音乐-->
+            <div class="music detailMusic">
+                <label class="musicTitle title">音乐列表<i class="editIconGroup editMusic"></i></label>
+                <ul class="musicList"></ul></div>
+                <form class="musicForm userEditForm" hidden="hidden">
+                    <div class="inputDiv"><label class="icon-music">
+                        <input class="addMusicName" name="photomeUsermusicMusicname">
+                        <input class="addMusicUrl" name="photomeUsermusicMusicurl" hidden="hidden">
+                        <input class="addMusicSinger" name="photomeUsermusicMusicsinger">
+                        <input class="addMusicAlbum" name="photomeUsermusicMusicalbum">
+                        <input class="addMusicDuration" name="photomeUsermusicMusicduration" hidden="hidden">
+                        <input class="addMusicSize" name="photomeUsermusicMusicsize" hidden="hidden">
+                        <input class="addMusicImg" name="photomeUsermusicMusicimg" hidden="hidden">
+                        <input class="addMusicLrc" name="photomeUsermusicMusiclrc" hidden="hidden">
+                        <input class="addMusicCode" name="photomeUsermusicMusiccode" hidden="hidden">
+                    </label></div>
+                </form>
+
+            <!--用户说明-->
+            <!--<div class="cut-line-h"></div>-->
+            <div class="peopleInfo">
+                <label class="infoTtile title">人物说明<i class="editIconGroup editInfo"></i></label>
+                <form class="peopleInfoForm userEditForm" hidden="hidden">
+                    <div class="inputDiv"><input class="editInfoInput" name="photomeUserdetailUserintroduction"></div>
+                </form>
+            </div>
+            <!--用户评论-->
+            <!--<div class="cut-line-h"></div>-->
+            <div class="comment"><label class="commentTitle title">评论</label>
+            <ul class="commentList"></ul></div>
         </div>
 
-        <!--&lt;!&ndash;photo组件背面&ndash;&gt;-->
-        <!--<div class="photoBack">-->
-            <!--<div class="photoBackLeft">-->
-                <!--<div class="music"><label class="musicTitle title">音乐列表</label>-->
-                    <!--<ul class="musicList"></ul>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="cut-line-v"></div>-->
-            <!--<div class="photoBackRight">-->
-                <!--<div class="imgInfo"><label class="infoTtile title">人物说明</label>-->
-                    <!--<p class="peopleInfo"></p>-->
-                <!--</div>-->
-                <!--<div class="comment"><label class="commentTitle title">评论</label>-->
-                    <!--<ul class="commentList"></ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <!--login组件-导航栏-->
+        <div class="navBar">
+            <i class="icon-home icon-large"></i>
+        </div>
+
     </div>
 </div>

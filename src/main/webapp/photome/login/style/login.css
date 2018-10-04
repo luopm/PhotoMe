@@ -1,14 +1,17 @@
 .loginContainer{
     position: fixed;
-    top: 15%;
+    z-index: 99;
+    top: 0;
     left: 0;
     /*width: 15%;*/
-    height: 70%;
+    height: 100%;
+    transition: 1s ease-in-out;
 }
 .login{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 10px
 }
 
 .login img{
@@ -20,18 +23,34 @@
 
 .inputDiv{
     width: 150px;
+    height: 30px;
     border-bottom: 1px solid #eee;
 }
 .inputDiv:focus{
     border-bottom: 1px solid #00CCFF;
 }
-input{
+input,#userCoverInput,input[type="password"]{
     width: 100px;
     border: 0;
     position: relative;
-    left: 10%;
+    /*left: 10%;*/
     background-color: transparent;
 }
-input:focus{
+input:focus,input[type="password"]:focus{
     outline-color:transparent;
+}
+
+/*隐藏、显示动画*/
+.loginShow{
+    transform: translate3d(0,0,0);
+}
+.loginHidden{
+    transform: translate3d(-94%,0,0);
+}
+
+.loginBtnDiv,.registerBtnDiv{
+    width: 150px;
+    background-color: #0099FF;
+    border-radius: 2px;
+    text-align: center;
 }
