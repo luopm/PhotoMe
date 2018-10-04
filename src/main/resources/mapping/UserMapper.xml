@@ -104,7 +104,7 @@
     select
     <include refid="Base_Column_List"/>
     from photome_user
-    where photome_user_username = #{UserName,jdbcType=VARCHAR}
+    where photome_user_username = #{photomeUserUsername,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

@@ -235,66 +235,6 @@ public class UserMusicExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUsermusicMusiccreatdateIsNull() {
-            addCriterion("photome_usermusic_musiccreatdate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateIsNotNull() {
-            addCriterion("photome_usermusic_musiccreatdate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateEqualTo(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate =", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateNotEqualTo(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate <>", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateGreaterThan(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate >", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateGreaterThanOrEqualTo(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate >=", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateLessThan(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate <", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateLessThanOrEqualTo(Date value) {
-            addCriterion("photome_usermusic_musiccreatdate <=", value, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateIn(List<Date> values) {
-            addCriterion("photome_usermusic_musiccreatdate in", values, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateNotIn(List<Date> values) {
-            addCriterion("photome_usermusic_musiccreatdate not in", values, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateBetween(Date value1, Date value2) {
-            addCriterion("photome_usermusic_musiccreatdate between", value1, value2, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiccreatdateNotBetween(Date value1, Date value2) {
-            addCriterion("photome_usermusic_musiccreatdate not between", value1, value2, "photomeUsermusicMusiccreatdate");
-            return (Criteria) this;
-        }
-
         public Criteria andPhotomeUsermusicMusicnameIsNull() {
             addCriterion("photome_usermusic_musicname is null");
             return (Criteria) this;
@@ -695,76 +635,6 @@ public class UserMusicExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUsermusicMusiclrcIsNull() {
-            addCriterion("photome_usermusic_musiclrc is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcIsNotNull() {
-            addCriterion("photome_usermusic_musiclrc is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcEqualTo(String value) {
-            addCriterion("photome_usermusic_musiclrc =", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcNotEqualTo(String value) {
-            addCriterion("photome_usermusic_musiclrc <>", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcGreaterThan(String value) {
-            addCriterion("photome_usermusic_musiclrc >", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcGreaterThanOrEqualTo(String value) {
-            addCriterion("photome_usermusic_musiclrc >=", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcLessThan(String value) {
-            addCriterion("photome_usermusic_musiclrc <", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcLessThanOrEqualTo(String value) {
-            addCriterion("photome_usermusic_musiclrc <=", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcLike(String value) {
-            addCriterion("photome_usermusic_musiclrc like", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcNotLike(String value) {
-            addCriterion("photome_usermusic_musiclrc not like", value, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcIn(List<String> values) {
-            addCriterion("photome_usermusic_musiclrc in", values, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcNotIn(List<String> values) {
-            addCriterion("photome_usermusic_musiclrc not in", values, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcBetween(String value1, String value2) {
-            addCriterion("photome_usermusic_musiclrc between", value1, value2, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUsermusicMusiclrcNotBetween(String value1, String value2) {
-            addCriterion("photome_usermusic_musiclrc not between", value1, value2, "photomeUsermusicMusiclrc");
-            return (Criteria) this;
-        }
-
         public Criteria andPhotomeUsermusicMusicurlIsNull() {
             addCriterion("photome_usermusic_musicurl is null");
             return (Criteria) this;
@@ -832,6 +702,66 @@ public class UserMusicExample {
 
         public Criteria andPhotomeUsermusicMusicurlNotBetween(String value1, String value2) {
             addCriterion("photome_usermusic_musicurl not between", value1, value2, "photomeUsermusicMusicurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateIsNull() {
+            addCriterion("photome_usermusic_musiccreatdate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateIsNotNull() {
+            addCriterion("photome_usermusic_musiccreatdate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateEqualTo(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate =", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateNotEqualTo(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate <>", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateGreaterThan(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate >", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateGreaterThanOrEqualTo(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate >=", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateLessThan(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate <", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateLessThanOrEqualTo(Date value) {
+            addCriterion("photome_usermusic_musiccreatdate <=", value, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateIn(List<Date> values) {
+            addCriterion("photome_usermusic_musiccreatdate in", values, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateNotIn(List<Date> values) {
+            addCriterion("photome_usermusic_musiccreatdate not in", values, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateBetween(Date value1, Date value2) {
+            addCriterion("photome_usermusic_musiccreatdate between", value1, value2, "photomeUsermusicMusiccreatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUsermusicMusiccreatdateNotBetween(Date value1, Date value2) {
+            addCriterion("photome_usermusic_musiccreatdate not between", value1, value2, "photomeUsermusicMusiccreatdate");
             return (Criteria) this;
         }
     }

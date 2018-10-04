@@ -11,13 +11,13 @@ public class UserPhoto {
 
     private String photomeUserphotoPhotourl;
 
-    private String photomeUserphotoPhotoiscover;
-
     private String photomeUserphotoPhotointroduction;
 
     private Date photomeUserphotoPhotocreatdate;
 
     private Date photomeUserphotoPhotomodifydate;
+
+    private byte[] photomeUserphotoPhotocontent;
 
     public Integer getPhotomeUserphotoId() {
         return photomeUserphotoId;
@@ -51,14 +51,6 @@ public class UserPhoto {
         this.photomeUserphotoPhotourl = photomeUserphotoPhotourl == null ? null : photomeUserphotoPhotourl.trim();
     }
 
-    public String getPhotomeUserphotoPhotoiscover() {
-        return photomeUserphotoPhotoiscover;
-    }
-
-    public void setPhotomeUserphotoPhotoiscover(String photomeUserphotoPhotoiscover) {
-        this.photomeUserphotoPhotoiscover = photomeUserphotoPhotoiscover == null ? null : photomeUserphotoPhotoiscover.trim();
-    }
-
     public String getPhotomeUserphotoPhotointroduction() {
         return photomeUserphotoPhotointroduction;
     }
@@ -81,5 +73,13 @@ public class UserPhoto {
 
     public void setPhotomeUserphotoPhotomodifydate(Date photomeUserphotoPhotomodifydate) {
         this.photomeUserphotoPhotomodifydate = photomeUserphotoPhotomodifydate;
+    }
+
+    public byte[] getPhotomeUserphotoPhotocontent() {
+        return photomeUserphotoPhotocontent;
+    }
+
+    public void setPhotomeUserphotoPhotocontent(byte[] photomeUserphotoPhotocontent) {
+        this.photomeUserphotoPhotocontent = photomeUserphotoPhotocontent;
     }
 }

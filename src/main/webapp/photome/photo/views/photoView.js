@@ -98,7 +98,7 @@ define(['text!../templates/photo.html'],
                 dataType:'json',
                 success:function (result) {
                     $('.imgInfo'+that.conCount + ' .peopleInfo').text( result[0].photomeUserdetailUserintroduction);
-                    var photoCode ={ photoCode: result[0].photomeUserdetailUsercover } ;
+                    var photoCode ={ photoCode: result[0].photomeUserdetailUsercovercode } ;
                     $.ajax({ //加载用户封面
                         method:'get',
                         url:'../photo/getPhotoByPhotoCode',

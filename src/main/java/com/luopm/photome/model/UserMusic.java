@@ -7,8 +7,6 @@ public class UserMusic {
 
     private String photomeUsermusicMusiccode;
 
-    private Date photomeUsermusicMusiccreatdate;
-
     private String photomeUsermusicMusicname;
 
     private String photomeUsermusicMusicsinger;
@@ -21,11 +19,9 @@ public class UserMusic {
 
     private String photomeUsermusicMusicimg;
 
-    private String photomeUsermusicMusiclrc;
-
     private String photomeUsermusicMusicurl;
 
-    private String photomeUsermusicMusicuser;
+    private Date photomeUsermusicMusiccreatdate;
 
     public Integer getPhotomeUsermusicId() {
         return photomeUsermusicId;
@@ -41,14 +37,6 @@ public class UserMusic {
 
     public void setPhotomeUsermusicMusiccode(String photomeUsermusicMusiccode) {
         this.photomeUsermusicMusiccode = photomeUsermusicMusiccode == null ? null : photomeUsermusicMusiccode.trim();
-    }
-
-    public Date getPhotomeUsermusicMusiccreatdate() {
-        return photomeUsermusicMusiccreatdate;
-    }
-
-    public void setPhotomeUsermusicMusiccreatdate(Date photomeUsermusicMusiccreatdate) {
-        this.photomeUsermusicMusiccreatdate = photomeUsermusicMusiccreatdate;
     }
 
     public String getPhotomeUsermusicMusicname() {
@@ -99,14 +87,6 @@ public class UserMusic {
         this.photomeUsermusicMusicimg = photomeUsermusicMusicimg == null ? null : photomeUsermusicMusicimg.trim();
     }
 
-    public String getPhotomeUsermusicMusiclrc() {
-        return photomeUsermusicMusiclrc;
-    }
-
-    public void setPhotomeUsermusicMusiclrc(String photomeUsermusicMusiclrc) {
-        this.photomeUsermusicMusiclrc = photomeUsermusicMusiclrc == null ? null : photomeUsermusicMusiclrc.trim();
-    }
-
     public String getPhotomeUsermusicMusicurl() {
         return photomeUsermusicMusicurl;
     }
@@ -115,11 +95,11 @@ public class UserMusic {
         this.photomeUsermusicMusicurl = photomeUsermusicMusicurl == null ? null : photomeUsermusicMusicurl.trim();
     }
 
-    public String getPhotomeUsermusicMusicuser() {
-        return photomeUsermusicMusicuser;
+    public Date getPhotomeUsermusicMusiccreatdate() {
+        return photomeUsermusicMusiccreatdate;
     }
 
-    public void setPhotomeUsermusicMusicuser(String photomeUsermusicMusicuser) {
-        this.photomeUsermusicMusicuser = photomeUsermusicMusicuser == null ? null : photomeUsermusicMusicuser.trim();
+    public void setPhotomeUsermusicMusiccreatdate(Date photomeUsermusicMusiccreatdate) {
+        this.photomeUsermusicMusiccreatdate = photomeUsermusicMusiccreatdate;
     }
 }

@@ -120,7 +120,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             $('.musicForm .addMusicName').on('click',function () {
                 require(['photome/popup/views/popupView.js'],function (popupView) {
                     popupView.render();
-                });
+                });''
             });
             // 人物说明编辑事件
             $('.peopleInfo').on('click','.icon-edit',function () {
@@ -150,9 +150,9 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 async:true,
                 data:userName,
                 dataType:'json',
-                cache: false,                      // 不缓存
-                processData: false,                // jQuery不要去处理发送的数据
-                contentType: false,                 // jQuery不要去设置Content-Type请求头
+                // cache: false,                      // 不缓存
+                // processData: false,                // jQuery不要去处理发送的数据
+                // contentType: false,                 // jQuery不要去设置Content-Type请求头
                 success:function (result) {
                     // $('.userDetailPage img').attr('src',result[0].photomeUserdetailUsercover);
                     $('.userDetailPage .userName').text(result[0].photomeUserUsername);

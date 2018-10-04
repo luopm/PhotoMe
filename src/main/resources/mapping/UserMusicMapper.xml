@@ -4,20 +4,18 @@
   <resultMap id="BaseResultMap" type="com.luopm.photome.model.UserMusic" >
     <id column="photome_usermusic_id" property="photomeUsermusicId" jdbcType="INTEGER" />
     <result column="photome_usermusic_musiccode" property="photomeUsermusicMusiccode" jdbcType="VARCHAR" />
-    <result column="photome_usermusic_musiccreatdate" property="photomeUsermusicMusiccreatdate" jdbcType="TIMESTAMP" />
     <result column="photome_usermusic_musicname" property="photomeUsermusicMusicname" jdbcType="VARCHAR" />
     <result column="photome_usermusic_musicsinger" property="photomeUsermusicMusicsinger" jdbcType="VARCHAR" />
     <result column="photome_usermusic_musicalbum" property="photomeUsermusicMusicalbum" jdbcType="VARCHAR" />
     <result column="photome_usermusic_musicduration" property="photomeUsermusicMusicduration" jdbcType="INTEGER" />
     <result column="photome_usermusic_musicsize" property="photomeUsermusicMusicsize" jdbcType="INTEGER" />
     <result column="photome_usermusic_musicimg" property="photomeUsermusicMusicimg" jdbcType="VARCHAR" />
-    <result column="photome_usermusic_musiclrc" property="photomeUsermusicMusiclrc" jdbcType="LONGVARCHAR" />
     <result column="photome_usermusic_musicurl" property="photomeUsermusicMusicurl" jdbcType="VARCHAR" />
+    <result column="photome_usermusic_musiccreatdate" property="photomeUsermusicMusiccreatdate" jdbcType="TIMESTAMP" />
+    <result column="photome_usermusic_musiclrc" property="photomeUsermusicMusiclrc" jdbcType="LONGVARCHAR" />
     <result column="photome_usermusic_musicuser" property="photomeUsermusicMusicuser" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.luopm.photome.model.UserMusic" extends="BaseResultMap" >
-    <result column="photome_usermusic_musicuser" property="photomeUsermusicMusicuser" jdbcType="LONGVARCHAR" />
-  </resultMap>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -77,15 +75,14 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    photome_usermusic_id, photome_usermusic_musiccode, photome_usermusic_musiccreatdate, 
-    photome_usermusic_musicname, photome_usermusic_musicsinger, photome_usermusic_musicalbum, 
-    photome_usermusic_musicduration, photome_usermusic_musicsize, photome_usermusic_musicimg, 
-    photome_usermusic_musiclrc, photome_usermusic_musicurl
+    photome_usermusic_id, photome_usermusic_musiccode, photome_usermusic_musicname, photome_usermusic_musicsinger, 
+    photome_usermusic_musicalbum, photome_usermusic_musicduration, photome_usermusic_musicsize, 
+    photome_usermusic_musicimg, photome_usermusic_musicurl, photome_usermusic_musiccreatdate
   </sql>
   <sql id="Blob_Column_List" >
-    photome_usermusic_musicuser
+    photome_usermusic_musiclrc, photome_usermusic_musicuser
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.luopm.photome.model.UserMusicExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserMusicExample" >
     select
     <if test="distinct" >
       distinct
@@ -115,7 +112,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -148,23 +145,23 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.luopm.photome.model.UserMusic" >
+  <insert id="insert" parameterType="com.luopm.photome.model.UserMusicWithBLOBs" >
     insert into photome_usermusic (photome_usermusic_id, photome_usermusic_musiccode, 
-      photome_usermusic_musiccreatdate, photome_usermusic_musicname, 
-      photome_usermusic_musicsinger, photome_usermusic_musicalbum, 
-      photome_usermusic_musicduration, photome_usermusic_musicsize, 
-      photome_usermusic_musicimg, photome_usermusic_musiclrc, 
-      photome_usermusic_musicurl, photome_usermusic_musicuser
+      photome_usermusic_musicname, photome_usermusic_musicsinger, 
+      photome_usermusic_musicalbum, photome_usermusic_musicduration, 
+      photome_usermusic_musicsize, photome_usermusic_musicimg, 
+      photome_usermusic_musicurl, photome_usermusic_musiccreatdate, 
+      photome_usermusic_musiclrc, photome_usermusic_musicuser
       )
     values (#{photomeUsermusicId,jdbcType=INTEGER}, #{photomeUsermusicMusiccode,jdbcType=VARCHAR}, 
-      #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP}, #{photomeUsermusicMusicname,jdbcType=VARCHAR}, 
-      #{photomeUsermusicMusicsinger,jdbcType=VARCHAR}, #{photomeUsermusicMusicalbum,jdbcType=VARCHAR}, 
-      #{photomeUsermusicMusicduration,jdbcType=INTEGER}, #{photomeUsermusicMusicsize,jdbcType=INTEGER}, 
-      #{photomeUsermusicMusicimg,jdbcType=VARCHAR}, #{photomeUsermusicMusiclrc,jdbcType=VARCHAR}, 
-      #{photomeUsermusicMusicurl,jdbcType=VARCHAR}, #{photomeUsermusicMusicuser,jdbcType=LONGVARCHAR}
+      #{photomeUsermusicMusicname,jdbcType=VARCHAR}, #{photomeUsermusicMusicsinger,jdbcType=VARCHAR}, 
+      #{photomeUsermusicMusicalbum,jdbcType=VARCHAR}, #{photomeUsermusicMusicduration,jdbcType=INTEGER}, 
+      #{photomeUsermusicMusicsize,jdbcType=INTEGER}, #{photomeUsermusicMusicimg,jdbcType=VARCHAR}, 
+      #{photomeUsermusicMusicurl,jdbcType=VARCHAR}, #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP}, 
+      #{photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR}, #{photomeUsermusicMusicuser,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.luopm.photome.model.UserMusic" >
+  <insert id="insertSelective" parameterType="com.luopm.photome.model.UserMusicWithBLOBs" >
     insert into photome_usermusic
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="photomeUsermusicId != null" >
@@ -172,9 +169,6 @@
       </if>
       <if test="photomeUsermusicMusiccode != null" >
         photome_usermusic_musiccode,
-      </if>
-      <if test="photomeUsermusicMusiccreatdate != null" >
-        photome_usermusic_musiccreatdate,
       </if>
       <if test="photomeUsermusicMusicname != null" >
         photome_usermusic_musicname,
@@ -194,11 +188,14 @@
       <if test="photomeUsermusicMusicimg != null" >
         photome_usermusic_musicimg,
       </if>
-      <if test="photomeUsermusicMusiclrc != null" >
-        photome_usermusic_musiclrc,
-      </if>
       <if test="photomeUsermusicMusicurl != null" >
         photome_usermusic_musicurl,
+      </if>
+      <if test="photomeUsermusicMusiccreatdate != null" >
+        photome_usermusic_musiccreatdate,
+      </if>
+      <if test="photomeUsermusicMusiclrc != null" >
+        photome_usermusic_musiclrc,
       </if>
       <if test="photomeUsermusicMusicuser != null" >
         photome_usermusic_musicuser,
@@ -210,9 +207,6 @@
       </if>
       <if test="photomeUsermusicMusiccode != null" >
         #{photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUsermusicMusiccreatdate != null" >
-        #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       </if>
       <if test="photomeUsermusicMusicname != null" >
         #{photomeUsermusicMusicname,jdbcType=VARCHAR},
@@ -232,11 +226,14 @@
       <if test="photomeUsermusicMusicimg != null" >
         #{photomeUsermusicMusicimg,jdbcType=VARCHAR},
       </if>
-      <if test="photomeUsermusicMusiclrc != null" >
-        #{photomeUsermusicMusiclrc,jdbcType=VARCHAR},
-      </if>
       <if test="photomeUsermusicMusicurl != null" >
         #{photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsermusicMusiccreatdate != null" >
+        #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUsermusicMusiclrc != null" >
+        #{photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       </if>
       <if test="photomeUsermusicMusicuser != null" >
         #{photomeUsermusicMusicuser,jdbcType=LONGVARCHAR},
@@ -258,9 +255,6 @@
       <if test="record.photomeUsermusicMusiccode != null" >
         photome_usermusic_musiccode = #{record.photomeUsermusicMusiccode,jdbcType=VARCHAR},
       </if>
-      <if test="record.photomeUsermusicMusiccreatdate != null" >
-        photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.photomeUsermusicMusicname != null" >
         photome_usermusic_musicname = #{record.photomeUsermusicMusicname,jdbcType=VARCHAR},
       </if>
@@ -279,11 +273,14 @@
       <if test="record.photomeUsermusicMusicimg != null" >
         photome_usermusic_musicimg = #{record.photomeUsermusicMusicimg,jdbcType=VARCHAR},
       </if>
-      <if test="record.photomeUsermusicMusiclrc != null" >
-        photome_usermusic_musiclrc = #{record.photomeUsermusicMusiclrc,jdbcType=VARCHAR},
-      </if>
       <if test="record.photomeUsermusicMusicurl != null" >
         photome_usermusic_musicurl = #{record.photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUsermusicMusiccreatdate != null" >
+        photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photomeUsermusicMusiclrc != null" >
+        photome_usermusic_musiclrc = #{record.photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.photomeUsermusicMusicuser != null" >
         photome_usermusic_musicuser = #{record.photomeUsermusicMusicuser,jdbcType=LONGVARCHAR},
@@ -297,15 +294,15 @@
     update photome_usermusic
     set photome_usermusic_id = #{record.photomeUsermusicId,jdbcType=INTEGER},
       photome_usermusic_musiccode = #{record.photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       photome_usermusic_musicname = #{record.photomeUsermusicMusicname,jdbcType=VARCHAR},
       photome_usermusic_musicsinger = #{record.photomeUsermusicMusicsinger,jdbcType=VARCHAR},
       photome_usermusic_musicalbum = #{record.photomeUsermusicMusicalbum,jdbcType=VARCHAR},
       photome_usermusic_musicduration = #{record.photomeUsermusicMusicduration,jdbcType=INTEGER},
       photome_usermusic_musicsize = #{record.photomeUsermusicMusicsize,jdbcType=INTEGER},
       photome_usermusic_musicimg = #{record.photomeUsermusicMusicimg,jdbcType=VARCHAR},
-      photome_usermusic_musiclrc = #{record.photomeUsermusicMusiclrc,jdbcType=VARCHAR},
       photome_usermusic_musicurl = #{record.photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
+      photome_usermusic_musiclrc = #{record.photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       photome_usermusic_musicuser = #{record.photomeUsermusicMusicuser,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -315,27 +312,23 @@
     update photome_usermusic
     set photome_usermusic_id = #{record.photomeUsermusicId,jdbcType=INTEGER},
       photome_usermusic_musiccode = #{record.photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       photome_usermusic_musicname = #{record.photomeUsermusicMusicname,jdbcType=VARCHAR},
       photome_usermusic_musicsinger = #{record.photomeUsermusicMusicsinger,jdbcType=VARCHAR},
       photome_usermusic_musicalbum = #{record.photomeUsermusicMusicalbum,jdbcType=VARCHAR},
       photome_usermusic_musicduration = #{record.photomeUsermusicMusicduration,jdbcType=INTEGER},
       photome_usermusic_musicsize = #{record.photomeUsermusicMusicsize,jdbcType=INTEGER},
       photome_usermusic_musicimg = #{record.photomeUsermusicMusicimg,jdbcType=VARCHAR},
-      photome_usermusic_musiclrc = #{record.photomeUsermusicMusiclrc,jdbcType=VARCHAR},
-      photome_usermusic_musicurl = #{record.photomeUsermusicMusicurl,jdbcType=VARCHAR}
+      photome_usermusic_musicurl = #{record.photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      photome_usermusic_musiccreatdate = #{record.photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserMusic" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserMusicWithBLOBs" >
     update photome_usermusic
     <set >
       <if test="photomeUsermusicMusiccode != null" >
         photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUsermusicMusiccreatdate != null" >
-        photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       </if>
       <if test="photomeUsermusicMusicname != null" >
         photome_usermusic_musicname = #{photomeUsermusicMusicname,jdbcType=VARCHAR},
@@ -355,11 +348,14 @@
       <if test="photomeUsermusicMusicimg != null" >
         photome_usermusic_musicimg = #{photomeUsermusicMusicimg,jdbcType=VARCHAR},
       </if>
-      <if test="photomeUsermusicMusiclrc != null" >
-        photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=VARCHAR},
-      </if>
       <if test="photomeUsermusicMusicurl != null" >
         photome_usermusic_musicurl = #{photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUsermusicMusiccreatdate != null" >
+        photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUsermusicMusiclrc != null" >
+        photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       </if>
       <if test="photomeUsermusicMusicuser != null" >
         photome_usermusic_musicuser = #{photomeUsermusicMusicuser,jdbcType=LONGVARCHAR},
@@ -367,33 +363,32 @@
     </set>
     where photome_usermusic_id = #{photomeUsermusicId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luopm.photome.model.UserMusic" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luopm.photome.model.UserMusicWithBLOBs" >
     update photome_usermusic
     set photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       photome_usermusic_musicname = #{photomeUsermusicMusicname,jdbcType=VARCHAR},
       photome_usermusic_musicsinger = #{photomeUsermusicMusicsinger,jdbcType=VARCHAR},
       photome_usermusic_musicalbum = #{photomeUsermusicMusicalbum,jdbcType=VARCHAR},
       photome_usermusic_musicduration = #{photomeUsermusicMusicduration,jdbcType=INTEGER},
       photome_usermusic_musicsize = #{photomeUsermusicMusicsize,jdbcType=INTEGER},
       photome_usermusic_musicimg = #{photomeUsermusicMusicimg,jdbcType=VARCHAR},
-      photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=VARCHAR},
       photome_usermusic_musicurl = #{photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
+      photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       photome_usermusic_musicuser = #{photomeUsermusicMusicuser,jdbcType=LONGVARCHAR}
     where photome_usermusic_id = #{photomeUsermusicId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserMusic" >
     update photome_usermusic
     set photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR},
-      photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP},
       photome_usermusic_musicname = #{photomeUsermusicMusicname,jdbcType=VARCHAR},
       photome_usermusic_musicsinger = #{photomeUsermusicMusicsinger,jdbcType=VARCHAR},
       photome_usermusic_musicalbum = #{photomeUsermusicMusicalbum,jdbcType=VARCHAR},
       photome_usermusic_musicduration = #{photomeUsermusicMusicduration,jdbcType=INTEGER},
       photome_usermusic_musicsize = #{photomeUsermusicMusicsize,jdbcType=INTEGER},
       photome_usermusic_musicimg = #{photomeUsermusicMusicimg,jdbcType=VARCHAR},
-      photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=VARCHAR},
-      photome_usermusic_musicurl = #{photomeUsermusicMusicurl,jdbcType=VARCHAR}
+      photome_usermusic_musicurl = #{photomeUsermusicMusicurl,jdbcType=VARCHAR},
+      photome_usermusic_musiccreatdate = #{photomeUsermusicMusiccreatdate,jdbcType=TIMESTAMP}
     where photome_usermusic_id = #{photomeUsermusicId,jdbcType=INTEGER}
   </update>
 </mapper>

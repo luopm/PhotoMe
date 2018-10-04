@@ -7,8 +7,6 @@ import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
 
 @Service("userService")
@@ -32,7 +30,7 @@ public class UserService {
                 resultMsg = "登录成功";
             }
         }
-        responseUtil.setRsultCode(resultCode);
+        responseUtil.setResultCode(resultCode);
         responseUtil.setResultMsg(resultMsg);
         responseUtil.setResultObject(list);
         return  responseUtil;

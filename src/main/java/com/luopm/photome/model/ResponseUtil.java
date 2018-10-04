@@ -1,19 +1,19 @@
 package com.luopm.photome.model;
 
 public class ResponseUtil {
-    int rsultCode;
+    int resultCode;
     String resultMsg;
     Object resultObject;
 
     public ResponseUtil(){}
 
     public ResponseUtil(int resultCode,String resultMsg,Object resultObject){
-        this.rsultCode = resultCode;
+        this.resultCode = resultCode;
         this.resultMsg = resultMsg;
         this.resultObject = resultObject;
     }
-    public int getRsultCode() {
-        return rsultCode;
+    public int getResultCode() {
+        return resultCode;
     }
 
     public String getResultMsg() {
@@ -24,8 +24,8 @@ public class ResponseUtil {
         return resultObject;
     }
 
-    public void setRsultCode(int rsultCode) {
-        this.rsultCode = rsultCode;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 
     public void setResultMsg(String resultMsg) {

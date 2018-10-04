@@ -1,8 +1,8 @@
 package com.luopm.photome.dao;
 
-import com.luopm.photome.model.UserDetail;
 import com.luopm.photome.model.UserMusic;
 import com.luopm.photome.model.UserMusicExample;
+import com.luopm.photome.model.UserMusicWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,7 +31,7 @@ public interface UserMusicMapper {
 
     int updateByPrimaryKeySelective(UserMusic record);
 
-    int updateByPrimaryKeyWithBLOBs(UserMusic record);
+    int updateByPrimaryKeyWithBLOBs(UserMusicWithBLOBs record);
 
     int updateByPrimaryKey(UserMusic record);
 

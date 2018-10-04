@@ -1,6 +1,5 @@
 package com.luopm.photome.dao;
 
-import com.luopm.photome.model.User;
 import com.luopm.photome.model.UserDetail;
 import com.luopm.photome.model.UserDetailExample;
 import java.util.List;
@@ -31,5 +30,5 @@ public interface UserDetailMapper {
 
     List<UserDetail> selectALLDetail();
 
-    List<UserDetail> selectDetailByUserName(String UserName);
+    List<UserDetail> selectDetailByUserName(String userName);
 }

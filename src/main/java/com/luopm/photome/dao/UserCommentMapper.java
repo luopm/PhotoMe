@@ -3,8 +3,6 @@ package com.luopm.photome.dao;
 import com.luopm.photome.model.UserComment;
 import com.luopm.photome.model.UserCommentExample;
 import java.util.List;
-
-import com.luopm.photome.model.UserDetail;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserCommentMapper {
@@ -32,5 +30,5 @@ public interface UserCommentMapper {
 
     List<UserComment> selectALLComment();
 
-    List<UserComment> selectCommentByUserName(String UserName);
+    List<UserComment> selectCommentByUserName(String userName);
 }
