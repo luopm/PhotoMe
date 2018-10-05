@@ -24,8 +24,7 @@ public class UserDetailService {
     }
 
     public int updateUserDetail(UserDetail userDetail){
-
-        return userDetailMapper.updateByPrimaryKey(userDetail);
+        return userDetailMapper.updateByUserName(userDetail);
     }
     public UserDetail getUserDetail(UserDetail userDetail){
         return userDetailMapper.selectByPrimaryKey(userDetail.getPhotomeUserdetailId());

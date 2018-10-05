@@ -199,12 +199,9 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserDetail" >
+  <update id="updateByUserName" parameterType="com.luopm.photome.model.UserDetail" >
     update photome_userdetail
     <set >
-      <if test="photomeUserdetailUsername != null" >
-        photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=VARCHAR},
-      </if>
       <if test="photomeUserdetailUsercovercode != null" >
         photome_userdetail_usercovercode = #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
       </if>
@@ -215,7 +212,7 @@
         photome_userdetail_usermusicurl = #{photomeUserdetailUsermusicurl,jdbcType=VARCHAR},
       </if>
     </set>
-    where photome_userdetail_id = #{photomeUserdetailId,jdbcType=INTEGER}
+    where photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserDetail" >
     update photome_userdetail

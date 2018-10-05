@@ -24,7 +24,7 @@ public interface UserDetailMapper {
 
     int updateByExample(@Param("record") UserDetail record, @Param("example") UserDetailExample example);
 
-    int updateByPrimaryKeySelective(UserDetail record);
+    int updateByUserName(UserDetail record);
 
     int updateByPrimaryKey(UserDetail record);
 

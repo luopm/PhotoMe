@@ -7,6 +7,8 @@ import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service("userService")
@@ -37,6 +39,7 @@ public class UserService {
     }
 
     public int addUser(User user){
+        user.setPhotomeUserUsercreatdate(new Date());
         return userMapper.insert(user);
     }
     public int deleteUser(User user){

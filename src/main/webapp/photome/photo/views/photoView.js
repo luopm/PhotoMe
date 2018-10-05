@@ -1,8 +1,11 @@
 define(['text!../templates/photo.html'],
     function (tem) {
-    var view ={
-        conCount : $('.photoContainer').length + 1,
+
+    var view = {
+        conCount : 0,
         render : function (el,user) {
+            this.conCount++;
+            // this.conCount = $('.photoContainer').length + 1;
             // 初始化模板
             tem = this.initClassName(tem);
             // 挂载模板
@@ -12,12 +15,12 @@ define(['text!../templates/photo.html'],
         },
         initClassName : function (tem) {
             var that = this;
-            tem = tem.replace('\"photoContainer\"','\"photoContainer photoContainer'+ that.conCount +'\"');
-            tem = tem.replace('\"img\"','\"img img'+ that.conCount +'\"');
-            tem = tem.replace('\"imgInfo\"','\"imgInfo imgInfo'+ that.conCount +'\"');
-            tem = tem.replace('\"photo\"','\"photo photo'+ that.conCount +'\"');
-            tem = tem.replace('\"music\"','\"music music'+ that.conCount +'\"');
-            tem = tem.replace('\"comment\"','\"comment comment'+ that.conCount +'\"');
+            tem = tem.replace(/(\"photoContainer)+(\sphotoContainer\d)?\"/,'\"photoContainer photoContainer'+ that.conCount +'\"');
+            tem = tem.replace(/(\"img)+(\simg\d)?\"/,'\"img img'+ that.conCount +'\"');
+            tem = tem.replace(/(\"imgInfo)+(\simgInfo\d)?\"/,'\"imgInfo imgInfo'+ that.conCount +'\"');
+            tem = tem.replace(/(\"photo)+(\sphoto\d)?\"/,'\"photo photo'+ that.conCount +'\"');
+            tem = tem.replace(/(\"music)+(\smusic\d)?\"/,'\"music music'+ that.conCount +'\"');
+            tem = tem.replace(/(\"comment)+(\scomment\d)?\"/,'\"comment comment'+ that.conCount +'\"');
             return tem;
         },
         loadMusic: function (user,selector) {
@@ -39,7 +42,6 @@ define(['text!../templates/photo.html'],
                                 result[i].photomeUsermusicMusicurl +
                                 '"></li>');
                             $('.mLi'+liCount).click(function () {
-                                // var music = $("#backgroundMusic");
                                 var music = document.getElementById('backgroundMusic');
                                 if (music.paused) {
                                     if (music.src == $('.mLi'+liCount+' input').val()){}
@@ -87,8 +89,7 @@ define(['text!../templates/photo.html'],
                 }
             })
         },
-        loadPhoto : function (user) {
-            var that = this;
+        loadPhoto : function (user,selector) {
             var userName ={ userName: user.photomeUserUsername } ;
             $.ajax({ //加载用户详情
                 method:'get',
@@ -97,27 +98,30 @@ define(['text!../templates/photo.html'],
                 data:userName,
                 dataType:'json',
                 success:function (result) {
-                    $('.imgInfo'+that.conCount + ' .peopleInfo').text( result[0].photomeUserdetailUserintroduction);
-                    var photoCode ={ photoCode: result[0].photomeUserdetailUsercovercode } ;
-                    $.ajax({ //加载用户封面
-                        method:'get',
-                        url:'../photo/getPhotoByPhotoCode',
-                        async:true,
-                        data:photoCode,
-                        dataType:'json',
-                        success:function (result) {
-                            $('.img'+that.conCount).attr('src',result[0].photomeUserphotoPhotourl);
-                            // $('.img'+that.conCount).src = result[0].photomeUserphotoPhotourl;
-                             var s = $('.img'+that.conCount);
-                            //console.log("se: "+)
-                        }
-                    });
+                    if (result.length > 0){//存在用户详情
+                        $(selector.infoSelector).text( result[0].photomeUserdetailUserintroduction);
+                        var photoCode ={ photoCode: result[0].photomeUserdetailUsercovercode } ;
+                        $.ajax({ //加载用户封面
+                            method:'get',
+                            url:'../photo/getPhotoByPhotoCode',
+                            async:true,
+                            data:photoCode,
+                            dataType:'json',
+                            success:function (result) {
+                                if (result.length > 0)
+                                $(selector.imgSelector).attr('src',result[0].photomeUserphotoPhotourl);
+                            }
+                        });
+                    }else $(selector.infoSelector).text("暂无详情，请在用户详情界面添加");
+
                 }
             });
         },
         init : function (user) {
             var that = this;
-            that.loadPhoto(user); //加载用户详情
+            that.loadPhoto(user,
+                {infoSelector:'.imgInfo'+that.conCount + ' .peopleInfo',
+                    imgSelector:'.img'+that.conCount}); //加载用户详情
             that.loadMusic(user,'.music'+that.conCount+' .musicList'); //加载music
             that.loadComment(user,'.comment'+that.conCount+' .commentList'); //加载comment
         }

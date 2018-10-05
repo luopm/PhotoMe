@@ -9,6 +9,7 @@ import com.luopm.photome.model.UserMusic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("userMusicService")
@@ -18,6 +19,8 @@ public class UserMusicService {
     private UserMusicMapper userMusicMapper;
 
     public int addUserMusic(UserMusic userMusic){
+        userMusic.setPhotomeUsermusicMusiccreatdate(new Date());
+        userMusic.setPhotomeUsermusicMusicuser("<"+userMusic.getPhotomeUsermusicMusicuser()+">");
         return userMusicMapper.insert(userMusic);
     }
 

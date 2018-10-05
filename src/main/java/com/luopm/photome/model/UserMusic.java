@@ -23,6 +23,10 @@ public class UserMusic {
 
     private Date photomeUsermusicMusiccreatdate;
 
+    private String photomeUsermusicMusiclrc;
+
+    private String photomeUsermusicMusicuser;
+
     public Integer getPhotomeUsermusicId() {
         return photomeUsermusicId;
     }
@@ -101,5 +105,21 @@ public class UserMusic {
 
     public void setPhotomeUsermusicMusiccreatdate(Date photomeUsermusicMusiccreatdate) {
         this.photomeUsermusicMusiccreatdate = photomeUsermusicMusiccreatdate;
+    }
+
+    public String getPhotomeUsermusicMusiclrc() {
+        return photomeUsermusicMusiclrc;
+    }
+
+    public void setPhotomeUsermusicMusiclrc(String photomeUsermusicMusiclrc) {
+        this.photomeUsermusicMusiclrc = photomeUsermusicMusiclrc;
+    }
+
+    public String getPhotomeUsermusicMusicuser() {
+        return photomeUsermusicMusicuser;
+    }
+
+    public void setPhotomeUsermusicMusicuser(String photomeUsermusicMusicuser) {
+        this.photomeUsermusicMusicuser = photomeUsermusicMusicuser;
     }
 }

@@ -42,7 +42,9 @@
             <!--用户头像-->
             <div class="userCover">
                 <img class="img" src="">
-                <p class="userName"><i class="editIcon icon-edit"></i></p>
+                <div class="inputDiv">
+                    <input class="userName" readonly="readonly"><i class="editIcon icon-edit"></i>
+                </div>
                 <!--<div class="userDetailEdit"><i class="editIcon icon-edit"></i></div>-->
                 <form class="coverForm userEditForm" hidden="hidden">
                     <div class="inputDiv"><label class="icon-picture"></label>
@@ -56,27 +58,31 @@
             <!--用户音乐-->
             <div class="music detailMusic">
                 <label class="musicTitle title">音乐列表<i class="editIconGroup editMusic"></i></label>
-                <ul class="musicList"></ul></div>
+                <ul class="musicList"></ul>
                 <form class="musicForm userEditForm" hidden="hidden">
                     <div class="inputDiv"><label class="icon-music">
                         <input class="addMusicName" name="photomeUsermusicMusicname">
                         <input class="addMusicUrl" name="photomeUsermusicMusicurl" hidden="hidden">
-                        <input class="addMusicSinger" name="photomeUsermusicMusicsinger">
-                        <input class="addMusicAlbum" name="photomeUsermusicMusicalbum">
                         <input class="addMusicDuration" name="photomeUsermusicMusicduration" hidden="hidden">
                         <input class="addMusicSize" name="photomeUsermusicMusicsize" hidden="hidden">
                         <input class="addMusicImg" name="photomeUsermusicMusicimg" hidden="hidden">
                         <input class="addMusicLrc" name="photomeUsermusicMusiclrc" hidden="hidden">
                         <input class="addMusicCode" name="photomeUsermusicMusiccode" hidden="hidden">
                     </label></div>
+                    <div class="inputDiv"><label class="icon-music">
+                        <input class="addMusicSinger" name="photomeUsermusicMusicsinger">
+                    </label></div>
+                    <div class="inputDiv"><label class="icon-music">
+                        <input class="addMusicAlbum" name="photomeUsermusicMusicalbum">
+                    </label></div>
                 </form>
-
+            </div>
             <!--用户说明-->
             <!--<div class="cut-line-h"></div>-->
             <div class="peopleInfo">
                 <label class="infoTtile title">人物说明<i class="editIconGroup editInfo"></i></label>
-                <form class="peopleInfoForm userEditForm" hidden="hidden">
-                    <div class="inputDiv"><input class="editInfoInput" name="photomeUserdetailUserintroduction"></div>
+                <form class="peopleInfoForm userEditForm" >
+                    <div class="inputDiv"><input class="editInfoInput" name="photomeUserdetailUserintroduction" readonly="readonly"></div>
                 </form>
             </div>
             <!--用户评论-->

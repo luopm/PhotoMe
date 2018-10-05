@@ -25,7 +25,15 @@ define(['text!../templates/home.html',
                 dataType:'json',
                 success:function (result) {
                     for (var i=0;i<result.list.length;i++){
-                        photoView.render('#homeBody',result.list[i]);
+                        (function (i) {
+                            require(['photome/photo/views/photoView.js'],function (photoView) {
+                                // new photoView()
+                                var index = i;
+                                var user = result.list[i];
+                                photoView.render('#homeBody',user);
+                            });
+                        })(i);
+
                     }
                 }
             });

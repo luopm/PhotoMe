@@ -17,8 +17,9 @@
     display: inline-block;
 }
 .photoContainer,.photoFront,.photo,.photoBack,.photo img{
-    width:300px;
-    height:270px;
+    width: 230px;
+    height: 250px;
+    margin-bottom: 15px
 }
 .photo{
     position:relative;
