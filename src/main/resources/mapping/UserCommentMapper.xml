@@ -91,40 +91,12 @@
     from photome_usercomment
     where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
   </select>
-
-  <select id="selectALLComment" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_usercomment
-  </select>
-
-  <select id="selectCommentByUserName" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_usercomment
-    where photome_usercomment_commenteduser = #{UserName,jdbcType=VARCHAR}
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from photome_usercomment
-    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
-  </delete>
   <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserCommentExample" >
     delete from photome_usercomment
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.luopm.photome.model.UserComment" >
-    insert into photome_usercomment (photome_usercomment_id, photome_usercomment_commentcode, 
-      photome_usercomment_commenteduser, photome_usercomment_commentuser, 
-      photome_usercomment_commentdate, photome_usercomment_commentcontent
-      )
-    values (#{photomeUsercommentId,jdbcType=INTEGER}, #{photomeUsercommentCommentcode,jdbcType=VARCHAR}, 
-      #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}, #{photomeUsercommentCommentuser,jdbcType=VARCHAR}, 
-      #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP}, #{photomeUsercommentCommentcontent,jdbcType=VARCHAR}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.luopm.photome.model.UserComment" >
     insert into photome_usercomment
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -212,27 +184,6 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserComment" >
-    update photome_usercomment
-    <set >
-      <if test="photomeUsercommentCommentcode != null" >
-        photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUsercommentCommenteduser != null" >
-        photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUsercommentCommentuser != null" >
-        photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUsercommentCommentdate != null" >
-        photome_usercomment_commentdate = #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="photomeUsercommentCommentcontent != null" >
-        photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserComment" >
     update photome_usercomment
     set photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
@@ -242,4 +193,44 @@
       photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR}
     where photome_usercomment_id = #{photomeUsercommentId,jdbcType=INTEGER}
   </update>
+
+
+  <insert id="insert" parameterType="com.luopm.photome.model.UserComment" >
+    insert into photome_usercomment (photome_usercomment_id, photome_usercomment_commentcode,
+      photome_usercomment_commenteduser, photome_usercomment_commentuser,
+      photome_usercomment_commentdate, photome_usercomment_commentcontent
+      )
+    values (#{photomeUsercommentId,jdbcType=INTEGER}, #{photomeUsercommentCommentcode,jdbcType=VARCHAR},
+      #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}, #{photomeUsercommentCommentuser,jdbcType=VARCHAR},
+      #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP}, #{photomeUsercommentCommentcontent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectALLComment" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_usercomment
+  </select>
+  <select id="selectCommentByUserName" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserComment">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_usercomment
+    where photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}
+  </select>
+  <update id="updateComment" parameterType="com.luopm.photome.model.UserComment" >
+    update photome_usercomment
+    <set >
+      <if test="photomeUsercommentCommentdate != null" >
+        photome_usercomment_commentdate = #{photomeUsercommentCommentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUsercommentCommentcontent != null" >
+        photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteComment" parameterType="com.luopm.photome.model.UserComment" >
+    delete from photome_usercomment
+    where photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR} or
+           photome_usercomment_commenteduser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR}
+  </delete>
 </mapper>

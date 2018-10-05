@@ -10,10 +10,6 @@ public interface UserDetailMapper {
 
     int deleteByExample(UserDetailExample example);
 
-    int deleteByPrimaryKey(Integer photomeUserdetailId);
-
-    int insert(UserDetail record);
-
     int insertSelective(UserDetail record);
 
     List<UserDetail> selectByExample(UserDetailExample example);
@@ -24,11 +20,17 @@ public interface UserDetailMapper {
 
     int updateByExample(@Param("record") UserDetail record, @Param("example") UserDetailExample example);
 
-    int updateByUserName(UserDetail record);
+    int updateByPrimaryKeySelective(UserDetail record);
 
-    int updateByPrimaryKey(UserDetail record);
+    int insert(UserDetail record);
 
     List<UserDetail> selectALLDetail();
 
-    List<UserDetail> selectDetailByUserName(String userName);
+    UserDetail selectDetailByUserName(UserDetail record);
+
+    int updateByUserName(UserDetail record);
+
+    int deleteByUserName(UserDetail record);
+
+
 }

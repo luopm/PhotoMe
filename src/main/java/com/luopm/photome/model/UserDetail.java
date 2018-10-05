@@ -5,11 +5,15 @@ public class UserDetail {
 
     private String photomeUserdetailUsername;
 
-    private String photomeUserdetailUsercovercode;
-
     private String photomeUserdetailUserintroduction;
 
-    private String photomeUserdetailUsermusicurl;
+    private String photomeUserdetailUsercovername;
+
+    private String photomeUserdetailUsercovercode;
+
+    private String photomeUserdetailUsermusicname;
+
+    private String photomeUserdetailUsermusiccode;
 
     public Integer getPhotomeUserdetailId() {
         return photomeUserdetailId;
@@ -27,14 +31,6 @@ public class UserDetail {
         this.photomeUserdetailUsername = photomeUserdetailUsername == null ? null : photomeUserdetailUsername.trim();
     }
 
-    public String getPhotomeUserdetailUsercovercode() {
-        return photomeUserdetailUsercovercode;
-    }
-
-    public void setPhotomeUserdetailUsercovercode(String photomeUserdetailUsercovercode) {
-        this.photomeUserdetailUsercovercode = photomeUserdetailUsercovercode == null ? null : photomeUserdetailUsercovercode.trim();
-    }
-
     public String getPhotomeUserdetailUserintroduction() {
         return photomeUserdetailUserintroduction;
     }
@@ -43,11 +39,35 @@ public class UserDetail {
         this.photomeUserdetailUserintroduction = photomeUserdetailUserintroduction == null ? null : photomeUserdetailUserintroduction.trim();
     }
 
-    public String getPhotomeUserdetailUsermusicurl() {
-        return photomeUserdetailUsermusicurl;
+    public String getPhotomeUserdetailUsercovername() {
+        return photomeUserdetailUsercovername;
     }
 
-    public void setPhotomeUserdetailUsermusicurl(String photomeUserdetailUsermusicurl) {
-        this.photomeUserdetailUsermusicurl = photomeUserdetailUsermusicurl == null ? null : photomeUserdetailUsermusicurl.trim();
+    public void setPhotomeUserdetailUsercovername(String photomeUserdetailUsercovername) {
+        this.photomeUserdetailUsercovername = photomeUserdetailUsercovername == null ? null : photomeUserdetailUsercovername.trim();
+    }
+
+    public String getPhotomeUserdetailUsercovercode() {
+        return photomeUserdetailUsercovercode;
+    }
+
+    public void setPhotomeUserdetailUsercovercode(String photomeUserdetailUsercovercode) {
+        this.photomeUserdetailUsercovercode = photomeUserdetailUsercovercode == null ? null : photomeUserdetailUsercovercode.trim();
+    }
+
+    public String getPhotomeUserdetailUsermusicname() {
+        return photomeUserdetailUsermusicname;
+    }
+
+    public void setPhotomeUserdetailUsermusicname(String photomeUserdetailUsermusicname) {
+        this.photomeUserdetailUsermusicname = photomeUserdetailUsermusicname == null ? null : photomeUserdetailUsermusicname.trim();
+    }
+
+    public String getPhotomeUserdetailUsermusiccode() {
+        return photomeUserdetailUsermusiccode;
+    }
+
+    public void setPhotomeUserdetailUsermusiccode(String photomeUserdetailUsermusiccode) {
+        this.photomeUserdetailUsermusiccode = photomeUserdetailUsermusiccode == null ? null : photomeUserdetailUsermusiccode.trim();
     }
 }

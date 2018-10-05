@@ -17,29 +17,23 @@ public class UserPhotoController {
 
     @ResponseBody
     @RequestMapping(value = "/addPhoto" )
-    public int addUserPhoto(UserPhoto userPhoto){
-        return userPhotoService.addUserPhoto(userPhoto);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/deletePhoto" )
-    public int deleteUserPhoto(UserPhoto userPhoto){
-        return userPhotoService.deleteUserPhoto(userPhoto);
+    public Object addUserPhoto(UserPhoto userPhoto){
+        return userPhotoService.addPhoto(userPhoto);
     }
     @ResponseBody
-    @RequestMapping(value = "/updatePhoto" )
-    public int updateUserPhoto(UserPhoto userPhoto){
-        return userPhotoService.updateUserPhoto(userPhoto);
+    @RequestMapping(value = "/deleteByPhotoCode" )
+    public Object deleteUserPhoto(UserPhoto userPhoto){
+        return userPhotoService.deleteByPhotoCode(userPhoto);
     }
     @ResponseBody
-    @RequestMapping(value = "/getPhoto" )
-    public UserPhoto getUserPhoto(UserPhoto userPhoto){
-        return userPhotoService.getUserPhoto(userPhoto);
+    @RequestMapping(value = "/updateByPhotoCode" )
+    public Object updateUserPhoto(UserPhoto userPhoto){
+        return userPhotoService.updateByPhotoCode(userPhoto);
     }
     @ResponseBody
     @RequestMapping(value = "/getPhotoByPhotoCode" )
-    public Object getPhotoByPhotoCode(String photoCode){
-        return userPhotoService.getPhotoByPhotoCode(photoCode);
+    public Object getUserPhoto(UserPhoto userPhoto){
+        return userPhotoService.getPhotoByPhotoCode(userPhoto);
     }
     @ResponseBody
     @RequestMapping(value = "/getAllPhoto")
@@ -48,6 +42,6 @@ public class UserPhotoController {
                     int pageNum,
             @RequestParam(name="pageSize",required = false,defaultValue = "10")
                     int pageSize){
-        return userPhotoService.findAllUserPhoto(pageNum,pageSize);
+        return userPhotoService.getAllUserPhoto(pageNum,pageSize);
     }
 }

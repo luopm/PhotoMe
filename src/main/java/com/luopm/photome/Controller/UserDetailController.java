@@ -16,37 +16,31 @@ public class UserDetailController {
 
     @ResponseBody
     @RequestMapping(value = "/addDetail" )
-    public int addUserDetail(UserDetail userDetail){
+    public Object addUserDetail(UserDetail userDetail){
         return userDetailService.addUserDetail(userDetail);
     }
-
     @ResponseBody
     @RequestMapping(value = "/deleteDetail" )
-    public int deleteUserDetail(UserDetail userDetail){
+    public Object deleteUserDetail(UserDetail userDetail){
         return userDetailService.deleteUserDetail(userDetail);
     }
     @ResponseBody
     @RequestMapping(value = "/updateDetail" )
-    public int updateUserDetail(UserDetail userDetail){
+    public Object updateUserDetail(UserDetail userDetail){
         return userDetailService.updateUserDetail(userDetail);
     }
     @ResponseBody
     @RequestMapping(value = "/getDetail" )
-    public UserDetail getUserDetail(UserDetail userDetail){
-        return userDetailService.getUserDetail(userDetail);
-    }
-    @ResponseBody
-    @RequestMapping(value = "/getDetailByUserName" )
-    public Object getDetailByUserName(String userName){
-        return userDetailService.getDetailByUserName(userName);
+    public Object getUserDetail(UserDetail userDetail){
+        return userDetailService.getDetail(userDetail);
     }
     @ResponseBody
     @RequestMapping(value = "/getAllDetail")
-    public Object findAllUserDetail(
+    public Object getAllUserDetail(
             @RequestParam(name="pageNum",required = false,defaultValue = "1")
                     int pageNum,
             @RequestParam(name="pageSize",required = false,defaultValue = "10")
                     int pageSize){
-        return userDetailService.findAllUserDetail(pageNum,pageSize);
+        return userDetailService.getAllUserDetail(pageNum,pageSize);
     }
 }

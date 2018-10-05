@@ -17,31 +17,24 @@ public class UserMusicController {
 
     @ResponseBody
     @RequestMapping(value = "/addMusic" )
-    public int addUserMusic(UserMusic userMusic){
-        return userMusicService.addUserMusic(userMusic);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/deleteMusic" )
-    public int deleteUserMusic(UserMusic userMusic){
-        return userMusicService.deleteUserMusic(userMusic);
+    public Object addUserMusic(UserMusic userMusic){
+        return userMusicService.addMusic(userMusic);
     }
     @ResponseBody
-    @RequestMapping(value = "/updateMusic" )
-    public int updateUserMusic(UserMusic userMusic){
-        return userMusicService.updateUserMusic(userMusic);
+    @RequestMapping(value = "/deleteMusicByMusicCode" )
+    public Object deleteUserMusic(UserMusic userMusic){
+        return userMusicService.deleteMusicByMusicCode(userMusic);
     }
     @ResponseBody
-    @RequestMapping(value = "/getMusic" )
-    public UserMusic getUserMusic(UserMusic userMusic){
-        return userMusicService.getUserMusic(userMusic);
+    @RequestMapping(value = "/updateMusicByMusicCode" )
+    public Object updateUserMusic(UserMusic userMusic){
+        return userMusicService.updateMusicByMusicCode(userMusic);
     }
     @ResponseBody
-    @RequestMapping(value = "/getMusicByUserName" )
-    public Object getUserMusicByUserName(String userName){
-        return userMusicService.getUserMusicByUserName(userName);
+    @RequestMapping(value = "/getMusicByMusicCode" )
+    public Object getUserMusic(UserMusic userMusic){
+        return userMusicService.getMusicByMusicCode(userMusic);
     }
-
     @ResponseBody
     @RequestMapping(value = "/getAllMusic")
     public Object findAllUserMusic(
@@ -49,6 +42,6 @@ public class UserMusicController {
                     int pageNum,
             @RequestParam(name="pageSize",required = false,defaultValue = "10")
                     int pageSize){
-        return userMusicService.findAllUserMusic(pageNum,pageSize);
+        return userMusicService.getAllUserMusic(pageNum,pageSize);
     }
 }

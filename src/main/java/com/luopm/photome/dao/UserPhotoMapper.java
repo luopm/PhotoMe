@@ -10,9 +10,7 @@ public interface UserPhotoMapper {
 
     int deleteByExample(UserPhotoExample example);
 
-    int deleteByPrimaryKey(Integer photomeUserphotoId);
 
-    int insert(UserPhoto record);
 
     int insertSelective(UserPhoto record);
 
@@ -32,9 +30,13 @@ public interface UserPhotoMapper {
 
     int updateByPrimaryKeyWithBLOBs(UserPhoto record);
 
-    int updateByPrimaryKey(UserPhoto record);
+    int insert(UserPhoto record);
+
+    int updateByPhotoCode(UserPhoto record);
 
     List<UserPhoto> selectALLPhoto();
 
-    List<UserPhoto> selectPhotoByPhotoCode(String PhotoCode);
+    UserPhoto selectPhotoByPhotoCode(UserPhoto record);
+
+    int deleteByPhotoCode(UserPhoto record);
 }

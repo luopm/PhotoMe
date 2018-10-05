@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="com.luopm.photome.model.UserDetail" >
     <id column="photome_userdetail_id" property="photomeUserdetailId" jdbcType="INTEGER" />
     <result column="photome_userdetail_username" property="photomeUserdetailUsername" jdbcType="VARCHAR" />
-    <result column="photome_userdetail_usercovercode" property="photomeUserdetailUsercovercode" jdbcType="VARCHAR" />
     <result column="photome_userdetail_userintroduction" property="photomeUserdetailUserintroduction" jdbcType="VARCHAR" />
-    <result column="photome_userdetail_usermusicurl" property="photomeUserdetailUsermusicurl" jdbcType="VARCHAR" />
+    <result column="photome_userdetail_usercovername" property="photomeUserdetailUsercovername" jdbcType="VARCHAR" />
+    <result column="photome_userdetail_usercovercode" property="photomeUserdetailUsercovercode" jdbcType="VARCHAR" />
+    <result column="photome_userdetail_usermusicname" property="photomeUserdetailUsermusicname" jdbcType="VARCHAR" />
+    <result column="photome_userdetail_usermusiccode" property="photomeUserdetailUsermusiccode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,8 +69,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    photome_userdetail_id, photome_userdetail_username, photome_userdetail_usercovercode, 
-    photome_userdetail_userintroduction, photome_userdetail_usermusicurl
+    photome_userdetail_id, photome_userdetail_username, photome_userdetail_userintroduction, 
+    photome_userdetail_usercovername, photome_userdetail_usercovercode, photome_userdetail_usermusicname, 
+    photome_userdetail_usermusiccode
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserDetailExample" >
     select
@@ -91,37 +94,13 @@
     where photome_userdetail_id = #{photomeUserdetailId,jdbcType=INTEGER}
   </select>
 
-  <select id="selectALLDetail" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_userdetail
-  </select>
-
-  <select id="selectDetailByUserName" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_userdetail
-    where photome_userdetail_username = #{userName,jdbcType=VARCHAR}
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from photome_userdetail
-    where photome_userdetail_id = #{photomeUserdetailId,jdbcType=INTEGER}
-  </delete>
   <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserDetailExample" >
     delete from photome_userdetail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.luopm.photome.model.UserDetail" >
-    insert into photome_userdetail (photome_userdetail_id, photome_userdetail_username, 
-      photome_userdetail_usercovercode, photome_userdetail_userintroduction, 
-      photome_userdetail_usermusicurl)
-    values (#{photomeUserdetailId,jdbcType=INTEGER}, #{photomeUserdetailUsername,jdbcType=VARCHAR}, 
-      #{photomeUserdetailUsercovercode,jdbcType=VARCHAR}, #{photomeUserdetailUserintroduction,jdbcType=VARCHAR}, 
-      #{photomeUserdetailUsermusicurl,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.luopm.photome.model.UserDetail" >
     insert into photome_userdetail
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -131,14 +110,20 @@
       <if test="photomeUserdetailUsername != null" >
         photome_userdetail_username,
       </if>
-      <if test="photomeUserdetailUsercovercode != null" >
-        photome_userdetail_usercovercode,
-      </if>
       <if test="photomeUserdetailUserintroduction != null" >
         photome_userdetail_userintroduction,
       </if>
-      <if test="photomeUserdetailUsermusicurl != null" >
-        photome_userdetail_usermusicurl,
+      <if test="photomeUserdetailUsercovername != null" >
+        photome_userdetail_usercovername,
+      </if>
+      <if test="photomeUserdetailUsercovercode != null" >
+        photome_userdetail_usercovercode,
+      </if>
+      <if test="photomeUserdetailUsermusicname != null" >
+        photome_userdetail_usermusicname,
+      </if>
+      <if test="photomeUserdetailUsermusiccode != null" >
+        photome_userdetail_usermusiccode,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -148,14 +133,20 @@
       <if test="photomeUserdetailUsername != null" >
         #{photomeUserdetailUsername,jdbcType=VARCHAR},
       </if>
-      <if test="photomeUserdetailUsercovercode != null" >
-        #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
-      </if>
       <if test="photomeUserdetailUserintroduction != null" >
         #{photomeUserdetailUserintroduction,jdbcType=VARCHAR},
       </if>
-      <if test="photomeUserdetailUsermusicurl != null" >
-        #{photomeUserdetailUsermusicurl,jdbcType=VARCHAR},
+      <if test="photomeUserdetailUsercovername != null" >
+        #{photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsercovercode != null" >
+        #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsermusicname != null" >
+        #{photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsermusiccode != null" >
+        #{photomeUserdetailUsermusiccode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -174,14 +165,20 @@
       <if test="record.photomeUserdetailUsername != null" >
         photome_userdetail_username = #{record.photomeUserdetailUsername,jdbcType=VARCHAR},
       </if>
-      <if test="record.photomeUserdetailUsercovercode != null" >
-        photome_userdetail_usercovercode = #{record.photomeUserdetailUsercovercode,jdbcType=VARCHAR},
-      </if>
       <if test="record.photomeUserdetailUserintroduction != null" >
         photome_userdetail_userintroduction = #{record.photomeUserdetailUserintroduction,jdbcType=VARCHAR},
       </if>
-      <if test="record.photomeUserdetailUsermusicurl != null" >
-        photome_userdetail_usermusicurl = #{record.photomeUserdetailUsermusicurl,jdbcType=VARCHAR},
+      <if test="record.photomeUserdetailUsercovername != null" >
+        photome_userdetail_usercovername = #{record.photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserdetailUsercovercode != null" >
+        photome_userdetail_usercovercode = #{record.photomeUserdetailUsercovercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserdetailUsermusicname != null" >
+        photome_userdetail_usermusicname = #{record.photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photomeUserdetailUsermusiccode != null" >
+        photome_userdetail_usermusiccode = #{record.photomeUserdetailUsermusiccode,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -192,34 +189,70 @@
     update photome_userdetail
     set photome_userdetail_id = #{record.photomeUserdetailId,jdbcType=INTEGER},
       photome_userdetail_username = #{record.photomeUserdetailUsername,jdbcType=VARCHAR},
-      photome_userdetail_usercovercode = #{record.photomeUserdetailUsercovercode,jdbcType=VARCHAR},
       photome_userdetail_userintroduction = #{record.photomeUserdetailUserintroduction,jdbcType=VARCHAR},
-      photome_userdetail_usermusicurl = #{record.photomeUserdetailUsermusicurl,jdbcType=VARCHAR}
+      photome_userdetail_usercovername = #{record.photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      photome_userdetail_usercovercode = #{record.photomeUserdetailUsercovercode,jdbcType=VARCHAR},
+      photome_userdetail_usermusicname = #{record.photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      photome_userdetail_usermusiccode = #{record.photomeUserdetailUsermusiccode,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByUserName" parameterType="com.luopm.photome.model.UserDetail" >
-    update photome_userdetail
-    <set >
-      <if test="photomeUserdetailUsercovercode != null" >
-        photome_userdetail_usercovercode = #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserdetailUserintroduction != null" >
-        photome_userdetail_userintroduction = #{photomeUserdetailUserintroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserdetailUsermusicurl != null" >
-        photome_userdetail_usermusicurl = #{photomeUserdetailUsermusicurl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.luopm.photome.model.UserDetail" >
     update photome_userdetail
     set photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=VARCHAR},
-      photome_userdetail_usercovercode = #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
       photome_userdetail_userintroduction = #{photomeUserdetailUserintroduction,jdbcType=VARCHAR},
-      photome_userdetail_usermusicurl = #{photomeUserdetailUsermusicurl,jdbcType=VARCHAR}
+      photome_userdetail_usercovername = #{photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      photome_userdetail_usercovercode = #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
+      photome_userdetail_usermusicname = #{photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      photome_userdetail_usermusiccode = #{photomeUserdetailUsermusiccode,jdbcType=VARCHAR}
     where photome_userdetail_id = #{photomeUserdetailId,jdbcType=INTEGER}
   </update>
+
+  <insert id="insert" parameterType="com.luopm.photome.model.UserDetail" >
+    insert into photome_userdetail (photome_userdetail_id, photome_userdetail_username,
+      photome_userdetail_userintroduction, photome_userdetail_usercovername,
+      photome_userdetail_usercovercode, photome_userdetail_usermusicname,
+      photome_userdetail_usermusiccode)
+    values (#{photomeUserdetailId,jdbcType=INTEGER}, #{photomeUserdetailUsername,jdbcType=VARCHAR},
+      #{photomeUserdetailUserintroduction,jdbcType=VARCHAR}, #{photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      #{photomeUserdetailUsercovercode,jdbcType=VARCHAR}, #{photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      #{photomeUserdetailUsermusiccode,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectALLDetail" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userdetail
+  </select>
+  <select id="selectDetailByUserName" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserDetail" >
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userdetail
+    where photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByUserName" parameterType="com.luopm.photome.model.UserDetail" >
+    update photome_userdetail
+    <set >
+      <if test="photomeUserdetailUserintroduction != null" >
+        photome_userdetail_userintroduction = #{photomeUserdetailUserintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsercovername != null" >
+        photome_userdetail_usercovername = #{photomeUserdetailUsercovername,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsercovercode != null" >
+        photome_userdetail_usercovercode = #{photomeUserdetailUsercovercode,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsermusicname != null" >
+        photome_userdetail_usermusicname = #{photomeUserdetailUsermusicname,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserdetailUsermusiccode != null" >
+        photome_userdetail_usermusiccode = #{photomeUserdetailUsermusiccode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByUserName" parameterType="com.luopm.photome.model.UserDetail" >
+    delete from photome_userdetail
+    where photome_userdetail_username = #{photomeUserdetailUsername,jdbcType=VARCHAR}
+  </delete>
 </mapper>

@@ -10,10 +10,6 @@ public interface UserCommentMapper {
 
     int deleteByExample(UserCommentExample example);
 
-    int deleteByPrimaryKey(Integer photomeUsercommentId);
-
-    int insert(UserComment record);
-
     int insertSelective(UserComment record);
 
     List<UserComment> selectByExample(UserCommentExample example);
@@ -26,9 +22,15 @@ public interface UserCommentMapper {
 
     int updateByPrimaryKeySelective(UserComment record);
 
-    int updateByPrimaryKey(UserComment record);
+
+
+    int insert(UserComment record);
+
+    int updateComment(UserComment record);
 
     List<UserComment> selectALLComment();
 
-    List<UserComment> selectCommentByUserName(String userName);
+    UserComment selectCommentByUserName(UserComment record);
+
+    int deleteComment(UserComment record);
 }

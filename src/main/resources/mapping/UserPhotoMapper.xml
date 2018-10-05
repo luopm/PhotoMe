@@ -9,10 +9,9 @@
     <result column="photome_userphoto_photointroduction" property="photomeUserphotoPhotointroduction" jdbcType="VARCHAR" />
     <result column="photome_userphoto_photocreatdate" property="photomeUserphotoPhotocreatdate" jdbcType="TIMESTAMP" />
     <result column="photome_userphoto_photomodifydate" property="photomeUserphotoPhotomodifydate" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.luopm.photome.model.UserPhoto" extends="BaseResultMap" >
     <result column="photome_userphoto_photocontent" property="photomeUserphotoPhotocontent" jdbcType="LONGVARBINARY" />
   </resultMap>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -73,7 +72,8 @@
   </sql>
   <sql id="Base_Column_List" >
     photome_userphoto_id, photome_userphoto_photocode, photome_userphoto_photoname, photome_userphoto_photourl, 
-    photome_userphoto_photointroduction, photome_userphoto_photocreatdate, photome_userphoto_photomodifydate
+    photome_userphoto_photointroduction, photome_userphoto_photocreatdate, photome_userphoto_photomodifydate,
+    photome_userphoto_photocontent
   </sql>
   <sql id="Blob_Column_List" >
     photome_userphoto_photocontent
@@ -116,42 +116,12 @@
     from photome_userphoto
     where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
   </select>
-
-  <select id="selectALLPhoto" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_userphoto
-  </select>
-
-  <select id="selectPhotoByPhotoCode" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from photome_userphoto
-    where photome_userphoto_photocode = #{PhotoCode,jdbcType=VARCHAR}
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from photome_userphoto
-    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
-  </delete>
   <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserPhotoExample" >
     delete from photome_userphoto
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.luopm.photome.model.UserPhoto" >
-    insert into photome_userphoto (photome_userphoto_id, photome_userphoto_photocode, 
-      photome_userphoto_photoname, photome_userphoto_photourl, 
-      photome_userphoto_photointroduction, photome_userphoto_photocreatdate, 
-      photome_userphoto_photomodifydate, photome_userphoto_photocontent
-      )
-    values (#{photomeUserphotoId,jdbcType=INTEGER}, #{photomeUserphotoPhotocode,jdbcType=VARCHAR}, 
-      #{photomeUserphotoPhotoname,jdbcType=VARCHAR}, #{photomeUserphotoPhotourl,jdbcType=VARCHAR}, 
-      #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR}, #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP}, 
-      #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}, #{photomeUserphotoPhotocontent,jdbcType=LONGVARBINARY}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.luopm.photome.model.UserPhoto" >
     insert into photome_userphoto
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -272,33 +242,6 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luopm.photome.model.UserPhoto" >
-    update photome_userphoto
-    <set >
-      <if test="photomeUserphotoPhotocode != null" >
-        photome_userphoto_photocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserphotoPhotoname != null" >
-        photome_userphoto_photoname = #{photomeUserphotoPhotoname,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserphotoPhotourl != null" >
-        photome_userphoto_photourl = #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserphotoPhotointroduction != null" >
-        photome_userphoto_photointroduction = #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="photomeUserphotoPhotocreatdate != null" >
-        photome_userphoto_photocreatdate = #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="photomeUserphotoPhotomodifydate != null" >
-        photome_userphoto_photomodifydate = #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="photomeUserphotoPhotocontent != null" >
-        photome_userphoto_photocontent = #{photomeUserphotoPhotocontent,jdbcType=LONGVARBINARY},
-      </if>
-    </set>
-    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luopm.photome.model.UserPhoto" >
     update photome_userphoto
     set photome_userphoto_photocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
@@ -320,4 +263,53 @@
       photome_userphoto_photomodifydate = #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}
     where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
   </update>
+
+  <insert id="insert" parameterType="com.luopm.photome.model.UserPhoto" >
+    insert into photome_userphoto (photome_userphoto_id, photome_userphoto_photocode,
+      photome_userphoto_photoname, photome_userphoto_photourl,
+      photome_userphoto_photointroduction, photome_userphoto_photocreatdate,
+      photome_userphoto_photomodifydate, photome_userphoto_photocontent
+      )
+    values (#{photomeUserphotoId,jdbcType=INTEGER}, #{photomeUserphotoPhotocode,jdbcType=VARCHAR},
+      #{photomeUserphotoPhotoname,jdbcType=VARCHAR}, #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR}, #{photomeUserphotoPhotocreatdate,jdbcType=TIMESTAMP},
+      #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP}, #{photomeUserphotoPhotocontent,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <select id="selectALLPhoto" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userphoto
+  </select>
+  <select id="selectPhotoByPhotoCode" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserPhoto">
+    select
+    <include refid="Base_Column_List"/>
+    from photome_userphoto
+    where photome_userphoto_photocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByPhotoCode" parameterType="com.luopm.photome.model.UserPhoto" >
+    update photome_userphoto
+    <set >
+      <if test="photomeUserphotoPhotoname != null" >
+        photome_userphoto_photoname = #{photomeUserphotoPhotoname,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotourl != null" >
+        photome_userphoto_photourl = #{photomeUserphotoPhotourl,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotointroduction != null" >
+        photome_userphoto_photointroduction = #{photomeUserphotoPhotointroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="photomeUserphotoPhotomodifydate != null" >
+        photome_userphoto_photomodifydate = #{photomeUserphotoPhotomodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photomeUserphotoPhotocontent != null" >
+        photome_userphoto_photocontent = #{photomeUserphotoPhotocontent,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where photomeUserphotoPhotocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPhotoCode" parameterType="com.luopm.photome.model.UserPhoto" >
+    delete from photome_userphoto
+    where photomeUserphotoPhotocode = #{photomeUserphotoPhotocode,jdbcType=VARCHAR}
+  </delete>
 </mapper>

@@ -11,9 +11,7 @@ public interface UserMusicMapper {
 
     int deleteByExample(UserMusicExample example);
 
-    int deleteByPrimaryKey(Integer photomeUsermusicId);
 
-    int insert(UserMusic record);
 
     int insertSelective(UserMusic record);
 
@@ -33,9 +31,13 @@ public interface UserMusicMapper {
 
     int updateByPrimaryKeyWithBLOBs(UserMusicWithBLOBs record);
 
-    int updateByPrimaryKey(UserMusic record);
+    int insert(UserMusic record);
+
+    int deleteMusicByMusicCode(UserMusic record);
+
+    int updateByMusicCode(UserMusic record);
 
     List<UserMusic> selectALLMusic();
 
-    List<UserMusic> selectMusicByUserName(String UserName);
+    UserMusic selectByMusicCode(UserMusic record);
 }

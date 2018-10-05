@@ -234,76 +234,6 @@ public class UserDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsercovercodeIsNull() {
-            addCriterion("photome_userdetail_usercovercode is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeIsNotNull() {
-            addCriterion("photome_userdetail_usercovercode is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeEqualTo(String value) {
-            addCriterion("photome_userdetail_usercovercode =", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeNotEqualTo(String value) {
-            addCriterion("photome_userdetail_usercovercode <>", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeGreaterThan(String value) {
-            addCriterion("photome_userdetail_usercovercode >", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeGreaterThanOrEqualTo(String value) {
-            addCriterion("photome_userdetail_usercovercode >=", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeLessThan(String value) {
-            addCriterion("photome_userdetail_usercovercode <", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeLessThanOrEqualTo(String value) {
-            addCriterion("photome_userdetail_usercovercode <=", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeLike(String value) {
-            addCriterion("photome_userdetail_usercovercode like", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeNotLike(String value) {
-            addCriterion("photome_userdetail_usercovercode not like", value, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeIn(List<String> values) {
-            addCriterion("photome_userdetail_usercovercode in", values, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeNotIn(List<String> values) {
-            addCriterion("photome_userdetail_usercovercode not in", values, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeBetween(String value1, String value2) {
-            addCriterion("photome_userdetail_usercovercode between", value1, value2, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
-        public Criteria andPhotomeUserdetailUsercovercodeNotBetween(String value1, String value2) {
-            addCriterion("photome_userdetail_usercovercode not between", value1, value2, "photomeUserdetailUsercovercode");
-            return (Criteria) this;
-        }
-
         public Criteria andPhotomeUserdetailUserintroductionIsNull() {
             addCriterion("photome_userdetail_userintroduction is null");
             return (Criteria) this;
@@ -374,73 +304,283 @@ public class UserDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlIsNull() {
-            addCriterion("photome_userdetail_usermusicurl is null");
+        public Criteria andPhotomeUserdetailUsercovernameIsNull() {
+            addCriterion("photome_userdetail_usercovername is null");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlIsNotNull() {
-            addCriterion("photome_userdetail_usermusicurl is not null");
+        public Criteria andPhotomeUserdetailUsercovernameIsNotNull() {
+            addCriterion("photome_userdetail_usercovername is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlEqualTo(String value) {
-            addCriterion("photome_userdetail_usermusicurl =", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovername =", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlNotEqualTo(String value) {
-            addCriterion("photome_userdetail_usermusicurl <>", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameNotEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovername <>", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlGreaterThan(String value) {
-            addCriterion("photome_userdetail_usermusicurl >", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameGreaterThan(String value) {
+            addCriterion("photome_userdetail_usercovername >", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlGreaterThanOrEqualTo(String value) {
-            addCriterion("photome_userdetail_usermusicurl >=", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameGreaterThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovername >=", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlLessThan(String value) {
-            addCriterion("photome_userdetail_usermusicurl <", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameLessThan(String value) {
+            addCriterion("photome_userdetail_usercovername <", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlLessThanOrEqualTo(String value) {
-            addCriterion("photome_userdetail_usermusicurl <=", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameLessThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovername <=", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlLike(String value) {
-            addCriterion("photome_userdetail_usermusicurl like", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameLike(String value) {
+            addCriterion("photome_userdetail_usercovername like", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlNotLike(String value) {
-            addCriterion("photome_userdetail_usermusicurl not like", value, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameNotLike(String value) {
+            addCriterion("photome_userdetail_usercovername not like", value, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlIn(List<String> values) {
-            addCriterion("photome_userdetail_usermusicurl in", values, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameIn(List<String> values) {
+            addCriterion("photome_userdetail_usercovername in", values, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlNotIn(List<String> values) {
-            addCriterion("photome_userdetail_usermusicurl not in", values, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameNotIn(List<String> values) {
+            addCriterion("photome_userdetail_usercovername not in", values, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlBetween(String value1, String value2) {
-            addCriterion("photome_userdetail_usermusicurl between", value1, value2, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usercovername between", value1, value2, "photomeUserdetailUsercovername");
             return (Criteria) this;
         }
 
-        public Criteria andPhotomeUserdetailUsermusicurlNotBetween(String value1, String value2) {
-            addCriterion("photome_userdetail_usermusicurl not between", value1, value2, "photomeUserdetailUsermusicurl");
+        public Criteria andPhotomeUserdetailUsercovernameNotBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usercovername not between", value1, value2, "photomeUserdetailUsercovername");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeIsNull() {
+            addCriterion("photome_userdetail_usercovercode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeIsNotNull() {
+            addCriterion("photome_userdetail_usercovercode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovercode =", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeNotEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovercode <>", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeGreaterThan(String value) {
+            addCriterion("photome_userdetail_usercovercode >", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeGreaterThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovercode >=", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeLessThan(String value) {
+            addCriterion("photome_userdetail_usercovercode <", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeLessThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usercovercode <=", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeLike(String value) {
+            addCriterion("photome_userdetail_usercovercode like", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeNotLike(String value) {
+            addCriterion("photome_userdetail_usercovercode not like", value, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeIn(List<String> values) {
+            addCriterion("photome_userdetail_usercovercode in", values, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeNotIn(List<String> values) {
+            addCriterion("photome_userdetail_usercovercode not in", values, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usercovercode between", value1, value2, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsercovercodeNotBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usercovercode not between", value1, value2, "photomeUserdetailUsercovercode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameIsNull() {
+            addCriterion("photome_userdetail_usermusicname is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameIsNotNull() {
+            addCriterion("photome_userdetail_usermusicname is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusicname =", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameNotEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusicname <>", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameGreaterThan(String value) {
+            addCriterion("photome_userdetail_usermusicname >", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameGreaterThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusicname >=", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameLessThan(String value) {
+            addCriterion("photome_userdetail_usermusicname <", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameLessThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusicname <=", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameLike(String value) {
+            addCriterion("photome_userdetail_usermusicname like", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameNotLike(String value) {
+            addCriterion("photome_userdetail_usermusicname not like", value, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameIn(List<String> values) {
+            addCriterion("photome_userdetail_usermusicname in", values, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameNotIn(List<String> values) {
+            addCriterion("photome_userdetail_usermusicname not in", values, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usermusicname between", value1, value2, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusicnameNotBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usermusicname not between", value1, value2, "photomeUserdetailUsermusicname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeIsNull() {
+            addCriterion("photome_userdetail_usermusiccode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeIsNotNull() {
+            addCriterion("photome_userdetail_usermusiccode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusiccode =", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeNotEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusiccode <>", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeGreaterThan(String value) {
+            addCriterion("photome_userdetail_usermusiccode >", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeGreaterThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusiccode >=", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeLessThan(String value) {
+            addCriterion("photome_userdetail_usermusiccode <", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeLessThanOrEqualTo(String value) {
+            addCriterion("photome_userdetail_usermusiccode <=", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeLike(String value) {
+            addCriterion("photome_userdetail_usermusiccode like", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeNotLike(String value) {
+            addCriterion("photome_userdetail_usermusiccode not like", value, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeIn(List<String> values) {
+            addCriterion("photome_userdetail_usermusiccode in", values, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeNotIn(List<String> values) {
+            addCriterion("photome_userdetail_usermusiccode not in", values, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usermusiccode between", value1, value2, "photomeUserdetailUsermusiccode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotomeUserdetailUsermusiccodeNotBetween(String value1, String value2) {
+            addCriterion("photome_userdetail_usermusiccode not between", value1, value2, "photomeUserdetailUsermusiccode");
             return (Criteria) this;
         }
     }

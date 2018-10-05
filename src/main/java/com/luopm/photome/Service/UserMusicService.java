@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.luopm.photome.dao.UserMapper;
 import com.luopm.photome.dao.UserMusicMapper;
+import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.User;
 import com.luopm.photome.model.UserMusic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +19,67 @@ public class UserMusicService {
     @Autowired
     private UserMusicMapper userMusicMapper;
 
-    public int addUserMusic(UserMusic userMusic){
+    public ResponseUtil addMusic(UserMusic userMusic){
         userMusic.setPhotomeUsermusicMusiccreatdate(new Date());
-        userMusic.setPhotomeUsermusicMusicuser("<"+userMusic.getPhotomeUsermusicMusicuser()+">");
-        return userMusicMapper.insert(userMusic);
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (userMusicMapper.insert(userMusic) == 1){
+                responseUtil.setResultObject(userMusic);
+                responseUtil.setResultCode(1);
+                responseUtil.setResultMsg("新增音乐成功");
+            }
+        }catch (Exception e){
+            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultCode(0);
+            responseUtil.setResultMsg("操作失败");
+        }
+        return responseUtil;
     }
 
-    public int deleteUserMusic(UserMusic userMusic){
-        return userMusicMapper.deleteByPrimaryKey(userMusic.getPhotomeUsermusicId());
+    public ResponseUtil deleteMusicByMusicCode(UserMusic userMusic){
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (userMusicMapper.deleteMusicByMusicCode(userMusic) == 1){
+                responseUtil.setResultObject(userMusic);
+                responseUtil.setResultCode(1);
+                responseUtil.setResultMsg("删除音乐成功");
+            }
+        }catch (Exception e){
+            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultCode(0);
+            responseUtil.setResultMsg("操作失败");
+        }
+        return responseUtil;
     }
 
-    public int updateUserMusic(UserMusic userMusic){
-
-        return userMusicMapper.updateByPrimaryKey(userMusic);
+    public ResponseUtil updateMusicByMusicCode(UserMusic userMusic){
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (userMusicMapper.updateByMusicCode(userMusic) == 1){
+                responseUtil.setResultObject(userMusicMapper.selectByMusicCode(userMusic));
+                responseUtil.setResultCode(1);
+                responseUtil.setResultMsg("更新音乐成功");
+            }
+        }catch (Exception e){
+            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultCode(0);
+            responseUtil.setResultMsg("操作失败");
+        }
+        return responseUtil;
     }
-    public UserMusic getUserMusic(UserMusic userMusic){
-        return userMusicMapper.selectByPrimaryKey(userMusic.getPhotomeUsermusicId());
-    }
 
-    public Object getUserMusicByUserName(String userName){
-        return userMusicMapper.selectMusicByUserName(userName);
+    public ResponseUtil getMusicByMusicCode(UserMusic userMusic){
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            responseUtil.setResultObject(userMusicMapper.selectByMusicCode(userMusic));
+            responseUtil.setResultCode(1);
+            responseUtil.setResultMsg("获取音乐成功");
+        }catch (Exception e){
+            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultCode(0);
+            responseUtil.setResultMsg("操作失败");
+        }
+        return responseUtil;
     }
 
     /*
@@ -46,12 +88,21 @@ public class UserMusicService {
      * pageNum 开始页数
      * pageSize 每页显示的数据条数
      * */
-    public PageInfo<UserMusic> findAllUserMusic(int pageNum, int pageSize) {
-        //将参数传给这个方法就可以实现物理分页了，非常简单。
-        PageHelper.startPage(pageNum, pageSize);
-        List<UserMusic> userMusicList = userMusicMapper.selectALLMusic();
-        PageInfo result = new PageInfo(userMusicList);
-        return result;
+    public ResponseUtil getAllUserMusic(int pageNum, int pageSize) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            //将参数传给这个方法就可以实现物理分页了，非常简单。
+            PageHelper.startPage(pageNum, pageSize);
+            List<UserMusic> userMusicList = userMusicMapper.selectALLMusic();
+            PageInfo result = new PageInfo(userMusicList);
+            responseUtil.setResultObject(result);
+            responseUtil.setResultCode(1);
+            responseUtil.setResultMsg("获取音乐成功");
+        }catch (Exception e){
+            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultCode(0);
+            responseUtil.setResultMsg("操作失败");
+        }
+        return responseUtil;
     }
-
 }

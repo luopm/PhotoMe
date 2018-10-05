@@ -17,38 +17,32 @@ public class UserCommentController {
 
     @ResponseBody
     @RequestMapping(value = "/addComment" )
-    public int addUserComment(UserComment userComment){
+    public Object addUserComment(UserComment userComment){
         return userCommentService.addUserComment(userComment);
     }
 
     @ResponseBody
     @RequestMapping(value = "/deleteComment" )
-    public int deleteUserComment(UserComment userComment){
+    public Object deleteUserComment(UserComment userComment){
         return userCommentService.deleteUserComment(userComment);
     }
     @ResponseBody
     @RequestMapping(value = "/updateComment" )
-    public int updateUserComment(UserComment userComment){
+    public Object updateUserComment(UserComment userComment){
         return userCommentService.updateUserComment(userComment);
     }
     @ResponseBody
-    @RequestMapping(value = "/getComment" )
-    public UserComment getUserComment(UserComment userComment){
-        return userCommentService.getUserComment(userComment);
-    }
-    @ResponseBody
     @RequestMapping(value = "/getCommentByUserName" )
-    public Object getCommentByUserName(String userName){
-        return userCommentService.getCommentByUserName(userName);
+    public Object getUserCommentByUserName(UserComment userComment){
+        return userCommentService.getUserCommentByUserName(userComment);
     }
-
     @ResponseBody
     @RequestMapping(value = "/getAllComment")
-    public Object findAllUserComment(
+    public Object getAllUserComment(
             @RequestParam(name="pageNum",required = false,defaultValue = "1")
                     int pageNum,
             @RequestParam(name="pageSize",required = false,defaultValue = "10")
                     int pageSize){
-        return userCommentService.findAllUserComment(pageNum,pageSize);
+        return userCommentService.getAllUserComment(pageNum,pageSize);
     }
 }

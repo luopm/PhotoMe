@@ -42,21 +42,21 @@
         </javaClientGenerator>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="photome_user"
-               domainObjectName="User">
-        </table>
-        <table tableName="photome_usercomment"
-               domainObjectName="UserComment">
-        </table>
+        <!--<table tableName="photome_user"-->
+               <!--domainObjectName="User">-->
+        <!--</table>-->
+        <!--<table tableName="photome_usercomment"-->
+               <!--domainObjectName="UserComment">-->
+        <!--</table>-->
         <table tableName="photome_userdetail"
                domainObjectName="UserDetail">
         </table>
-        <table tableName="photome_usermusic"
-               domainObjectName="UserMusic">
-        </table>
-        <table tableName="photome_userphoto"
-               domainObjectName="UserPhoto">
-        </table>
+        <!--<table tableName="photome_usermusic"-->
+               <!--domainObjectName="UserMusic">-->
+        <!--</table>-->
+        <!--<table tableName="photome_userphoto"-->
+               <!--domainObjectName="UserPhoto">-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>
         <!--enableCountByExample="true"-->
