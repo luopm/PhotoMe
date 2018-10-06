@@ -34,7 +34,7 @@ define(['text!../templates/photo.html'],
                         that.loadCoverPhoto(result.resultObject.coverPhoto,'.img'+ num);
                         that.loadComment(result.resultOtherObj.userComment,'.comment'+ num +' .commentList');
                         that.loadMusic(result.resultOtherObj.userMusic,'.music'+ num +' .musicList');
-                    }else alert("加载photo模块用户详情："+result.resultObject);
+                    }else alert("加载photo模块用户详情："+result.resultMsg);
 
                 }
             });

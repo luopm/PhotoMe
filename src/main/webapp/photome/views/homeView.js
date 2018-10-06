@@ -33,7 +33,7 @@ define(['text!../templates/home.html',
                             })(i);
 
                         }
-                    }else alert("加载用户："+result.resultObject);
+                    }else alert("加载用户："+result.resultMsg);
                 }
             });
         },
