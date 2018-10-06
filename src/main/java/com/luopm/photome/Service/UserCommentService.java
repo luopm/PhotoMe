@@ -3,10 +3,8 @@ package com.luopm.photome.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.luopm.photome.dao.UserCommentMapper;
-import com.luopm.photome.dao.UserMusicMapper;
 import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.UserComment;
-import com.luopm.photome.model.UserMusic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +19,12 @@ public class UserCommentService {
     public ResponseUtil addUserComment(UserComment userComment){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userCommentMapper.insert(userComment) == 1){
-                responseUtil.setResultObject(userComment);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("新增用户评论成功");
+            if (userCommentMapper.insert(userComment) >= 1){
+                responseUtil.setResponseUtil(1, "新增用户评论成功",
+                        userComment,null);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -37,15 +32,12 @@ public class UserCommentService {
     public ResponseUtil deleteUserComment(UserComment userComment){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userCommentMapper.deleteComment(userComment) == 1){
-                responseUtil.setResultObject(userComment);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("删除用户评论成功");
+            if (userCommentMapper.deleteComment(userComment) >= 1){
+                responseUtil.setResponseUtil(1, "删除用户评论成功",
+                        userComment,null);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -53,15 +45,12 @@ public class UserCommentService {
     public ResponseUtil updateUserComment(UserComment userComment){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userCommentMapper.updateComment(userComment) == 1){
-                responseUtil.setResultObject(userCommentMapper.selectCommentByUserName(userComment));
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("更新用户评论成功");
+            if (userCommentMapper.updateComment(userComment) >= 1){
+                responseUtil.setResponseUtil(1, "更新用户评论成功",
+                        userCommentMapper.selectCommentByUserName(userComment),null);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -69,13 +58,10 @@ public class UserCommentService {
     public ResponseUtil getUserCommentByUserName(UserComment userComment){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResultObject(userCommentMapper.selectCommentByUserName(userComment));
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户评论成功");
+            responseUtil.setResponseUtil(1, "获取用户评论成功",
+                    userCommentMapper.selectCommentByUserName(userComment),null);
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -92,13 +78,10 @@ public class UserCommentService {
             PageHelper.startPage(pageNum, pageSize);
             List<UserComment> userCommentList = userCommentMapper.selectALLComment();
             PageInfo result = new PageInfo(userCommentList);
-            responseUtil.setResultObject(result);
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户评论成功");
+            responseUtil.setResponseUtil(1, "获取用户评论成功",
+                    result,null);
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }

@@ -21,12 +21,12 @@ public class UserPhotoController {
         return userPhotoService.addPhoto(userPhoto);
     }
     @ResponseBody
-    @RequestMapping(value = "/deleteByPhotoCode" )
+    @RequestMapping(value = "/deletePhotoByPhotoCode" )
     public Object deleteUserPhoto(UserPhoto userPhoto){
         return userPhotoService.deleteByPhotoCode(userPhoto);
     }
     @ResponseBody
-    @RequestMapping(value = "/updateByPhotoCode" )
+    @RequestMapping(value = "/updatePhotoByPhotoCode" )
     public Object updateUserPhoto(UserPhoto userPhoto){
         return userPhotoService.updateByPhotoCode(userPhoto);
     }

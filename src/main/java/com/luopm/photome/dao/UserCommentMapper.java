@@ -3,8 +3,11 @@ package com.luopm.photome.dao;
 import com.luopm.photome.model.UserComment;
 import com.luopm.photome.model.UserCommentExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserCommentMapper {
     int countByExample(UserCommentExample example);
 
@@ -30,7 +33,7 @@ public interface UserCommentMapper {
 
     List<UserComment> selectALLComment();
 
-    UserComment selectCommentByUserName(UserComment record);
+    List<UserComment> selectCommentByUserName(UserComment record);
 
     int deleteComment(UserComment record);
 }

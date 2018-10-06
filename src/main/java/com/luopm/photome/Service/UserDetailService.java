@@ -2,32 +2,46 @@ package com.luopm.photome.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.luopm.photome.dao.UserDetailMapper;
-import com.luopm.photome.model.ResponseUtil;
-import com.luopm.photome.model.UserDetail;
+import com.luopm.photome.dao.*;
+import com.luopm.photome.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.*;
 
 @Service("userDetailService")
 public class UserDetailService {
 
     @Autowired
     private UserDetailMapper userDetailMapper;
+    @Autowired
+    private UserPhotoMapper userPhotoMapper;
+    @Autowired
+    private UserMusicMapper userMusicMapper;
+    @Autowired
+    private UserCommentMapper userCommentMapper;
+    @Autowired
+    private UserNameToMusicCodeMapper userNameToMusicCodeMapper;
+    @Autowired
+    private UserNameToPhotoCodeMapper userNameToPhotoCodeMapper;
+    @Autowired
+    private UserPhotoService userPhotoService;
+    @Autowired
+    private UserNameToMusicCodeService userNameToMusicCodeService;
+    @Autowired
+    private UserNameToPhotoCodeService userNameToPhotoCodeService;
 
     public ResponseUtil addUserDetail(UserDetail userDetail){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userDetailMapper.insert(userDetail) == 1){
-                responseUtil.setResultObject(userDetail);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("新增用户详情成功");
+            if (userDetailMapper.insert(userDetail) >= 1){
+                UserNameToPhotoCode userNameToPhotoCode  = new UserNameToPhotoCode();//注册NameToPhoto
+                userNameToPhotoCode.setUsername(userDetail.getPhotomeUserdetailUsername());
+                userNameToPhotoCode.setPhotocode(userDetail.getPhotomeUserdetailUsercovercode());
+                responseUtil.setResponseUtil(1, "新增用户详情成功",
+                        userDetail,userNameToPhotoCodeService.addUTC(userNameToPhotoCode));
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -35,15 +49,19 @@ public class UserDetailService {
     public ResponseUtil deleteUserDetail(UserDetail userDetail){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userDetailMapper.deleteByUserName(userDetail) == 1){
-                responseUtil.setResultObject(userDetail);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("删除用户详情成功");
+            if (userDetailMapper.deleteByUserName(userDetail) >= 1){
+                UserNameToPhotoCode userNameToPhotoCode  = new UserNameToPhotoCode();//删除NameToPhoto
+                userNameToPhotoCode.setUsername(userDetail.getPhotomeUserdetailUsername());
+                UserNameToMusicCode userNameToMusicCode = new UserNameToMusicCode();//删除NameToMsuic
+                userNameToMusicCode.setUsername(userDetail.getPhotomeUserdetailUsername());
+                ArrayList<Object> arrayList = new ArrayList<Object>();
+                arrayList.add(userNameToPhotoCodeService.deleteByUTC(userNameToPhotoCode));
+                arrayList.add(userNameToMusicCodeService.deleteByUTC(userNameToMusicCode));
+                responseUtil.setResponseUtil(1, "删除用户详情成功",
+                        userDetail,arrayList);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -51,15 +69,17 @@ public class UserDetailService {
     public ResponseUtil updateUserDetail(UserDetail userDetail){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userDetailMapper.updateByUserName(userDetail) == 1){
-                responseUtil.setResultObject(userDetailMapper.selectDetailByUserName(userDetail));
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("更新用户详情成功");
+            if (userDetailMapper.updateByUserName(userDetail) >= 1){
+                userDetail = userDetailMapper.selectDetailByUserName(userDetail);//取得更新后的userDetail
+//                UserPhoto userPhoto = new UserPhoto();//取得封面Photo
+//                userPhoto.setPhotomeUserphotoPhotocode(userDetail.getPhotomeUserdetailUsercovercode());
+//                UserMusic userMusic = new UserMusic();//取得主题Music
+//                userMusic.setPhotomeUsermusicMusiccode(userDetail.getPhotomeUserdetailUsermusiccode());
+                responseUtil.setResponseUtil(1, "更新用户详情成功",
+                        userDetail,null);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -67,13 +87,19 @@ public class UserDetailService {
     public ResponseUtil getDetail(UserDetail userDetail){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResultObject(userDetailMapper.selectDetailByUserName(userDetail));
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户详情成功");
+            userDetail = userDetailMapper.selectDetailByUserName(userDetail);//取得个人信息
+            UserPhoto userPhoto = new UserPhoto();//取得封面Photo
+            userPhoto.setPhotomeUserphotoPhotocode(userDetail.getPhotomeUserdetailUsercovercode());
+            UserMusic userMusic = new UserMusic();//取得主题Music
+            userMusic.setPhotomeUsermusicMusiccode(userDetail.getPhotomeUserdetailUsermusiccode());
+            ArrayList<Object> arrayList = new ArrayList<Object>();
+            arrayList.add(userDetail);
+            arrayList.add(userPhotoMapper.selectPhotoByPhotoCode(userPhoto));
+            arrayList.add(userMusicMapper.selectByMusicCode(userMusic));
+            responseUtil.setResponseUtil(1, "获取用户详情成功",
+                    arrayList,getAllMusicPhotoComment(userDetail));
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -90,15 +116,44 @@ public class UserDetailService {
             PageHelper.startPage(pageNum, pageSize);
             List<UserDetail> userDetailList = userDetailMapper.selectALLDetail();
             PageInfo result = new PageInfo(userDetailList);
-            responseUtil.setResultObject(result);
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户成功");
+            responseUtil.setResponseUtil(1, "获取用户详情成功",
+                    result, userPhotoService.getAllUserPhoto(pageNum, pageSize));
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
+    }
+
+    public Object getAllMusicPhotoComment(UserDetail userDetail){
+        ArrayList<UserMusic> userMusicArrayList = new ArrayList<UserMusic>();
+        ArrayList<UserPhoto> userPhotoArrayList = new ArrayList<UserPhoto>();
+        ArrayList<Object> resultArrayList = new ArrayList<Object>();
+        //取得Music
+        UserNameToMusicCode userNameToMusicCode = new UserNameToMusicCode();
+        userNameToMusicCode.setUsername(userDetail.getPhotomeUserdetailUsername());
+        List<UserNameToMusicCode> userNameToMusicCodeList = userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode);
+        UserMusic userMusic = new UserMusic();
+        for (int i=0;i<userNameToMusicCodeList.size();i++){
+            userMusic.setPhotomeUsermusicMusiccode(userNameToMusicCodeList.get(i).getMusiccode());
+            userMusicArrayList.add(userMusicMapper.selectByMusicCode(userMusic));
+        }
+        //取得Photo
+        UserNameToPhotoCode userNameToPhotoCode = new UserNameToPhotoCode();
+        userNameToPhotoCode.setUsername(userDetail.getPhotomeUserdetailUsername());
+        List<UserNameToPhotoCode> userNameToPhotoCodeList = userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode);
+        UserPhoto userPhoto = new UserPhoto();
+        for (int i=0;i<userNameToPhotoCodeList.size();i++){
+            userPhoto.setPhotomeUserphotoPhotocode(userNameToPhotoCodeList.get(i).getPhotocode());
+            userPhotoArrayList.add(userPhotoMapper.selectPhotoByPhotoCode(userPhoto));
+        }
+        //取得评论
+        UserComment userComment = new UserComment();
+        userComment.setPhotomeUsercommentCommenteduser(userDetail.getPhotomeUserdetailUsername());
+        List<UserComment> userCommentList = userCommentMapper.selectCommentByUserName(userComment);
+        resultArrayList.add(userMusicArrayList);
+        resultArrayList.add(userPhotoArrayList);
+        resultArrayList.add(userCommentList);
+        return resultArrayList;
     }
 
 }

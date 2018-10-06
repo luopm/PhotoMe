@@ -4,14 +4,15 @@ import com.luopm.photome.model.UserMusic;
 import com.luopm.photome.model.UserMusicExample;
 import com.luopm.photome.model.UserMusicWithBLOBs;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserMusicMapper {
     int countByExample(UserMusicExample example);
 
     int deleteByExample(UserMusicExample example);
-
-
 
     int insertSelective(UserMusic record);
 

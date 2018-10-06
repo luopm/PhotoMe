@@ -5,9 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.luopm.photome.dao.UserMapper;
 import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.User;
+import com.luopm.photome.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -16,23 +16,24 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserDetailService userDetailService;
 
     public ResponseUtil Login(User user){
-        ResponseUtil responseUtil = new ResponseUtil(1,"登录成功",null);
+        ResponseUtil responseUtil = new ResponseUtil();
         try {
             User Ruser = userMapper.selectUsersByUserName(user);
             if (Ruser == null){
                 responseUtil.setResultCode(-1);
                 responseUtil.setResultMsg("用户不存在");
             }
-            else if (!Ruser.getPhotomeUserUserpassword().equals(user.getPhotomeUserUserpassword())){
-                responseUtil.setResultCode(0);
-                responseUtil.setResultMsg("密码错误");
+            else if ( Ruser.getPhotomeUserUserpassword().equals(user.getPhotomeUserUserpassword()) ){
+                responseUtil.setResultCode(1);
+                responseUtil.setResultMsg("登录成功");
+                responseUtil.setResultObject(Ruser);
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -41,15 +42,14 @@ public class UserService {
         user.setPhotomeUserUsercreatdate(new Date());
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userMapper.insert(user) == 1){
-                responseUtil.setResultObject(user);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("新增用户成功");
+            if (userMapper.insert(user) >= 1){
+                UserDetail userDetail = new UserDetail();//注册用户详情
+                userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
+                responseUtil.setResponseUtil(1, "新增用户成功",
+                        user,userDetailService.addUserDetail(userDetail));
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -57,15 +57,14 @@ public class UserService {
     public ResponseUtil deleteUser(User user){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userMapper.deleteByUserName(user) == 1){
-                responseUtil.setResultObject(user);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("删除用户成功");
+            if (userMapper.deleteByUserName(user) >= 1){
+                UserDetail userDetail = new UserDetail();//删除用户详情
+                userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
+                responseUtil.setResponseUtil(1, "删除用户成功",
+                        user,userDetailService.deleteUserDetail(userDetail));
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -73,15 +72,15 @@ public class UserService {
     public ResponseUtil updateUser(User user){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userMapper.updateUser(user) == 1){
-                responseUtil.setResultObject(userMapper.selectUsersByUserName(user));
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("更新用户成功");
+            if (userMapper.updateUser(user) >= 1){
+                UserDetail userDetail = new UserDetail();//获取用户详情
+                userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
+                responseUtil.setResponseUtil(1, "修改用户成功",
+                        userMapper.selectUsersByUserName(user),
+                        userDetailService.getDetail(userDetail));
             }
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -89,13 +88,12 @@ public class UserService {
     public ResponseUtil getUser(User user){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResultObject(userMapper.selectUsersByUserName(user));
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户成功");
+            UserDetail userDetail = new UserDetail();//获取用户详情
+            userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
+            responseUtil.setResponseUtil(1, "获取用户成功",
+                    userMapper.selectUsersByUserName(user), userDetailService.getDetail(userDetail));
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }
@@ -113,13 +111,10 @@ public class UserService {
             PageHelper.startPage(pageNum, pageSize);
             List<User> userList = userMapper.selectALLUsers();
             PageInfo result = new PageInfo(userList);
-            responseUtil.setResultObject(result);
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("获取用户成功");
+            responseUtil.setResponseUtil(1, "获取用户成功",
+                    result, userDetailService.getAllUserDetail(pageNum,pageSize));//获取All用户详情
         }catch (Exception e){
             responseUtil.setResultObject(e.getMessage());
-            responseUtil.setResultCode(0);
-            responseUtil.setResultMsg("操作失败");
         }
         return responseUtil;
     }

@@ -32,7 +32,7 @@ public class UserCommentController {
         return userCommentService.updateUserComment(userComment);
     }
     @ResponseBody
-    @RequestMapping(value = "/getCommentByUserName" )
+    @RequestMapping(value = "/getComment" )
     public Object getUserCommentByUserName(UserComment userComment){
         return userCommentService.getUserCommentByUserName(userComment);
     }

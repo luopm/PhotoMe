@@ -3,8 +3,11 @@ package com.luopm.photome.dao;
 import com.luopm.photome.model.User;
 import com.luopm.photome.model.UserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserMapper {
     int countByExample(UserExample example);
 

@@ -3,14 +3,15 @@ package com.luopm.photome.dao;
 import com.luopm.photome.model.UserPhoto;
 import com.luopm.photome.model.UserPhotoExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserPhotoMapper {
     int countByExample(UserPhotoExample example);
 
     int deleteByExample(UserPhotoExample example);
-
-
 
     int insertSelective(UserPhoto record);
 

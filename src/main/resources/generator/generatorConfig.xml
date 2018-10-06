@@ -48,15 +48,21 @@
         <!--<table tableName="photome_usercomment"-->
                <!--domainObjectName="UserComment">-->
         <!--</table>-->
-        <table tableName="photome_userdetail"
-               domainObjectName="UserDetail">
-        </table>
+        <!--<table tableName="photome_userdetail"-->
+               <!--domainObjectName="UserDetail">-->
+        <!--</table>-->
         <!--<table tableName="photome_usermusic"-->
                <!--domainObjectName="UserMusic">-->
         <!--</table>-->
         <!--<table tableName="photome_userphoto"-->
                <!--domainObjectName="UserPhoto">-->
         <!--</table>-->
+        <table tableName="photome_username_to_musiccode"
+               domainObjectName="UserNameToMusicCode">
+        </table>
+        <table tableName="photome_username_to_photocode"
+            domainObjectName="UserNameToPhotoCode">
+        </table>
     </context>
 </generatorConfiguration>
         <!--enableCountByExample="true"-->
