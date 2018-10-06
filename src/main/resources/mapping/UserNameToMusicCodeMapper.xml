@@ -161,12 +161,12 @@
     select
     <include refid="Base_Column_List" />
     from photome_username_to_musiccode
-    <where >
+    <where>
       <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR}
       </if>
       <if test="musiccode != null" >
-        musiccode = #{musiccode,jdbcType=VARCHAR},
+       OR musiccode = #{musiccode,jdbcType=VARCHAR}
       </if>
     </where>
   </select>

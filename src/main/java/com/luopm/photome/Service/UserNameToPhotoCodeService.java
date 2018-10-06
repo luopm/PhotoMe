@@ -24,7 +24,7 @@ public class UserNameToPhotoCodeService {
                 responseUtil.setResultMsg("操作成功");
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -38,7 +38,7 @@ public class UserNameToPhotoCodeService {
                 responseUtil.setResultMsg("操作成功");
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -52,7 +52,7 @@ public class UserNameToPhotoCodeService {
                 responseUtil.setResultMsg("操作成功");
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -60,11 +60,12 @@ public class UserNameToPhotoCodeService {
     public ResponseUtil getByUTC(UserNameToPhotoCode userNameToPhotoCode){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResultObject(userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode));
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("操作成功");
+            List<UserNameToPhotoCode> list = userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode);
+            if (list != null){
+                responseUtil.setResponseUtil(1,"操作成功",list,null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -86,7 +87,7 @@ public class UserNameToPhotoCodeService {
             responseUtil.setResultCode(1);
             responseUtil.setResultMsg("操作成功");
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }

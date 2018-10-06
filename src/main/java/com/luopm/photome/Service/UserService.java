@@ -2,6 +2,7 @@ package com.luopm.photome.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.luopm.photome.dao.UserDetailMapper;
 import com.luopm.photome.dao.UserMapper;
 import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.User;
@@ -17,6 +18,8 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private UserDetailMapper userDetailMapper;
+    @Autowired
     private UserDetailService userDetailService;
 
     public ResponseUtil Login(User user){
@@ -28,12 +31,13 @@ public class UserService {
                 responseUtil.setResultMsg("用户不存在");
             }
             else if ( Ruser.getPhotomeUserUserpassword().equals(user.getPhotomeUserUserpassword()) ){
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("登录成功");
-                responseUtil.setResultObject(Ruser);
+                UserDetail userDetail = new UserDetail();
+                userDetail.setPhotomeUserdetailUsername(Ruser.getPhotomeUserUsername());
+                responseUtil.setResponseUtil(1,"登录成功",
+                        userDetailMapper.selectDetailByUserName(userDetail),null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -45,11 +49,13 @@ public class UserService {
             if (userMapper.insert(user) >= 1){
                 UserDetail userDetail = new UserDetail();//注册用户详情
                 userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
-                responseUtil.setResponseUtil(1, "新增用户成功",
-                        user,userDetailService.addUserDetail(userDetail));
+                if (userDetailMapper.insert(userDetail) >= 1){
+                    responseUtil.setResponseUtil(1, "新增用户成功",
+                            userDetailMapper.selectDetailByUserName(userDetail), null);
+                }
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -64,7 +70,7 @@ public class UserService {
                         user,userDetailService.deleteUserDetail(userDetail));
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -80,20 +86,23 @@ public class UserService {
                         userDetailService.getDetail(userDetail));
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
 
-    public ResponseUtil getUser(User user){
+    public ResponseUtil getUser(User user){//返回对应的detail对象
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             UserDetail userDetail = new UserDetail();//获取用户详情
             userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
-            responseUtil.setResponseUtil(1, "获取用户成功",
-                    userMapper.selectUsersByUserName(user), userDetailService.getDetail(userDetail));
+            userDetail = userDetailMapper.selectDetailByUserName(userDetail);
+            if (userDetail != null){
+                responseUtil.setResponseUtil(1, "获取用户成功",
+                        userDetail, null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -114,7 +123,7 @@ public class UserService {
             responseUtil.setResponseUtil(1, "获取用户成功",
                     result, userDetailService.getAllUserDetail(pageNum,pageSize));//获取All用户详情
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }

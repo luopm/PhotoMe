@@ -1,10 +1,9 @@
 define(['text!../templates/home.html',
         'lib/plugin/output.js',
         'lib/kugouAPI/song_get.js',
-        '../photo/views/photoView.js',
         '../login/views/loginView.js',
         'css!../style/homeStyle.css'],
-    function (tem,output,song_get,photoView,loginView) {
+    function (tem,output,song_get,loginView) {
     var view ={
         render : function (el) {
             $(el).append(tem);
@@ -12,29 +11,29 @@ define(['text!../templates/home.html',
         },
         init : function () {
             var that = this;
-            that.loadUser(photoView);
+            that.loadUser();
             that.loadLogin(loginView);
 
         },
-        loadUser : function (photoView) {
-            $.ajax({ //加载用户详情
-                method:'get',
-                url:'../user/getAllUser',
+        loadUser : function () {
+            $.ajax({ // 加载photo模块详情
+                method:'post',
+                url:'../detail/getAllDetail',
                 async:true,
                 data:{},
                 dataType:'json',
                 success:function (result) {
-                    for (var i=0;i<result.list.length;i++){
-                        (function (i) {
-                            require(['photome/photo/views/photoView.js'],function (photoView) {
-                                // new photoView()
-                                var index = i;
-                                var user = result.list[i];
-                                photoView.render('#homeBody',user);
-                            });
-                        })(i);
+                    if (result.resultCode == 1){
+                        for (var i=0;i<result.resultObject.list.length;i++){
+                            (function (i) {
+                                require(['photome/photo/views/photoView.js'],function (photoView) {
+                                    var userDetail = result.resultObject.list[i];
+                                    photoView.render('#homeBody',userDetail);
+                                });
+                            })(i);
 
-                    }
+                        }
+                    }else alert("加载用户："+result.resultObject);
                 }
             });
         },

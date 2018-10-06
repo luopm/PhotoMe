@@ -20,12 +20,11 @@ public class UserNameToMusicCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             if (userNameToMusicCodeMapper.insert(userNameToMusicCode) >= 1){
-                responseUtil.setResultObject(userNameToMusicCode);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+                responseUtil.setResponseUtil(1,"操作成功",
+                        userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -39,7 +38,7 @@ public class UserNameToMusicCodeService {
                 responseUtil.setResultMsg("操作成功");
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -53,7 +52,7 @@ public class UserNameToMusicCodeService {
                 responseUtil.setResultMsg("操作成功");
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -61,11 +60,12 @@ public class UserNameToMusicCodeService {
     public ResponseUtil getByUTC(UserNameToMusicCode userNameToMusicCode){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResultObject(userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode));
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("操作成功");
+            List<UserNameToMusicCode> list = userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode);
+            if (list != null){
+                responseUtil.setResponseUtil(1,"操作成功",list,null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -87,7 +87,7 @@ public class UserNameToMusicCodeService {
             responseUtil.setResultCode(1);
             responseUtil.setResultMsg("操作成功");
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }

@@ -24,7 +24,7 @@ public class UserCommentService {
                         userComment,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -37,7 +37,7 @@ public class UserCommentService {
                         userComment,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -50,7 +50,7 @@ public class UserCommentService {
                         userCommentMapper.selectCommentByUserName(userComment),null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -58,10 +58,13 @@ public class UserCommentService {
     public ResponseUtil getUserCommentByUserName(UserComment userComment){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResponseUtil(1, "获取用户评论成功",
-                    userCommentMapper.selectCommentByUserName(userComment),null);
+            List<UserComment> userCommentList = userCommentMapper.selectCommentByUserName(userComment);
+            if (userCommentList != null){
+                responseUtil.setResponseUtil(1, "获取用户评论成功",
+                        userCommentList,null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -81,7 +84,7 @@ public class UserCommentService {
             responseUtil.setResponseUtil(1, "获取用户评论成功",
                     result,null);
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }

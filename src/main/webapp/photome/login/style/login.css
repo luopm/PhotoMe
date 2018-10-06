@@ -5,7 +5,7 @@
     left: 0;
     /*width: 15%;*/
     height: 100%;
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
 }
 .login{
     display: flex;
@@ -46,7 +46,7 @@ input:focus,input[type="password"]:focus{
     transform: translate3d(0,0,0);
 }
 .loginHidden{
-    transform: translate3d(-94%,0,0);
+    transform: translate3d(-85%,0,0);
 }
 
 .loginBtnDiv,.registerBtnDiv{
@@ -56,6 +56,10 @@ input:focus,input[type="password"]:focus{
     text-align: center;
 }
 
-.userName{
-    /*display: inline-block;*/
+.navBar{
+    display: flex;
+    flex-direction: column;
+}
+.navBar i{
+    margin: 0 auto 10px;
 }

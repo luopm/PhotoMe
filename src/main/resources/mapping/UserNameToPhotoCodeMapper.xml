@@ -163,10 +163,10 @@
     from photome_username_to_photocode
     <where>
       <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR}
       </if>
       <if test="photocode != null" >
-        photocode = #{photocode,jdbcType=VARCHAR},
+        OR photocode = #{photocode,jdbcType=VARCHAR}
       </if>
     </where>
   </select>

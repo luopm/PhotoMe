@@ -41,7 +41,7 @@ public class UserDetailService {
                         userDetail,userNameToPhotoCodeService.addUTC(userNameToPhotoCode));
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -61,7 +61,7 @@ public class UserDetailService {
                         userDetail,arrayList);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -79,7 +79,7 @@ public class UserDetailService {
                         userDetail,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -88,18 +88,21 @@ public class UserDetailService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             userDetail = userDetailMapper.selectDetailByUserName(userDetail);//取得个人信息
-            UserPhoto userPhoto = new UserPhoto();//取得封面Photo
-            userPhoto.setPhotomeUserphotoPhotocode(userDetail.getPhotomeUserdetailUsercovercode());
-            UserMusic userMusic = new UserMusic();//取得主题Music
-            userMusic.setPhotomeUsermusicMusiccode(userDetail.getPhotomeUserdetailUsermusiccode());
-            ArrayList<Object> arrayList = new ArrayList<Object>();
-            arrayList.add(userDetail);
-            arrayList.add(userPhotoMapper.selectPhotoByPhotoCode(userPhoto));
-            arrayList.add(userMusicMapper.selectByMusicCode(userMusic));
-            responseUtil.setResponseUtil(1, "获取用户详情成功",
-                    arrayList,getAllMusicPhotoComment(userDetail));
+            if (userDetail != null){
+                UserPhoto userPhoto = new UserPhoto();//取得封面Photo
+                userPhoto.setPhotomeUserphotoPhotocode(userDetail.getPhotomeUserdetailUsercovercode());
+                UserMusic userMusic = new UserMusic();//取得主题Music
+                userMusic.setPhotomeUsermusicMusiccode(userDetail.getPhotomeUserdetailUsermusiccode());
+                HashMap<String,Object> hashMap = new HashMap<>();
+                hashMap.put("userDetail",userDetail);
+                hashMap.put("coverPhoto",userPhotoMapper.selectPhotoByPhotoCode(userPhoto));
+                hashMap.put("backMusic",userMusicMapper.selectByMusicCode(userMusic));
+                ArrayList<Object> arrayList = new ArrayList<Object>();
+                responseUtil.setResponseUtil(1, "获取用户详情成功",
+                        hashMap,getAllMusicPhotoComment(userDetail));
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -119,15 +122,15 @@ public class UserDetailService {
             responseUtil.setResponseUtil(1, "获取用户详情成功",
                     result, userPhotoService.getAllUserPhoto(pageNum, pageSize));
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
 
     public Object getAllMusicPhotoComment(UserDetail userDetail){
+        HashMap<String,Object> hashMap = new HashMap<>();
         ArrayList<UserMusic> userMusicArrayList = new ArrayList<UserMusic>();
         ArrayList<UserPhoto> userPhotoArrayList = new ArrayList<UserPhoto>();
-        ArrayList<Object> resultArrayList = new ArrayList<Object>();
         //取得Music
         UserNameToMusicCode userNameToMusicCode = new UserNameToMusicCode();
         userNameToMusicCode.setUsername(userDetail.getPhotomeUserdetailUsername());
@@ -150,10 +153,9 @@ public class UserDetailService {
         UserComment userComment = new UserComment();
         userComment.setPhotomeUsercommentCommenteduser(userDetail.getPhotomeUserdetailUsername());
         List<UserComment> userCommentList = userCommentMapper.selectCommentByUserName(userComment);
-        resultArrayList.add(userMusicArrayList);
-        resultArrayList.add(userPhotoArrayList);
-        resultArrayList.add(userCommentList);
-        return resultArrayList;
+        hashMap.put("userMusic",userMusicArrayList);
+        hashMap.put("userPhoto",userPhotoArrayList);
+        hashMap.put("userComment",userCommentList);
+        return hashMap;
     }
-
 }

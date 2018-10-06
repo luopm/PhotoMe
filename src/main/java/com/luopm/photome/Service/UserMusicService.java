@@ -28,7 +28,7 @@ public class UserMusicService {
                             userMusic,null);
                 }
             }catch (Exception e){
-                responseUtil.setResultObject(e.getMessage());
+                responseUtil.setResultMsg(e.getMessage());
             }
         }
         return responseUtil;
@@ -42,7 +42,7 @@ public class UserMusicService {
                         userMusic,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -55,7 +55,7 @@ public class UserMusicService {
                         userMusicMapper.selectByMusicCode(userMusic),null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -63,10 +63,13 @@ public class UserMusicService {
     public ResponseUtil getMusicByMusicCode(UserMusic userMusic){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResponseUtil(1, "获取Music成功",
-                    userMusicMapper.selectByMusicCode(userMusic),null);
+            userMusic = userMusicMapper.selectByMusicCode(userMusic);
+            if (userMusic != null){
+                responseUtil.setResponseUtil(1, "获取Music成功",
+                        userMusic,null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -87,7 +90,7 @@ public class UserMusicService {
             responseUtil.setResponseUtil(1, "获取Music成功",
                     result,null);
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }

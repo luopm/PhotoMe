@@ -341,7 +341,7 @@
     select
     <include refid="Base_Column_List"/>
     from photome_usermusic
-    where photomeUsermusicMusiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
+    where photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
   </select>
   <update id="updateByMusicCode" parameterType="com.luopm.photome.model.UserMusic" >
     update photome_usermusic
@@ -374,10 +374,10 @@
         photome_usermusic_musiclrc = #{photomeUsermusicMusiclrc,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where photomeUsermusicMusiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
+    where photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
   </update>
   <delete id="deleteMusicByMusicCode" parameterType="com.luopm.photome.model.UserMusic" >
     delete from photome_usermusic
-    where photomeUsermusicMusiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
+    where photome_usermusic_musiccode = #{photomeUsermusicMusiccode,jdbcType=VARCHAR}
   </delete>
 </mapper>

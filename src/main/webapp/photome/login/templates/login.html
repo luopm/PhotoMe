@@ -58,7 +58,10 @@
             <!--用户音乐-->
             <div class="music detailMusic">
                 <label class="musicTitle title">音乐列表<i class="editIconGroup editMusic"></i></label>
-                <ul class="musicList"></ul>
+                <div class="inputDiv"><label class="icon-music">
+                    <input class="musicList" readonly="readonly" >
+                    <input class="musicListUrl" hidden="hidden">
+                </label></div>
                 <form class="musicForm userEditForm" hidden="hidden">
                     <div class="inputDiv"><label class="icon-music">
                         <input class="addMusicName" name="photomeUsermusicMusicname">
@@ -94,6 +97,9 @@
         <!--login组件-导航栏-->
         <div class="navBar">
             <i class="icon-home icon-large"></i>
+            <i class="icon-user toLoginBtn"></i>
+            <i class="icon-group toRegisterBtn"></i>
+            <i class="icon-off icon-large"></i>
         </div>
 
     </div>

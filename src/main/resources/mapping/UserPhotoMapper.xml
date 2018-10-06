@@ -78,22 +78,6 @@
   <sql id="Blob_Column_List" >
     photome_userphoto_photocontent
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.luopm.photome.model.UserPhotoExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from photome_userphoto
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.luopm.photome.model.UserPhotoExample" >
     select
     <if test="distinct" >
@@ -107,14 +91,6 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from photome_userphoto
-    where photome_userphoto_id = #{photomeUserphotoId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByExample" parameterType="com.luopm.photome.model.UserPhotoExample" >
     delete from photome_userphoto

@@ -23,7 +23,7 @@ public class UserPhotoService {
                         userPhoto,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -36,7 +36,7 @@ public class UserPhotoService {
                         userPhoto,null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -49,7 +49,7 @@ public class UserPhotoService {
                         userPhotoMapper.selectPhotoByPhotoCode(userPhoto),null);
             }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -57,10 +57,13 @@ public class UserPhotoService {
     public ResponseUtil getPhotoByPhotoCode(UserPhoto userPhoto){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            responseUtil.setResponseUtil(1, "获取Photo成功",
-                    userPhotoMapper.selectPhotoByPhotoCode(userPhoto),null);
+            userPhoto = userPhotoMapper.selectPhotoByPhotoCode(userPhoto);
+            if (userPhoto != null){
+                responseUtil.setResponseUtil(1, "获取Photo成功",
+                        userPhoto,null);
+            }
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
@@ -81,7 +84,7 @@ public class UserPhotoService {
             responseUtil.setResponseUtil(1, "获取Photo成功",
                     result,null);
         }catch (Exception e){
-            responseUtil.setResultObject(e.getMessage());
+            responseUtil.setResultMsg(e.getMessage());
         }
         return responseUtil;
     }
