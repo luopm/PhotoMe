@@ -18,14 +18,18 @@ public class UserNameToMusicCodeService {
 
     public ResponseUtil addUTC(UserNameToMusicCode userNameToMusicCode){
         ResponseUtil responseUtil = new ResponseUtil();
-        try {
-            if (userNameToMusicCodeMapper.insert(userNameToMusicCode) >= 1){
-                responseUtil.setResponseUtil(1,"操作成功",
-                        userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
+        if (userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode) == null){
+            try {
+                if (userNameToMusicCodeMapper.insert(userNameToMusicCode) >= 1){
+                    responseUtil.setResponseUtil(1,"操作成功",
+                            userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
+                }
+            }catch (Exception e){
+                responseUtil.setResultMsg(e.getMessage());
             }
-        }catch (Exception e){
-            responseUtil.setResultMsg(e.getMessage());
-        }
+        }else responseUtil.setResponseUtil(1,"操作成功",
+                userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
+
         return responseUtil;
     }
 

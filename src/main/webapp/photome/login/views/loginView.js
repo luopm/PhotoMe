@@ -13,7 +13,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             var localStorage = window.localStorage;
             var sessionStorage = window.sessionStorage;
             if (localStorage.getItem("userName") != "undefined" && sessionStorage.getItem("isLogin") == "yes"){//已登录状态
-                that.loadUserDatil(localStorage,sessionStorage)
+                that.loadUserDetail();
             }else {//未登录状态
                 $('.login .loginPage').show();
                 $('.login .registerPage').hide();
@@ -72,9 +72,10 @@ define(['text!../templates/login.html','css!../style/login.css'],
                     processData: false,                // jQuery不要去处理发送的数据
                     contentType: false,                 // jQuery不要去设置Content-Type请求头
                     success:function (result) {
-                        that.afterLoginRegister(result);
-                    },
-                    error:function (e) {
+                        if (result.resultCode == 1){
+                            that.afterLoginRegister(result.resultObject);
+                        }else alert("登录/注册："+result.resultMsg);
+                    },error:function (e) {
                         confirm("登录："+e.responseJSON.message);
                     }
                 })
@@ -92,9 +93,8 @@ define(['text!../templates/login.html','css!../style/login.css'],
                     processData: false,                // jQuery不要去处理发送的数据
                     contentType: false,                 // jQuery不要去设置Content-Type请求头
                     success:function (result) {
-                        that.afterLoginRegister(result);
-                    },
-                    error:function (e) {
+                        that.afterLoginRegister(result.resultObject);
+                    }, error:function (e) {
                         confirm("注册用户："+e.responseJSON.message);
                     }
                 })
@@ -107,6 +107,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             });
             // photo选择框
             $('.login').on('click','.icon-picture',function () {
+
                 var userPhoto = new FormData(document.getElementsByClassName('coverForm')[0]);
                 userPhoto.append('photomeUserphotoPhotocode',$('.userDetailPage .photoUrl').val());
                 $.ajax({
@@ -120,13 +121,15 @@ define(['text!../templates/login.html','css!../style/login.css'],
                     contentType: false,                 // jQuery不要去设置Content-Type请求头
                     success:function (result) {
                         if (result.resultCode == 1){
-                            var url = result.resultObject.photomeUserphotoPhotocontent;
+                            // var url = result.resultObject.photomeUserphotoPhotocontent;
                             // var blob = new Blob(,{type:"image/jepg"});
                             // $('.userCover img').attr('src',URL.createObjectURL(blob));
                             // $('.userCover img').attr('src',"data:image/jpg;base64,"+url);
-                            that.afterPhotoAdd(result);
-                        } else print(result.resultMsg);
-
+                            var options = {
+                                resultObject:result.resultObject,
+                                isCover:true
+                            };that.afterPhotoAdd(options);
+                        }else alert("Add Photo："+result.resultMsg);
                     },
                     error:function (e) {
                         e.print();
@@ -149,10 +152,15 @@ define(['text!../templates/login.html','css!../style/login.css'],
                     processData: false,                // jQuery不要去处理发送的数据
                     contentType: false,                 // jQuery不要去设置Content-Type请求头
                     success:function (result) {
-                        that.afterMusicAdd(result);
+                        if (result.resultCode == 1){
+                            var options = {
+                                isBackMusic:true,
+                                resultObject:result.resultObject
+                            };that.afterMusicAdd(options);
+                        }else alert("Add Music："+result.resultMsg);
                     },
                     error:function (e) {
-                        alert("添加音乐："+e.responseJSON.message);
+                        alert("Add Music："+e.responseJSON.message);
                     }
                 });
                 $('.detailMusic .editMusic').removeClass('icon-plus');//关闭按钮
@@ -182,26 +190,11 @@ define(['text!../templates/login.html','css!../style/login.css'],
             });
             // 人物说明编辑事件
             $('.peopleInfo').on('click','.icon-edit',function () {
-                var userDetial = new FormData(document.getElementsByClassName('peopleInfoForm')[0]);
-                userDetial.append('photomeUserdetailUsername',$('.userDetailPage .userName').val());
-                $.ajax({
-                    method:'post',
-                    url:'../detail/updateDetail',
-                    async:true,
-                    data:userDetial,
-                    dataType:'json',
-                    cache: false,                      // 不缓存
-                    processData: false,                // jQuery不要去处理发送的数据
-                    contentType: false,                 // jQuery不要去设置Content-Type请求头
-                    success:function (result) {
-                        if (result.resultCode == 1){
-                            alert("人物说明："+result.resultMsg);
-                        }else alert("人物说明："+result.resultMsg);
-                    },
-                    error:function (e) {
-                        alert("添加人物说明："+e.responseJSON.message);
-                    }
-                });
+                var userDetail = {
+                    photomeUserdetailUserintroduction : $('.userDetailPage .editInfoInput').val(),
+                    photomeUserdetailUsername : window.localStorage.getItem("userName")
+                };
+                that.updateUserDetail(userDetail);
                 $('.peopleInfo .editInfo').removeClass('icon-edit');//关闭按钮
                 $('.login .editInfoInput').attr('readonly',true); //输入框不可编辑
             });
@@ -221,17 +214,24 @@ define(['text!../templates/login.html','css!../style/login.css'],
             }
 
         },
-        loadUserDatil :function (localStorage,sessionStorage) {
+        loadUserDetail :function () {
             var that = this;
+            var sessionStorage = window.sessionStorage;
+            var options = {
+                photoCode:window.localStorage.getItem("photoCode"),
+                selector:'.userDetailPage img'
+            };that.loadPhotoByCode(options);
+
             if (sessionStorage.getItem("isLogin") == "yes"){//已登录状态
                 var user = JSON.parse(sessionStorage.getItem("user"));
                 $('.userDetailPage .userName').val(user.photomeUserdetailUsername);
                 $('.userDetailPage .musicList').val(user.photomeUserdetailUsermusicname);
                 $('.userDetailPage .editInfoInput').val(user.photomeUserdetailUserintroduction);
                 // $('.userDetailPage .commentList').append('<li>'+result[0].photomeUserdetailUsercomment+'</li>');
-                that.loadPhotoByCode(user.photomeUserdetailUsercovercode,'.userDetailPage img');
-                that.loadMusicByCode(user.photomeUserdetailUsermusiccode);
-
+                var options = {
+                    musicCode:user.photomeUserdetailUsermusiccode,
+                    selector:'.userDetailPage .musicListUrl'
+                };that.loadMusicByCode(options);
                 $('.login .loginPage').hide();
                 $('.login .registerPage').hide();
                 $('.login .userDetailPage').show();
@@ -240,8 +240,8 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 $('.navBar .icon-user').hide();
             }
         },
-        loadMusicByCode : function (musicCode) {
-            var userMusic = {photomeUsermusicMusiccode:musicCode};
+        loadMusicByCode : function (options) {
+            var userMusic = {photomeUsermusicMusiccode:options.musicCode};
             $.ajax({ // 加载UserMusic详情
                 method:'post',
                 url:'../music/getMusicByMusicCode',
@@ -250,13 +250,14 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 dataType:'json',
                 success:function (result) {
                     if (result.resultCode == 1){
-                        $('.userDetailPage .musicListUrl').val(result.resultObject.photomeUsermusicMusicurl);
-                    }else alert(result.resultMsg);
+                        $(options.selector).val(result.resultObject.photomeUsermusicMusicurl);
+                        $('.userDetailPage .musicList').val(result.resultObject.photomeUsermusicMusicname)
+                    }else alert("Load Back Music："+result.resultMsg);
                 }
             });
         },
-        loadPhotoByCode : function (PhotoCode,selector) {
-            var photoCode ={ photomeUserphotoPhotocode: PhotoCode} ;
+        loadPhotoByCode : function (options) {
+            var photoCode ={ photomeUserphotoPhotocode: options.photoCode} ;
             $.ajax({ //加载用户封面
                 method:'post',
                 url:'../photo/getPhotoByPhotoCode',
@@ -265,75 +266,105 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 dataType:'json',
                 success:function (result) {
                     if (result.resultCode == 1){
-                        $(selector).attr('src', "data:image/jpg;base64,"+result.resultObject.photomeUserphotoPhotocontent);
-                    }else alert("加载用户封面："+result.resultMsg);
+                        $(options.selector).attr('src', "data:image/jpg;base64,"+result.resultObject.photomeUserphotoPhotocontent);
+                    }else alert("Load Photo："+result.resultMsg);
                 },
                 error:function (e) {
-                    alert("加载用户封面："+e.responseJSON.message);
+                    e.print();
+                    alert("Load Photo："+e.responseJSON.message);
                 }
             });
         },
-        afterLoginRegister : function (result) {
+        afterLoginRegister : function (resultObject) {
             var that = this;
             // 根据userName加载用户详情
-            if (result.resultCode == 1 ){
                 var localStorage = window.localStorage;
                 var sessionStorage = window.sessionStorage;
-                localStorage.setItem("userName",result.resultObject.photomeUserdetailUsername);
+                localStorage.setItem("userName",resultObject.photomeUserdetailUsername);
+                localStorage.setItem("photoCode",resultObject.photomeUserdetailUsercovercode);
                 sessionStorage.setItem("isLogin","yes");
-                sessionStorage.setItem("user",JSON.stringify(result.resultObject));
-                that.loadUserDatil(localStorage,sessionStorage);
-            }else{
-                alert("登录/注册："+result.resultMsg);
-            }
+                sessionStorage.setItem("user",JSON.stringify(resultObject));
+                that.loadUserDetail();
         },
-        afterPhotoAdd : function (result) {
+        afterPhotoAdd : function (options) {
             var that = this;
-            if (result.resultCode == 1){
-                var localStorage = window.localStorage;
-                var userNameToPhotoCode = {
-                    username:localStorage.getItem("userName"),
-                    photocode:result.resultObject.photomeUserphotoPhotocode
-                };
-                that.loadPhotoByCode(result.resultObject.photomeUserphotoPhotocode,'.userDetailPage img');
-                $.ajax({
-                    method:'post',
-                    url:'../UNTPC/addUserNameToPhotoCode',
-                    async:true,
-                    data:userNameToPhotoCode,
-                    dataType:'json',
-                    success:function (result) {
-                        alert("添加userNameToPhotoCode："+result.resultMsg);
-                    },
-                    error:function (e) {
-                        alert("添加userNameToPhotoCode："+e.responseJSON.message);
+            var userNameToPhotoCode = {
+                username:window.localStorage.getItem("userName"),
+                photocode:options.resultObject.photomeUserphotoPhotocode
+            };
+            $.ajax({ //注册连接信息
+                method:'post',
+                url:'../UNTPC/addUserNameToPhotoCode',
+                async:true,
+                data:userNameToPhotoCode,
+                dataType:'json',
+                success:function (result) {
+                    if (result.resultCode == 1){
+                        if (options.isCover){//如果是CoverPhoto
+                            var userDetail = {
+                                photomeUserdetailUsername:result.resultObject[0].username,
+                                photomeUserdetailUsercovercode:result.resultObject[0].photocode,
+                                // photomeUserdetailUsercovername:options.resultObject.photomeUserphotoPhotoname
+                            };that.updateUserDetail(userDetail);
+                        }
                     }
-                });
-            }else alert("添加userNameToPhotoCode："+result.resultMsg);
+                    alert("Add Photo："+result.resultMsg);
+                },
+                error:function (e) {
+                    alert("添加userNameToPhotoCode："+e.responseJSON.message);
+                }
+            });
         },
-        afterMusicAdd : function (result) {
+        afterMusicAdd : function (options) {
             var that = this;
-            if (result.resultCode == 1){
-                var localStorage = window.localStorage;
-                var userNameToPhotoCode = {
-                    username:localStorage.getItem("userName"),
-                    musiccode:result.resultObject.photomeUsermusicMusiccode
-                };
-                // that.loadPhotoByCode(result.resultObject.photomeUsermusicMusiccode,'.userDetailPage img');
-                $.ajax({
-                    method:'post',
-                    url:'../UNTMC/addUserNameToMusicCode',
-                    async:true,
-                    data:userNameToPhotoCode,
-                    dataType:'json',
-                    success:function (result) {
-                        alert("添加userNameToMusicCode："+result.resultMsg);
-                    },
-                    error:function (e) {
-                        alert("添加userNameToMusicCode："+e.responseJSON.message);
+            var userNameToPhotoCode = {
+                username:window.localStorage.getItem("userName"),
+                musiccode:options.resultObject.photomeUsermusicMusiccode
+            };
+            $.ajax({ //注册连接信息
+                method:'post',
+                url:'../UNTMC/addUserNameToMusicCode',
+                async:true,
+                data:userNameToPhotoCode,
+                dataType:'json',
+                success:function (result) {
+                    if (result.resultCode == 1){
+                        if (options.isBackMusic){//如果是CoverPhoto
+                            var userDetail = {
+                                photomeUserdetailUsername:result.resultObject[0].username,
+                                photomeUserdetailUsermusiccode:result.resultObject[0].musiccode,
+                                // photomeUserdetailUsercovername:options.resultObject.photomeUserphotoPhotoname
+                            };that.updateUserDetail(userDetail);
+                        }
+                        // that.loadPhotoByCode(result.resultObject.photomeUsermusicMusiccode,'.userDetailPage img');
                     }
-                });
-            }else alert("添加userNameToMusicCode："+result.resultMsg);
+                    alert("添加userNameToMusicCode："+result.resultMsg);
+                },
+                error:function (e) {
+                    alert("添加userNameToMusicCode："+e.responseJSON.message);
+                }
+            });
+        },
+        updateUserDetail : function (UserDetail) {
+            var that = this;
+            $.ajax({
+                method:'post',
+                url:'../detail/updateDetail',
+                async:true,
+                data:UserDetail,
+                dataType:'json',
+                success:function (result) {
+                    if (result.resultCode == 1){
+                        window.localStorage.setItem("photoCode",result.resultObject.photomeUserdetailUsercovercode);
+                        window.sessionStorage.setItem("user",JSON.stringify(result.resultObject));
+                        that.loadUserDetail();
+                    }else alert("Update User Detail："+result.resultMsg);
+                },
+                error:function (e) {
+                    alert("Update User Detail："+e.responseJSON.message);
+                }
+            });
+
         }
     }
     return view;

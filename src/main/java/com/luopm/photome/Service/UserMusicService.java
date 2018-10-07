@@ -25,12 +25,13 @@ public class UserMusicService {
             try {
                 if (userMusicMapper.insert(userMusic) >= 1){
                     responseUtil.setResponseUtil(1, "添加Music成功",
-                            userMusic,null);
+                            userMusicMapper.selectByMusicCode(userMusic),null);
                 }
             }catch (Exception e){
                 responseUtil.setResultMsg(e.getMessage());
             }
-        }
+        }else responseUtil.setResponseUtil(1, "添加Music成功",
+                userMusicMapper.selectByMusicCode(userMusic),null);
         return responseUtil;
     }
 

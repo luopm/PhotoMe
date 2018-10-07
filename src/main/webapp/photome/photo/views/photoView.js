@@ -45,8 +45,8 @@ define(['text!../templates/photo.html'],
             }else $(selector).text("暂无详情，请在用户详情界面添加");
         },
         loadCoverPhoto : function (coverPhoto,selector) {
-            if (coverPhoto != null && coverPhoto.photomeUserphotoPhotourl != null){
-                $(selector).attr('src',coverPhoto.photomeUserphotoPhotourl);
+            if (coverPhoto != null && coverPhoto.photomeUserphotoPhotocontent != null){
+                $(selector).attr('src',"data:image/jpg;base64,"+coverPhoto.photomeUserphotoPhotocontent);
             } else if (coverPhoto != null && coverPhoto.photomeUserphotoPhotoname != null){
                 $(selector).attr('alt',coverPhoto.photomeUserphotoPhotoname);
             } else $(selector).attr('alt',"请添加用户Photo");

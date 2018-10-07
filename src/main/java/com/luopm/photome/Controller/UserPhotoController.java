@@ -31,8 +31,8 @@ public class UserPhotoController {
             userPhoto.setPhotomeUserphotoPhotocontent(file.getBytes());
             userPhoto.setPhotomeUserphotoPhotoname(file.getOriginalFilename());
             userPhoto.setPhotomeUserphotoPhotocreatdate(new Date());
-            userPhoto.setPhotomeUserphotoPhotocode(file.getOriginalFilename() +
-                    userPhoto.getPhotomeUserphotoPhotocreatdate().toString()+Long.toString(file.getSize()));
+            userPhoto.setPhotomeUserphotoPhotocode("Name:"+file.getOriginalFilename()+"Time:"+
+                    userPhoto.getPhotomeUserphotoPhotocreatdate().getTime()+"Size:"+Long.toString(file.getSize()));
         }catch (Exception e){
             e.printStackTrace();
         }

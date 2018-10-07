@@ -20,10 +20,11 @@ public class UserPhotoService {
         try {
             if (userPhotoMapper.insert(userPhoto) >= 1){
                 responseUtil.setResponseUtil(1, "新增Photo成功",
-                        userPhoto,null);
+                        userPhotoMapper.selectPhotoByPhotoCode(userPhoto),null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
+            e.printStackTrace();
         }
         return responseUtil;
     }
@@ -64,6 +65,7 @@ public class UserPhotoService {
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
+            e.printStackTrace();
         }
         return responseUtil;
     }

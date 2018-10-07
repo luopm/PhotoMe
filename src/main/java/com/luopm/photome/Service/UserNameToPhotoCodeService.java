@@ -19,9 +19,8 @@ public class UserNameToPhotoCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             if (userNameToPhotoCodeMapper.insert(userNameToPhotoCode) >= 1){
-                responseUtil.setResultObject(userNameToPhotoCode);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+                responseUtil.setResponseUtil(1,"注册NameToPhotoCode成功",
+                        userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode),null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
