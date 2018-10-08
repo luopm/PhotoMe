@@ -19,8 +19,8 @@ public class UserNameToPhotoCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             if (userNameToPhotoCodeMapper.insert(userNameToPhotoCode) >= 1){
-                responseUtil.setResponseUtil(1,"注册NameToPhotoCode成功",
-                        userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode),null);
+                responseUtil.setResponseUtil(1,"注册UNTPC成功",
+                       userNameToPhotoCode,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -31,10 +31,10 @@ public class UserNameToPhotoCodeService {
     public ResponseUtil deleteByUTC(UserNameToPhotoCode userNameToPhotoCode){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userNameToPhotoCodeMapper.deleteByUTC(userNameToPhotoCode) >= 1){
-                responseUtil.setResultObject(userNameToPhotoCode);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+            int deleteNum = userNameToPhotoCodeMapper.deleteByUTC(userNameToPhotoCode);
+            if ( deleteNum >= 1){
+                responseUtil.setResponseUtil(1,"删除记录数："+ deleteNum,
+                        deleteNum,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -46,9 +46,8 @@ public class UserNameToPhotoCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             if (userNameToPhotoCodeMapper.updateByUTC(userNameToPhotoCode) >= 1){
-                responseUtil.setResultObject(userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode));
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+                responseUtil.setResponseUtil(1,"Update UMTPC Success",
+                        userNameToPhotoCode,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -60,8 +59,8 @@ public class UserNameToPhotoCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             List<UserNameToPhotoCode> list = userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode);
-            if (list != null){
-                responseUtil.setResponseUtil(1,"操作成功",list,null);
+            if (list.size() >= 1){
+                responseUtil.setResponseUtil(1,"Get UMTPC Success",list,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -82,9 +81,8 @@ public class UserNameToPhotoCodeService {
             PageHelper.startPage(pageNum, pageSize);
             List<UserNameToPhotoCode> list = userNameToPhotoCodeMapper.selectByUTC(userNameToPhotoCode);
             PageInfo result = new PageInfo(list);
-            responseUtil.setResultObject(result);
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("操作成功");
+            responseUtil.setResponseUtil(1,"Get All UNTPC Success",
+                    result,null);
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
         }

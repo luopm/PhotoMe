@@ -10,8 +10,9 @@
     width: 40%;
     height: 500px;
     border: 1px solid #eeeeee;
-    box-shadow: 0 0 4px #bbbbbb;
+    /*box-shadow: 0 0 4px #bbbbbb;*/
     border-radius: 4px ;
+
 }
 .img-home{
     width: 100%;

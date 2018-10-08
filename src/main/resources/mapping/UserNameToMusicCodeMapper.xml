@@ -162,20 +162,15 @@
     <include refid="Base_Column_List" />
     from photome_username_to_musiccode
     <where>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR}
-      </if>
+      username = #{username,jdbcType=VARCHAR}
       <if test="musiccode != null" >
-       OR musiccode = #{musiccode,jdbcType=VARCHAR}
+      and musiccode = #{musiccode,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
   <update id="updateByUTC" parameterType="com.luopm.photome.model.UserNameToMusicCode" >
     update photome_username_to_musiccode
     <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="musiccode != null" >
         musiccode = #{musiccode,jdbcType=VARCHAR},
       </if>
@@ -185,11 +180,9 @@
   <delete id="deleteByUTC" parameterType="com.luopm.photome.model.UserNameToMusicCode" >
     delete from photome_username_to_musiccode
     <where >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
+      username = #{username,jdbcType=VARCHAR}
       <if test="musiccode != null" >
-        musiccode = #{musiccode,jdbcType=VARCHAR},
+        and musiccode = #{musiccode,jdbcType=VARCHAR}
       </if>
     </where>
   </delete>

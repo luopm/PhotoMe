@@ -162,11 +162,9 @@
     <include refid="Base_Column_List" />
     from photome_username_to_photocode
     <where>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR}
-      </if>
+      username = #{username,jdbcType=VARCHAR}
       <if test="photocode != null" >
-        OR photocode = #{photocode,jdbcType=VARCHAR}
+        and photocode = #{photocode,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
@@ -182,11 +180,9 @@
   <delete id="deleteByUTC" parameterType="com.luopm.photome.model.UserNameToPhotoCode" >
     delete from photome_username_to_photocode
     <where>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
+      username = #{username,jdbcType=VARCHAR}
       <if test="photocode != null" >
-        photocode = #{photocode,jdbcType=VARCHAR},
+        and photocode = #{photocode,jdbcType=VARCHAR}
       </if>
     </where>
   </delete>

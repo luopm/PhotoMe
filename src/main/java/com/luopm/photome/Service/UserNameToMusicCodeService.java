@@ -18,28 +18,24 @@ public class UserNameToMusicCodeService {
 
     public ResponseUtil addUTC(UserNameToMusicCode userNameToMusicCode){
         ResponseUtil responseUtil = new ResponseUtil();
-        if (userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode) == null){
-            try {
-                if (userNameToMusicCodeMapper.insert(userNameToMusicCode) >= 1){
-                    responseUtil.setResponseUtil(1,"操作成功",
-                            userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
-                }
-            }catch (Exception e){
-                responseUtil.setResultMsg(e.getMessage());
+        try {
+            if (userNameToMusicCodeMapper.insert(userNameToMusicCode) >= 1){
+                responseUtil.setResponseUtil(1,"注册UNTMC成功",
+                        userNameToMusicCode,null);
             }
-        }else responseUtil.setResponseUtil(1,"操作成功",
-                userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode),null);
-
+        }catch (Exception e){
+            responseUtil.setResultMsg(e.getMessage());
+        }
         return responseUtil;
     }
 
     public ResponseUtil deleteByUTC(UserNameToMusicCode userNameToMusicCode){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userNameToMusicCodeMapper.deleteByUTC(userNameToMusicCode) >= 1){
-                responseUtil.setResultObject(userNameToMusicCode);
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+            int deleteNum = userNameToMusicCodeMapper.deleteByUTC(userNameToMusicCode);
+            if ( deleteNum >= 1){
+                responseUtil.setResponseUtil(1,"删除记录数："+ deleteNum,
+                        deleteNum,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -51,9 +47,8 @@ public class UserNameToMusicCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             if (userNameToMusicCodeMapper.updateByUTC(userNameToMusicCode) >= 1){
-                responseUtil.setResultObject(userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode));
-                responseUtil.setResultCode(1);
-                responseUtil.setResultMsg("操作成功");
+                responseUtil.setResponseUtil(1,"Get UMTMC Success",
+                        userNameToMusicCode,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -65,8 +60,8 @@ public class UserNameToMusicCodeService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             List<UserNameToMusicCode> list = userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode);
-            if (list != null){
-                responseUtil.setResponseUtil(1,"操作成功",list,null);
+            if (list.size() >= 1){
+                responseUtil.setResponseUtil(1,"Get UNTMC Success",list,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -87,9 +82,7 @@ public class UserNameToMusicCodeService {
             PageHelper.startPage(pageNum, pageSize);
             List<UserNameToMusicCode> list = userNameToMusicCodeMapper.selectByUTC(userNameToMusicCode);
             PageInfo result = new PageInfo(list);
-            responseUtil.setResultObject(result);
-            responseUtil.setResultCode(1);
-            responseUtil.setResultMsg("操作成功");
+            responseUtil.setResponseUtil(1,"Get All UNTMC Success",result,null);
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
         }

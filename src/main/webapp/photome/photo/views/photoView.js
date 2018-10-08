@@ -31,7 +31,7 @@ define(['text!../templates/photo.html'],
                 success:function (result) {
                     if (result.resultCode == 1){
                         that.loadPeopleInfo(result.resultObject.userDetail,'.imgInfo'+ num + ' .peopleInfo');
-                        that.loadCoverPhoto(result.resultObject.coverPhoto,'.img'+ num);
+                        that.loadCoverPhoto(result.resultOtherObj.coverPhoto,'.img'+ num);
                         that.loadComment(result.resultOtherObj.userComment,'.comment'+ num +' .commentList');
                         that.loadMusic(result.resultOtherObj.userMusic,'.music'+ num +' .musicList');
                     }else alert("加载photo模块用户详情："+result.resultMsg);
@@ -45,6 +45,7 @@ define(['text!../templates/photo.html'],
             }else $(selector).text("暂无详情，请在用户详情界面添加");
         },
         loadCoverPhoto : function (coverPhoto,selector) {
+
             if (coverPhoto != null && coverPhoto.photomeUserphotoPhotocontent != null){
                 $(selector).attr('src',"data:image/jpg;base64,"+coverPhoto.photomeUserphotoPhotocontent);
             } else if (coverPhoto != null && coverPhoto.photomeUserphotoPhotoname != null){

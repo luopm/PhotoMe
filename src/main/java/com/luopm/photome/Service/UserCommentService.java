@@ -34,7 +34,7 @@ public class UserCommentService {
         try {
             if (userCommentMapper.deleteComment(userComment) >= 1){
                 responseUtil.setResponseUtil(1, "删除用户评论成功",
-                        userComment,null);
+                        1,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -59,7 +59,7 @@ public class UserCommentService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             List<UserComment> userCommentList = userCommentMapper.selectCommentByUserName(userComment);
-            if (userCommentList != null){
+            if (userCommentList.size() >= 1){
                 responseUtil.setResponseUtil(1, "获取用户评论成功",
                         userCommentList,null);
             }

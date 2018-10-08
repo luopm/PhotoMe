@@ -2,8 +2,9 @@ define(['text!../templates/home.html',
         'lib/plugin/output.js',
         'lib/kugouAPI/song_get.js',
         '../login/views/loginView.js',
+        '../photo/views/photoView.js',
         'css!../style/homeStyle.css'],
-    function (tem,output,song_get,loginView) {
+    function (tem,output,song_get,loginView,photoView) {
     var view ={
         render : function (el) {
             $(el).append(tem);
@@ -11,11 +12,11 @@ define(['text!../templates/home.html',
         },
         init : function () {
             var that = this;
-            that.loadUser();
+            that.loadUser(photoView);
             that.loadLogin(loginView);
 
         },
-        loadUser : function () {
+        loadUser : function (photoView) {
             $.ajax({ // 加载photo模块详情
                 method:'post',
                 url:'../detail/getAllDetail',
@@ -25,12 +26,13 @@ define(['text!../templates/home.html',
                 success:function (result) {
                     if (result.resultCode == 1){
                         for (var i=0;i<result.resultObject.list.length;i++){
-                            (function (i) {
-                                require(['photome/photo/views/photoView.js'],function (photoView) {
-                                    var userDetail = result.resultObject.list[i];
-                                    photoView.render('#homeBody',userDetail);
-                                });
-                            })(i);
+                            photoView.render('#homeBody',result.resultObject.list[i]);
+                            // (function (i) {
+                            //     require(['photome/photo/views/photoView.js'],function (photoView) {
+                            //         var userDetail = result.resultObject.list[i];
+                            //         photoView.render('#homeBody',userDetail);
+                            //     });
+                            // })(i);
 
                         }
                     }else alert("加载用户："+result.resultMsg);

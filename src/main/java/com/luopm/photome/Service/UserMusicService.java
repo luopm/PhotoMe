@@ -6,6 +6,7 @@ import com.luopm.photome.dao.UserMusicMapper;
 import com.luopm.photome.dao.UserNameToMusicCodeMapper;
 import com.luopm.photome.model.ResponseUtil;
 import com.luopm.photome.model.UserMusic;
+import com.luopm.photome.model.UserNameToMusicCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +18,26 @@ public class UserMusicService {
 
     @Autowired
     private UserMusicMapper userMusicMapper;
+    @Autowired
+    private UserNameToMusicCodeMapper userNameToMusicCodeMapper;
 
-    public ResponseUtil addMusic(UserMusic userMusic){
+    public ResponseUtil addMusic(UserMusic userMusic,String userName){
         userMusic.setPhotomeUsermusicMusiccreatdate(new Date());
         ResponseUtil responseUtil = new ResponseUtil();
-        if (userMusicMapper.selectByMusicCode(userMusic) == null){//未存在相应Music
-            try {
-                if (userMusicMapper.insert(userMusic) >= 1){
-                    responseUtil.setResponseUtil(1, "添加Music成功",
-                            userMusicMapper.selectByMusicCode(userMusic),null);
-                }
-            }catch (Exception e){
-                responseUtil.setResultMsg(e.getMessage());
+        try {
+            UserMusic resultMusic = userMusicMapper.selectByMusicCode(userMusic);
+            if ( resultMusic != null || userMusicMapper.insert(userMusic) >= 1 ){
+                UserNameToMusicCode userNameToMusicCode = new UserNameToMusicCode();
+                userNameToMusicCode.setUsername(userName);
+                userNameToMusicCode.setMusiccode(userMusic.getPhotomeUsermusicMusiccode());
+                userNameToMusicCodeMapper.insert(userNameToMusicCode);
+                responseUtil.setResponseUtil(1, "添加Music成功",
+                        resultMusic != null ? resultMusic:userMusic,null);
             }
-        }else responseUtil.setResponseUtil(1, "添加Music成功",
-                userMusicMapper.selectByMusicCode(userMusic),null);
+        }catch (Exception e){
+            responseUtil.setResultMsg(e.getMessage());
+            e.printStackTrace();
+        }
         return responseUtil;
     }
 
@@ -40,7 +46,7 @@ public class UserMusicService {
         try {
             if (userMusicMapper.deleteMusicByMusicCode(userMusic) >= 1){
                 responseUtil.setResponseUtil(1, "删除Music成功",
-                        userMusic,null);
+                        1,null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -64,6 +70,7 @@ public class UserMusicService {
     public ResponseUtil getMusicByMusicCode(UserMusic userMusic){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
+            responseUtil.setResultMsg("Music不存在，请检查musicCode");
             userMusic = userMusicMapper.selectByMusicCode(userMusic);
             if (userMusic != null){
                 responseUtil.setResponseUtil(1, "获取Music成功",

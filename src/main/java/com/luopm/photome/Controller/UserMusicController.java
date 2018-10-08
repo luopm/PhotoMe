@@ -17,8 +17,8 @@ public class UserMusicController {
 
     @ResponseBody
     @RequestMapping(value = "/addMusic" )
-    public Object addUserMusic(UserMusic userMusic){
-        return userMusicService.addMusic(userMusic);
+    public Object addUserMusic(UserMusic userMusic,@RequestParam("userName")String userName){
+        return userMusicService.addMusic(userMusic,userName);
     }
     @ResponseBody
     @RequestMapping(value = "/deleteMusicByMusicCode" )

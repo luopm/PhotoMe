@@ -1,3 +1,10 @@
+body{
+    background-image: url("/file/background.jpg");
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+}
+
 
 #home .modal-header{
     position: fixed;
@@ -5,9 +12,10 @@
 }
 #home .modal-body{
     max-height: 100%;
-    height: 640px;
-    background-color: #fcfcfc;
+    height: 660px;
+    /*background-color: #fcfcfc;*/
     background-size:contain;
+    display:flex;
 }
 
 
@@ -15,16 +23,17 @@
 /*动画样式*/
 .photoContainer{
     display: inline-block;
+    padding: 10px;
 }
 .photoContainer,.photoFront,.photo,.photoBack,.photo img{
-    width: 230px;
-    height: 250px;
-    margin-bottom: 15px
+    width: 200px;
+    height: 220px;
 }
 .photo{
     position:relative;
-    box-shadow: 0 80px 20px -70px #666; /*水平 垂直 距离 尺寸 颜色*/
+    /*box-shadow: 0 80px 20px -70px #666; !*水平 垂直 距离 尺寸 颜色*!*/
     border-radius: 4px ;
+    color: cornflowerblue;
 }
 .photoFront,.photoBack{
     position: absolute;
@@ -63,6 +72,11 @@
 .photoBack{
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+}
+.photoBackClick{
+    position: fixed;
+
 }
 .photoBackLeft,.photoBackRight{
     width: 0;

@@ -46,12 +46,12 @@ public class UserService {
         user.setPhotomeUserUsercreatdate(new Date());
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userMapper.insert(user) >= 1){
-                UserDetail userDetail = new UserDetail();//注册用户详情
+            if (userMapper.insert(user) >= 1){//注册用户
+                UserDetail userDetail = new UserDetail();
                 userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
-                if (userDetailMapper.insert(userDetail) >= 1){
+                if (userDetailMapper.insert(userDetail) >= 1){//注册用户详情
                     responseUtil.setResponseUtil(1, "新增用户成功",
-                            userDetailMapper.selectDetailByUserName(userDetail), null);
+                            userDetail, null);
                 }
             }
         }catch (Exception e){
@@ -63,11 +63,13 @@ public class UserService {
     public ResponseUtil deleteUser(User user){
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (userMapper.deleteByUserName(user) >= 1){
-                UserDetail userDetail = new UserDetail();//删除用户详情
+            if (userMapper.deleteByUserName(user) >= 1){//删除用户
+                UserDetail userDetail = new UserDetail();
                 userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
-                responseUtil.setResponseUtil(1, "删除用户成功",
-                        user,userDetailService.deleteUserDetail(userDetail));
+                if (userDetailService.deleteUserDetail(userDetail).getResultCode() == 1){//删除用户详情及photo、music
+                    responseUtil.setResponseUtil(1, "删除用户成功",
+                            1, null);
+                }
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -82,8 +84,7 @@ public class UserService {
                 UserDetail userDetail = new UserDetail();//获取用户详情
                 userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
                 responseUtil.setResponseUtil(1, "修改用户成功",
-                        userMapper.selectUsersByUserName(user),
-                        userDetailService.getDetail(userDetail));
+                        userDetailMapper.selectDetailByUserName(userDetail),null);
             }
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
@@ -98,7 +99,7 @@ public class UserService {
             userDetail.setPhotomeUserdetailUsername(user.getPhotomeUserUsername());
             userDetail = userDetailMapper.selectDetailByUserName(userDetail);
             if (userDetail != null){
-                responseUtil.setResponseUtil(1, "获取用户成功",
+                responseUtil.setResponseUtil(1, "获取用户详情成功",
                         userDetail, null);
             }
         }catch (Exception e){
@@ -117,11 +118,11 @@ public class UserService {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             //将参数传给这个方法就可以实现物理分页了，非常简单。
-            PageHelper.startPage(pageNum, pageSize);
-            List<User> userList = userMapper.selectALLUsers();
-            PageInfo result = new PageInfo(userList);
+//            PageHelper.startPage(pageNum, pageSize);
+//            List<User> userList = userMapper.selectALLUsers();
+//            PageInfo result = new PageInfo(userList);
             responseUtil.setResponseUtil(1, "获取用户成功",
-                    result, userDetailService.getAllUserDetail(pageNum,pageSize));//获取All用户详情
+                     userDetailService.getAllUserDetail(pageNum,pageSize).getResultObject(),null);//获取All用户详情
         }catch (Exception e){
             responseUtil.setResultMsg(e.getMessage());
         }

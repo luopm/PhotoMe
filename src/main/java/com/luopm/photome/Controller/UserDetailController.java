@@ -34,6 +34,11 @@ public class UserDetailController {
     public Object getUserDetail(UserDetail userDetail){
         return userDetailService.getDetail(userDetail);
     }
+//    @ResponseBody
+//    @RequestMapping(value = "/getLoginDetail" )
+//    public Object getUserDetail(UserDetail userDetail){
+//        return userDetailService.getDetail(userDetail);
+//    }
     @ResponseBody
     @RequestMapping(value = "/getAllDetail")
     public Object getAllUserDetail(

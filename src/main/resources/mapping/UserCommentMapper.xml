@@ -214,7 +214,14 @@
     select
     <include refid="Base_Column_List"/>
     from photome_usercomment
-    where photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}
+    <where >
+      <if test="photomeUsercommentCommenteduser != null" >
+        photome_usercomment_commenteduser = #{photomeUsercommentCommenteduser,jdbcType=VARCHAR}
+      </if>
+      <if test="photomeUsercommentCommentuser != null" >
+        OR photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
   <update id="updateComment" parameterType="com.luopm.photome.model.UserComment" >
     update photome_usercomment
@@ -226,11 +233,10 @@
         photome_usercomment_commentcontent = #{photomeUsercommentCommentcontent,jdbcType=VARCHAR},
       </if>
     </set>
-    where photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR}
+    where photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR}
   </update>
   <delete id="deleteComment" parameterType="com.luopm.photome.model.UserComment" >
     delete from photome_usercomment
-    where photome_usercomment_commentuser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR} or
-           photome_usercomment_commenteduser = #{photomeUsercommentCommentuser,jdbcType=VARCHAR}
+    where photome_usercomment_commentcode = #{photomeUsercommentCommentcode,jdbcType=VARCHAR}
   </delete>
 </mapper>
