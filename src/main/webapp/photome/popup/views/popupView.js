@@ -16,21 +16,6 @@ define(['text!../templates/popup.html',
                 '<input class="musicSearchBtn" type="button" value="Search"></div>');
             that.initEvent();
 
-            // $.ajax({
-            //     method:'post',
-            //     url:'../user/addUser',
-            //     async:true,
-            //     data:formData,
-            //     dataType:'json',
-            //     success:function (result) {
-            //         // 根据userName加载用户详情
-            //         var userName = result[0].photomeUserUsername;
-            //         that.loadUserDatil(userName);
-            //         $('.login .registerPage').hide();
-            //         $('.login .userDetailPage').show();
-            //     },
-            //     error:function (e) {}
-            // })
         },
         initEvent : function () {
             // search按钮事件
@@ -46,6 +31,12 @@ define(['text!../templates/popup.html',
                     case 27:
                        $('.popupContainer').remove();
                 }
+            });
+            $('.popupContainer').on('click','.popup',function () {
+                return false;
+            });
+            $('.popupContainer').on('click',function () {
+                $('.popupContainer').remove();
             });
         }
     }

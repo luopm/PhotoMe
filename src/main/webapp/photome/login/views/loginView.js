@@ -64,7 +64,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 var formData = new FormData(document.getElementById('loginForm'));
                 $.ajax({
                     method:'post',
-                    url:'../user/Login',
+                    url:'user/Login',
                     async:true,
                     data:formData,
                     dataType:'json',
@@ -85,7 +85,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 var formData = new FormData(document.getElementById('registerForm'));
                 $.ajax({
                     method:'post',
-                    url:'../user/addUser',
+                    url:'user/addUser',
                     async:true,
                     data:formData,
                     dataType:'json',
@@ -110,9 +110,10 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 var userPhoto = new FormData(document.getElementsByClassName('coverForm')[0]);
                 userPhoto.append('photomeUserphotoPhotocode',$('.userDetailPage .photoUrl').val());
                 userPhoto.append('userName',window.localStorage.getItem("userName"));
+                $('.coverForm input[type=reset]').trigger('click');//清空表单值
                 $.ajax({
                     method:'post',
-                    url:'../photo/addPhoto',
+                    url:'photo/addPhoto',
                     async:true,
                     data:userPhoto,
                     dataType:'json',
@@ -139,9 +140,10 @@ define(['text!../templates/login.html','css!../style/login.css'],
                 var userMusic = new FormData(document.getElementsByClassName('musicForm')[0]);
                 userMusic.append('photomeUsermusicMusicuser',$('.userDetailPage .userName').val());
                 userMusic.append('userName',window.localStorage.getItem('userName'));
+                $('.musicForm input[type=reset]').trigger('click');//清空表单值
                 $.ajax({
                     method:'post',
-                    url:'../music/addMusic',
+                    url:'music/addMusic',
                     async:true,
                     data:userMusic,
                     dataType:'json',
@@ -243,7 +245,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             var userMusic = {photomeUsermusicMusiccode:options.musicCode};
             $.ajax({ // 加载UserMusic详情
                 method:'post',
-                url:'../music/getMusicByMusicCode',
+                url:'music/getMusicByMusicCode',
                 async:true,
                 data:userMusic,
                 dataType:'json',
@@ -281,7 +283,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             // xmlHttp.send(JSON.stringify(userPhoto));
             $.ajax({ //加载用户封面
                 method:'post',
-                url:'../photo/getPhotoByPhotoCode',
+                url:'photo/getPhotoByPhotoCode',
                 async:true,
                 data:userPhoto,
                 dataType:'json',
@@ -355,7 +357,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             var that = this;
             $.ajax({
                 method:'post',
-                url:'../detail/updateDetail',
+                url:'detail/updateDetail',
                 async:true,
                 data:UserDetail,
                 dataType:'json',

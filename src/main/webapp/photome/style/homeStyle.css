@@ -1,7 +1,4 @@
 body{
-    background-image: url("/file/background.jpg");
-    background-position: center;
-    background-size: cover;
     overflow: hidden;
 }
 
@@ -16,6 +13,7 @@ body{
     /*background-color: #fcfcfc;*/
     background-size:contain;
     display:flex;
+    position: relative;
 }
 
 
@@ -122,4 +120,21 @@ body{
 
 i{
     margin-left: 5px;
+}
+
+.loading{
+    background-color: rgba(255,255,255,0.3);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading .message{
+    color: rgba(255,255,255,0.8);
+
 }

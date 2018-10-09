@@ -3,7 +3,8 @@ define(['text!../templates/home.html',
         'lib/kugouAPI/song_get.js',
         '../login/views/loginView.js',
         '../photo/views/photoView.js',
-        'css!../style/homeStyle.css'],
+        'css!../style/homeStyle.css',
+        'css!../style/backgroundImg.css'],
     function (tem,output,song_get,loginView,photoView) {
     var view ={
         render : function (el) {
@@ -12,6 +13,7 @@ define(['text!../templates/home.html',
         },
         init : function () {
             var that = this;
+            that.loading();
             that.loadUser(photoView);
             that.loadLogin(loginView);
 
@@ -19,7 +21,7 @@ define(['text!../templates/home.html',
         loadUser : function (photoView) {
             $.ajax({ // 加载photo模块详情
                 method:'post',
-                url:'../detail/getAllDetail',
+                url:'detail/getAllDetail',
                 async:true,
                 data:{},
                 dataType:'json',
@@ -35,6 +37,7 @@ define(['text!../templates/home.html',
                             // })(i);
 
                         }
+                        if (result.resultObject.list.length == 0) $('.loading').hide();
                     }else alert("加载用户："+result.resultMsg);
                 }
             });
@@ -42,7 +45,12 @@ define(['text!../templates/home.html',
         // 加载导航栏
         loadLogin : function (loginView) {
             loginView.render('#homeBody');
+        },
+        loading : function () {
+            var message = '<div class="loading"><h3 class="message">正 在 加 载 中 . . .</h3></div>';
+            $('#home').append(message);
         }
+
     };
     return view;
 });

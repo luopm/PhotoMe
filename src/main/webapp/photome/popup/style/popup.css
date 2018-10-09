@@ -13,8 +13,8 @@
 .popup{
     position: relative;
     z-index: 1000;
-    min-width: 650px;
-    min-height: 400px;
+    min-width: 400px;
+    min-height: 200px;
     border: 1px solid #bbbbbb;
     border-radius: 2px;
     box-shadow: 0 0 2px 1px #aaaaaa;

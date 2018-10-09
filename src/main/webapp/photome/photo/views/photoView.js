@@ -24,13 +24,13 @@ define(['text!../templates/photo.html'],
             var userDetail = UserDetail;
             $.ajax({ // 加载UserMusic详情
                 method:'post',
-                url:'../detail/getDetail',
+                url:'detail/getDetail',
                 async:false,
                 data:userDetail,
                 dataType:'json',
                 success:function (result) {
                     if (result.resultCode == 1){
-                        that.loadPeopleInfo(result.resultObject.userDetail,'.imgInfo'+ num + ' .peopleInfo');
+                        that.loadPeopleInfo(result.resultObject,'.imgInfo'+ num + ' .peopleInfo');
                         that.loadCoverPhoto(result.resultOtherObj.coverPhoto,'.img'+ num);
                         that.loadComment(result.resultOtherObj.userComment,'.comment'+ num +' .commentList');
                         that.loadMusic(result.resultOtherObj.userMusic,'.music'+ num +' .musicList');
@@ -38,6 +38,10 @@ define(['text!../templates/photo.html'],
 
                 }
             });
+            var  img = document.getElementsByClassName('img1')[0];
+            img.onload = function () {
+                $('.loading').hide();
+            }
         },
         loadPeopleInfo : function (userDetail,selector) {
             if (userDetail != null && userDetail.photomeUserdetailUserintroduction != null){

@@ -5,7 +5,7 @@
         <!--login组件-登录-->
         <div class="loginPage">
             <div class="userCover">
-                <img class="img" src="/file/cover_goodlook.png">
+                <img class="img" src="./file/cover_goodlook.png">
             </div>
             <form class="loginForm" id="loginForm">
                 <div class="inputDiv"><label class="icon-github">
@@ -45,11 +45,12 @@
                 <div class="inputDiv">
                     <input class="userName" readonly="readonly"><i class="editIcon icon-edit"></i>
                 </div>
-                <!--<div class="userDetailEdit"><i class="editIcon icon-edit"></i></div>-->
+                <!--photo选择框-->
                 <form class="coverForm userEditForm" hidden="hidden">
                     <div class="inputDiv"><label class="icon-picture"></label>
                         <input class="userCoverInput" id="userCoverInput" type="file" name="photomeUserphotoPhotoname" >
                         <input class="photoUrl" name="photomeUserphotoPhotourl" hidden="hidden">
+                        <input class="reset" type="reset" hidden="hidden">
                     </div>
                 </form>
             </div>
@@ -78,6 +79,7 @@
                     <div class="inputDiv"><label class="icon-music">
                         <input class="addMusicAlbum" name="photomeUsermusicMusicalbum">
                     </label></div>
+                    <input class="reset" type="reset" hidden="hidden">
                 </form>
             </div>
             <!--用户说明-->
