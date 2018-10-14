@@ -13,6 +13,7 @@ body{
     /*background-color: #fcfcfc;*/
     background-size:contain;
     display:flex;
+    flex-wrap: wrap;
     position: relative;
 }
 
