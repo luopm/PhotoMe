@@ -108,6 +108,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             // photo选择框
             $('.login').on('click','.icon-picture',function () {
                 var userPhoto = new FormData(document.getElementsByClassName('coverForm')[0]);
+                if (userPhoto.get('photomeUserphotoPhotoname').size == 0){ alert("请选择photo");return;}
                 userPhoto.append('photomeUserphotoPhotocode',$('.userDetailPage .photoUrl').val());
                 userPhoto.append('userName',window.localStorage.getItem("userName"));
                 $('.coverForm input[type=reset]').trigger('click');//清空表单值
@@ -138,6 +139,7 @@ define(['text!../templates/login.html','css!../style/login.css'],
             // 音乐编辑事件
             $('.detailMusic').on('click','.icon-plus',function () {
                 var userMusic = new FormData(document.getElementsByClassName('musicForm')[0]);
+                if (userMusic.get('photomeUsermusicMusicname') == ""){ alert("请选择music");return;}
                 userMusic.append('photomeUsermusicMusicuser',$('.userDetailPage .userName').val());
                 userMusic.append('userName',window.localStorage.getItem('userName'));
                 $('.musicForm input[type=reset]').trigger('click');//清空表单值
